@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+while getopts ":h" opt; do
+  case ${opt} in
+    h )
+      echo "Usage:"
+      echo "    steward -h        Display this help message."
+      echo "    steward db_setup  Sets up database"
+      echo "    steward mysql     Connect to DB"
+      echo "    steward run <VERSION>  Run the image locally"
+      exit 0
+      ;;
+   \? )
+     echo "Invalid Option: -$OPTARG" 1>&2
+     exit 1
+     ;;
+  esac
+done
+
+shift $((OPTIND -1))
+subcommand=$1; shift
+
+case "$subcommand" in
+  setup_db)
+    mysql -h ${DB_HOST} -u ${DB_USER} -p${DB_PASSWORD} --port ${DB_PORT} ${DB_DATABASE} < /resources/db.sql
+    ;;
+  mysql)
+    mysql -h ${DB_HOST} -u ${DB_USER} -p${DB_PASSWORD} --port ${DB_PORT} ${DB_DATABASE}
+    ;;
+esac

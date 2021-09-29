@@ -4,26 +4,53 @@ services:
   mariadb:
     # https://hub.docker.com/_/mariadb?tab=description&page=1&ordering=last_updated 
     container_name: etaamb_db
-    image: mariadb
+    image: mariadb:10.5
+    command: --default-authentication-plugin=mysql_native_password
     restart: always
     volumes:
       - etaamb_data:/var/lib/mysql
     environment:
-      - MARIADB_ROOT_PASSWORD=mariadb
+      - MYSQL_ROOT_PASSWORD=mariadb
+      - MYSQL_DATABASE=etaamb
+      - MYSQL_PASSWORD=mariadb
+      - MYSQL_USER=mariadb
     networks:
       - etaamb
     ports:
-      - "6543:5432"
+      - "3306:3306"
 
-  agent:
+  steward:
     container_name: etaamb_steward
     build:
-      context: ./utility
-      dockerfile: ./utility/Dockerfile
+      context: ./
+      dockerfile: ./agent/Dockerfile
+    volumes:
+      - ./resources:/resources
+      - ./agent:/agent/
+    environment:
+      - DEBUG=true
+      - DB_USER=mariadb
+      - DB_DATA=etaamb
+      - DB_PASSWORD=mariadb
+      - DB_HOST=etaamb_db
+      - DB_PORT=3306
     depends_on:
       - mariadb
     networks:
       - etaamb
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:4.8.5
+    restart: always
+    depends_on:
+    - mariadb
+    environment:
+    - PMA_HOST=etaamb_db
+    - PMA_PORT=3306
+    - PMA_USER=mariadb
+    - PMA_PASSWORD=mariadb
+    ports:
+    - "8032:80"
 
   etaamb:
     container_name: etaamb_php
@@ -36,12 +63,16 @@ services:
       - ./etaamb:/app/etaamb
     environment:
       - DEBUG=true
-      - MARIADB_ROOT_PASSWORD=mariadb
+      - DB_USER=mariadb
+      - DB_DATA=etaamb
+      - DB_PASSWORD=mariadb
+      - DB_HOST=etaamb_db
+      - DB_PORT=3306
     ports:
-      - "8042:8042"
+      - "8042:80"
     depends_on:
       - mariadb
-      - agent
+      - steward
     networks:
       - etaamb
 

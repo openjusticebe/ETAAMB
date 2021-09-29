@@ -1,10 +1,15 @@
 FROM debian:bullseye-slim AS common-base
 # Etaamb Steward : tools and utils to manage and update the application
 
-WORKDIR /app
+WORKDIR /agent
+ENV PATH="/agent:$PATH"
 
-COPY install-packages.sh .
+COPY ./agent/install-packages.sh .
 RUN ./install-packages.sh
+
+COPY ./resources /resources
+COPY ./agent ./
+
 
 ENTRYPOINT ["tail"]
 CMD ["-f","/dev/null"]
