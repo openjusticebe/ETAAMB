@@ -8,6 +8,7 @@
 -- Table structure for table `docs`
 --
 
+DROP TABLE IF EXISTS `docs`;
 CREATE TABLE IF NOT EXISTS `docs` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `numac` int(11) NOT NULL,
@@ -15,7 +16,9 @@ CREATE TABLE IF NOT EXISTS `docs` (
   `prom_date` date NOT NULL,
   `type` tinyint(3) unsigned NOT NULL,
   `source` tinyint(3) unsigned DEFAULT NULL,
+  `anonymise` tinyint(1) NOT NULL,
   `version` tinyint(3) unsigned NOT NULL,
+  `languages` set('fr','nl') NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `numac` (`numac`),
   KEY `pub_date` (`pub_date`),
@@ -29,6 +32,7 @@ CREATE TABLE IF NOT EXISTS `docs` (
 -- Table structure for table `done_dates`
 --
 
+DROP TABLE IF EXISTS `done_dates`;
 CREATE TABLE IF NOT EXISTS `done_dates` (
   `date` date NOT NULL,
   PRIMARY KEY (`date`)
@@ -40,6 +44,7 @@ CREATE TABLE IF NOT EXISTS `done_dates` (
 -- Table structure for table `links_cache`
 --
 
+DROP TABLE IF EXISTS `links_cache`;
 CREATE TABLE IF NOT EXISTS `links_cache` (
   `numac` int(10) NOT NULL,
   `linkto` int(10) NOT NULL,
@@ -57,6 +62,7 @@ CREATE TABLE IF NOT EXISTS `links_cache` (
 -- Table structure for table `raw_ids`
 --
 
+DROP TABLE IF EXISTS `raw_ids`;
 CREATE TABLE IF NOT EXISTS `raw_ids` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `doc_id` int(10) unsigned NOT NULL,
@@ -72,6 +78,7 @@ CREATE TABLE IF NOT EXISTS `raw_ids` (
 -- Table structure for table `raw_pages`
 --
 
+DROP TABLE IF EXISTS `raw_pages`;
 CREATE TABLE IF NOT EXISTS `raw_pages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `numac` int(11) NOT NULL,
@@ -90,6 +97,7 @@ CREATE TABLE IF NOT EXISTS `raw_pages` (
 -- Table structure for table `render_cache`
 --
 
+DROP TABLE IF EXISTS `render_cache`;
 CREATE TABLE IF NOT EXISTS `render_cache` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `numac` int(10) NOT NULL,
@@ -106,10 +114,11 @@ CREATE TABLE IF NOT EXISTS `render_cache` (
 -- Table structure for table `sources`
 --
 
+DROP TABLE IF EXISTS `sources`;
 CREATE TABLE IF NOT EXISTS `sources` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `source_nl` varchar(255) DEFAULT NULL,
-  `source_fr` varchar(255) DEFAULT NULL,
+  `source_nl` varchar(1024) DEFAULT NULL,
+  `source_fr` varchar(1024) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `source_fr` (`source_fr`),
   KEY `source_nl` (`source_nl`)
@@ -140,6 +149,7 @@ CREATE TABLE IF NOT EXISTS `text` (
 -- Table structure for table `titles`
 --
 
+DROP TABLE IF EXISTS `titles`;
 CREATE TABLE IF NOT EXISTS `titles` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `numac` int(10) unsigned NOT NULL,
@@ -159,6 +169,7 @@ CREATE TABLE IF NOT EXISTS `titles` (
 -- Table structure for table `types`
 --
 
+DROP TABLE IF EXISTS `types`;
 CREATE TABLE IF NOT EXISTS `types` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `type_nl` varchar(255) NOT NULL,
@@ -176,6 +187,7 @@ CREATE TABLE IF NOT EXISTS `types` (
 -- Table structure for table `tag_links`
 --
 
+DROP TABLE IF EXISTS `tag_links`;
 CREATE TABLE IF NOT EXISTS `tag_links` (
   `id` bigint(16) unsigned NOT NULL AUTO_INCREMENT,
   `text_id` int(6) unsigned NOT NULL,
@@ -190,6 +202,7 @@ CREATE TABLE IF NOT EXISTS `tag_links` (
 -- Table structure for table `tag_relations`
 --
 
+DROP TABLE IF EXISTS `tag_relations`;
 CREATE TABLE IF NOT EXISTS `tag_relations` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `word_a` int(6) NOT NULL,
@@ -205,6 +218,7 @@ CREATE TABLE IF NOT EXISTS `tag_relations` (
 -- Table structure for table `tag_stopwords`
 --
 
+DROP TABLE IF EXISTS `tag_stopwords`;
 CREATE TABLE IF NOT EXISTS `tag_stopwords` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `ln` varchar(2) NOT NULL,
@@ -219,6 +233,7 @@ CREATE TABLE IF NOT EXISTS `tag_stopwords` (
 -- Table structure for table `tag_words`
 --
 
+DROP TABLE IF EXISTS `tag_words`;
 CREATE TABLE IF NOT EXISTS `tag_words` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `ln` varchar(2) NOT NULL,

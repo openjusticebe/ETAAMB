@@ -1,0 +1,131 @@
+div#etaamb_menu_container
+,div.documents_linked
+,span.datepage_title
+,div.document_title
+,div.referer_data
+,div.linkeddocs_list
+,div.right_panel h2
+,div#up_arrow
+,div#hire_window
+,div#private_life
+,div#tagwords
+,#etaamb_title
+,#legal_footer
+,#info_just
+	{
+	display:none;
+	}
+
+body,html {
+	padding:0;margin:0;
+	font-family:helvetica,arial,sans-serif;
+	font-size:8pt;
+	margin-bottom:5in;
+	}
+
+span.link span {
+	display:none;
+	}
+
+span.link .linktitle {
+	display:inline;
+	border-bottom:1px dotted #000;
+	}
+/*
+#etaamb_title {
+    font-family:georgia,serif;
+    color:#72acdc;
+    font-size:25px;
+    overflow:hidden;
+	width:100%;
+	text-align:right;
+	position:absolute;
+	top:0px;
+	right:0;
+    }
+
+	#etaamb_title a {
+		color:#72acdc;
+		text-decoration:none;
+		}
+*/
+
+div.etaamb_description {
+	position:relative;
+	margin-top:10px;
+	}
+
+h1.doc_title {
+	font-size:12pt;
+	margin-top:8px;
+	padding-top:0;
+	}
+/**** Document part */
+div.document_text p {
+	orphans:4;
+	widows:4;
+	}
+
+div.title {
+	font-family:georgia,serif;
+	font-size:12pt;
+	color:#888;
+	}
+
+div.meta dt {
+	color:#888;
+	margin:0;padding:0;
+	display:inline;
+	padding-right:4px;
+	font-size:6pt;
+	}
+
+div.meta dd {
+	display:inline;
+	margin:0;padding:0;
+	font-family:georgia,serif;
+	}
+
+div.meta dt.break {
+	display:block;
+	}
+
+div.meta a {
+	color:#000;
+	text-decoration:none;
+	}
+
+div.meta {
+	border-bottom:4px double #ccc;
+	position:relative;
+	}
+
+div#qrcode {
+	position:absolute;
+	right:0;
+	bottom:10px;
+	}
+
+div#qrcode img {
+	width:50px;
+	height:50px;
+	border:0;
+	}
+
+
+div.document_text {
+	-moz-column-count:2;
+    -moz-column-gap:1em;
+	-webkit-column-count:2;
+    -webkit-column-gap:1em;
+    column-count:2;
+    column-gap: 1em;
+    font-size:7.7pt;
+    font-family:trebuchet,georgia,serif;
+    display:block;
+    width:auto;
+    height:auto;
+	overflow:visible;
+	}
+
+

@@ -1,0 +1,68 @@
+span.p_title
+	{
+	display:block;
+	font-weight:bold;
+	padding:0 0 2em 0;
+	}
+
+span.p_livre
+	{
+	display:block;
+	font-size:1.3em;
+	font-weight:400;
+	padding:1.5em 0 0 0.5em;
+	text-align:left;
+	}
+
+span.p_chapitre
+	{
+	display:block;
+	font-size:1em;
+	font-weight:900;
+	padding:0.7em 0 0 0.5em;
+	text-align:center;
+	}
+
+span.p_section
+	{
+	display:block;
+	font-size:0.9em;
+	font-weight:400;
+	padding:0.7em 0 0 0.5em;
+	text-align:center;
+	text-decoration:underline;
+	}
+
+span.p_vus
+	{
+	padding:.8em 0 0 .5em;
+	display:block;
+	}
+
+span.p_article
+	{
+	position:relative;
+	padding:.8em 1em 0;
+	text-align:justify;
+	font-weight:bold;
+	}
+
+span.p_endoftext
+	{
+	display:block;
+	padding-top:1em;
+	}
+
+
+span.p_list 
+	{
+	display:block;
+	padding:0.5em 0 0;
+	text-indent:0.5em;
+	}
+
+span.anonymized {
+	color:#000;
+	background-color:#000;
+	}
+

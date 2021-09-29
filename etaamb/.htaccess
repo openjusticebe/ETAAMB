@@ -1,0 +1,56 @@
+ Options +FollowSymlinks
+
+<IfModule rewrite_module>
+	RewriteEngine on
+	RewriteRule ^css/([a-z\/\.0-9\-]*)\.css$ css/$1.css [L,NC]
+	RewriteRule ^([a-z\/\.0-9\-]*)\.js$ $1.js [L,NC]
+	RewriteRule ^([a-z\/\.0-9\-]*)\.ico$ $1.ico [L,NC]
+	RewriteRule ^([a-z\/\.0-9\-_]*)\.png$ $1.png [L,NC]
+
+	RewriteRule ^.*phpinfo.*$ phpinfo.php [L,NC]
+
+	RewriteRule index.(php|html)$ index.php [L,NC]
+	RewriteRule ^$ index.php [L,NC]
+	RewriteRule ^tools/apc.php(.*)$ tools/apc.php$1 [L,NC]
+
+	RewriteCond %{REQUEST_URI} !mail\.php [NC]
+	RewriteRule ^(.*)$ index.php?$1 [L,NC]
+</IfModule>
+
+<IfModule expires_module>
+	ExpiresActive on
+	ExpiresByType text/css "access plus 1 hour"
+	ExpiresByType application/javascript "access plus 1 hour"
+	ExpiresByType application/rss+xml "access plus 1 hour"
+	<FilesMatch "jquery.*\.js$">
+		ExpiresByType application/javascript "access plus 2 weeks"
+	</FilesMatch>
+</IfModule>
+
+<IfModule deflate_module>
+	SetOutputFilter	DEFLATE
+	SetEnvIfNoCase REQUEST_URI \.(?:gif|jpe?g|png)$ no-gzip dont-vary
+	#Header append Vary User-Agent env=!dont-vary
+	# AddOutputFilterByType DEFLATE text/html
+	# AddOutputFilterByType DEFLATE text/css
+	# AddOutputFilterByType DEFLATE application/javascript
+</IfModule>
+
+<IfModule mime_module>
+	AddDefaultCharset utf-8
+</IfModule>
+
+# <IfModule mem_cache_module>
+# 	CacheEnable mem /
+# 	MCacheSize 131072
+# 	MCacheRemovalAlgorithm GDSF
+# 	MCacheMaxObjectSize 5242880
+# 	MCacheMaxObjectCount 5000
+# </IfModule>
+
+<IfModule headers_module>
+	<FilesMatch "\.(css|js)$">
+		Header set Cache-Control "max-age=32400, public, must-revalidate"
+		FileETag INode Size
+	</FilesMatch>
+</IfModule>

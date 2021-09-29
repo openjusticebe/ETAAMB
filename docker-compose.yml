@@ -63,7 +63,7 @@ services:
     container_name: etaamb_php
     build:
       context: .
-      # target: dev
+      target: dev
       dockerfile: ./Dockerfile
       # command: ./misc/entrypoint.sh
     volumes:

@@ -1,0 +1,29 @@
+body div.document {
+    width:auto;
+    min-width:45em;
+    margin-right:38em;
+    }
+
+body div.right_panel {
+    width:auto;
+    max-width:36em;
+    margin:0;
+    right:0;
+    }
+
+body div.document_text {
+    width:auto;
+    max-width:none;
+    padding-right:14px;
+
+    -moz-column-width: 42em;
+    -webkit-column-width: 42em;
+    column-width: 42em;
+    -moz-column-gap: 5em;
+    -webkit-column-gap: 5em;
+    column-gap: 5em;
+    -moz-column-fill:balance;
+    -webkit-column-fill:balance;
+    column-fill:balance;
+    }
+
