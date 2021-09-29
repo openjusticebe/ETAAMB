@@ -1,0 +1,42 @@
+version: "3.7"
+   
+services:
+  mariadb:
+    # https://hub.docker.com/_/mariadb?tab=description&page=1&ordering=last_updated 
+    container_name: etaamb_db
+    image: mariadb
+    restart: always
+    volumes:
+      - etaamb_data:/var/lib/mysql
+    environment:
+      - MARIADB_ROOT_PASSWORD=mariadb
+    networks:
+     - etaamb
+    ports:
+      - "6543:5432"
+
+  etaamb:
+    container_name: etaamb_php
+    build:
+        context: .
+        # target: dev
+        dockerfile: ./Dockerfile
+        # command: ./misc/entrypoint.sh
+    volumes:
+      - ./etaamb:/app/etaamb
+    environment:
+      - DEBUG=true
+      - MARIADB_ROOT_PASSWORD=mariadb
+    ports:
+      - "8042:8042"
+    depends_on:
+      - mariadb
+    networks:
+     - etaamb
+
+volumes:
+  etaamb_data:
+
+networks:
+  etaamb:
+    driver: bridge

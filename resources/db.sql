@@ -1,0 +1,233 @@
+--
+-- Database: `moniteur`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `docs`
+--
+
+CREATE TABLE IF NOT EXISTS `docs` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `numac` int(11) NOT NULL,
+  `pub_date` date NOT NULL,
+  `prom_date` date NOT NULL,
+  `type` tinyint(3) unsigned NOT NULL,
+  `source` tinyint(3) unsigned DEFAULT NULL,
+  `version` tinyint(3) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `numac` (`numac`),
+  KEY `pub_date` (`pub_date`),
+  KEY `prom_date` (`prom_date`),
+  KEY `type` (`type`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `done_dates`
+--
+
+CREATE TABLE IF NOT EXISTS `done_dates` (
+  `date` date NOT NULL,
+  PRIMARY KEY (`date`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `links_cache`
+--
+
+CREATE TABLE IF NOT EXISTS `links_cache` (
+  `numac` int(10) NOT NULL,
+  `linkto` int(10) NOT NULL,
+  `ln` varchar(2) NOT NULL,
+  `position` smallint(6) NOT NULL,
+  `version` tinyint(4) NOT NULL,
+  UNIQUE KEY `numac_linkto_ln` (`numac`,`linkto`,`ln`),
+  KEY `numac_ln_version` (`numac`,`ln`,`version`),
+  KEY `numac_ln` (`numac`,`ln`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `raw_ids`
+--
+
+CREATE TABLE IF NOT EXISTS `raw_ids` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `doc_id` int(10) unsigned NOT NULL,
+  `date` date NOT NULL,
+  `version` tinyint(4) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `doc_id` (`doc_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `raw_pages`
+--
+
+CREATE TABLE IF NOT EXISTS `raw_pages` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `numac` int(11) NOT NULL,
+  `pub_date` date NOT NULL,
+  `raw_fr` mediumtext CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+  `raw_nl` mediumtext CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+  `version` tinyint(4) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `numac` (`numac`),
+  KEY `pub_date` (`pub_date`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `render_cache`
+--
+
+CREATE TABLE IF NOT EXISTS `render_cache` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `numac` int(10) NOT NULL,
+  `ln` varchar(2) NOT NULL,
+  `text` mediumblob NOT NULL,
+  `version` tinyint(4) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `numac_ln` (`numac`,`ln`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=0 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sources`
+--
+
+CREATE TABLE IF NOT EXISTS `sources` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `source_nl` varchar(255) DEFAULT NULL,
+  `source_fr` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `source_fr` (`source_fr`),
+  KEY `source_nl` (`source_nl`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `text`
+--
+
+CREATE TABLE IF NOT EXISTS `text` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `numac` int(10) unsigned NOT NULL,
+  `ln` varchar(2) NOT NULL,
+  `raw` mediumtext NOT NULL,
+  `pure` mediumtext NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `numac_ln` (`numac`,`ln`),
+  KEY `ln` (`ln`),
+  KEY `numac` (`numac`),
+  FULLTEXT KEY `FT_pure` (`pure`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `titles`
+--
+
+CREATE TABLE IF NOT EXISTS `titles` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `numac` int(10) unsigned NOT NULL,
+  `ln` varchar(2) NOT NULL,
+  `raw` tinytext,
+  `pure` tinytext,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `numac_ln` (`numac`,`ln`),
+  KEY `ln` (`ln`),
+  KEY `numac` (`numac`),
+  FULLTEXT KEY `FT_pure` (`pure`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `types`
+--
+
+CREATE TABLE IF NOT EXISTS `types` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `type_nl` varchar(255) NOT NULL,
+  `type_fr` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `type_nl` (`type_nl`),
+  KEY `type_fr` (`type_fr`),
+  KEY `type_fr_2` (`type_nl`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+
+-- --------------------------------------------------------
+
+
+--
+-- Table structure for table `tag_links`
+--
+
+CREATE TABLE IF NOT EXISTS `tag_links` (
+  `id` bigint(16) unsigned NOT NULL AUTO_INCREMENT,
+  `text_id` int(6) unsigned NOT NULL,
+  `word_id` int(6) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `text_id` (`text_id`,`word_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=0 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tag_relations`
+--
+
+CREATE TABLE IF NOT EXISTS `tag_relations` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `word_a` int(6) NOT NULL,
+  `word_b` int(6) NOT NULL,
+  `strength` int(7) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_relation` (`word_a`,`word_b`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=0 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tag_stopwords`
+--
+
+CREATE TABLE IF NOT EXISTS `tag_stopwords` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `ln` varchar(2) NOT NULL,
+  `word` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `ln` (`ln`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=0 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tag_words`
+--
+
+CREATE TABLE IF NOT EXISTS `tag_words` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `ln` varchar(2) NOT NULL,
+  `total_count` int(10) unsigned NOT NULL DEFAULT '1',
+  `doc_count` int(10) unsigned NOT NULL DEFAULT '1',
+  `word` varchar(32) NOT NULL,
+  `ignore` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `word` (`word`),
+  KEY `ln` (`ln`,`total_count`,`doc_count`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=0 ;
+
