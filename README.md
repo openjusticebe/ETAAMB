@@ -1,7 +1,7 @@
 # ETAAMB
 Exercice Technique Appliqué Au Moniteur Belge
 
-Currently in development
+Currently migrating the 10 year old legacy app to a newer environment.
 
 ## Development
 Run a docker instance :
