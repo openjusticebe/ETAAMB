@@ -40,17 +40,24 @@ services:
       - etaamb
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin:4.8.5
+    container_name: etaamb_admin
+    image: phpmyadmin/phpmyadmin:latest
     restart: always
+    volumes:
+      - phpmyadmin_data:/var/www/html/
     depends_on:
-    - mariadb
+      - mariadb
     environment:
-    - PMA_HOST=etaamb_db
-    - PMA_PORT=3306
-    - PMA_USER=mariadb
-    - PMA_PASSWORD=mariadb
+      - MYSQL_ROOT_PASSWORD=mariadb
+      - PMA_HOST=etaamb_db
+      - PMA_PORT=3306
+      - PMA_USER=root
+      - PMA_PASSWORD=mariadb
+      - PMA_ARBITRATY=1
     ports:
-    - "8032:80"
+      - "8032:80"
+    networks:
+      - etaamb
 
   etaamb:
     container_name: etaamb_php
@@ -78,6 +85,7 @@ services:
 
 volumes:
   etaamb_data:
+  phpmyadmin_data:
 
 networks:
   etaamb:

@@ -6,7 +6,7 @@ while getopts ":h" opt; do
       echo "Usage:"
       echo "    steward -h        Display this help message."
       echo "    steward db_setup  Sets up database"
-      echo "    steward mysql     Connect to DB"
+      echo "    steward mysql     Sets up database"
       echo "    steward run <VERSION>  Run the image locally"
       exit 0
       ;;
@@ -22,9 +22,9 @@ subcommand=$1; shift
 
 case "$subcommand" in
   setup_db)
-    mysql -h ${DB_HOST} -u ${DB_USER} -p${DB_PASSWORD} --port ${DB_PORT} ${DB_DATABASE} < /resources/db.sql
+    mysql -h ${DB_HOST} -u ${DB_USER} -p${DB_PASSWORD} --port ${DB_PORT} ${DB_DATA} < /resources/db.sql
     ;;
   mysql)
-    mysql -h ${DB_HOST} -u ${DB_USER} -p${DB_PASSWORD} --port ${DB_PORT} ${DB_DATABASE}
+    mysql -h ${DB_HOST} -u ${DB_USER} -p${DB_PASSWORD} --port ${DB_PORT} ${DB_DATA}
     ;;
 esac
