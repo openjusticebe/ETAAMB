@@ -83,13 +83,13 @@ CREATE TABLE IF NOT EXISTS `raw_pages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `numac` int(11) NOT NULL,
   `pub_date` date NOT NULL,
-  `raw_fr` mediumtext CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
-  `raw_nl` mediumtext CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
+  `raw_fr` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `raw_nl` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `version` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `numac` (`numac`),
   KEY `pub_date` (`pub_date`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=0 ;
 
 -- --------------------------------------------------------
 

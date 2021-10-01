@@ -24,7 +24,12 @@ apt-get -y install --no-install-recommends \
     vim-tiny \
     build-essential \
     curl \
-    default-mysql-client
+    default-mysql-client\
+    libdatetime-perl \
+    libclass-dbi-perl \
+    libdbd-mariadb-perl \
+    libtext-unaccent-perl \
+    libwww-perl
 
 # Delete cached files we don't need anymore:
 apt-get clean

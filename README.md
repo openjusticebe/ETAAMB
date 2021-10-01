@@ -51,8 +51,10 @@ Using **docker-compose**, and after configuration, the whole environment can be 
 ## Logging
 There is an extenstive logging and debugging functionnality available. See `config.default.php` to see which loggers you could activate in your local `config.php`.
 
-### Agent
+## Agent
 ETAAMB comes with a "steward" docker for maintenance operations. It accepts commands such as :
+
+### Basic operations
 ```bash
 # Show help
 > docker exec -it etaamb_steward run -h
@@ -61,6 +63,19 @@ ETAAMB comes with a "steward" docker for maintenance operations. It accepts comm
 # Attach shell
 > docker exec -it etaamb_steward bash
 ```
+
+### Scheduled tasks
+Regular tasks are executed to crawl and collect the belgian official journal.
+These scripts are mostly written in **Perl** by the agent.
+
+- moniteur_import/recupId.pl : get the document identifiers
+- getRaw.pl : get the raw content of the documents
+- parseRaws.pl
+- precalc
+- manager.php del_unused
+- manager.php set_anon
+
+
 
 ## Pecularities
 ### URL handling
@@ -72,6 +87,7 @@ Etaamb was written in 2010, some things are not needed anymore.
 - No more Internet Explorer 6 and 7 support
 - PHP 8 instead of PHP 5.6.40
 - Switched to MariaDB instead of MySQL
+- Perl using DBD:MariaDB driver
 - Using the native php MySQL driver Mysqlnd
 
 ## Notes and Documentation
