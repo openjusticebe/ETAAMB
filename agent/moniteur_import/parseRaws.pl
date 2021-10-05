@@ -88,8 +88,8 @@ do {
 
 		# 3) On l'enregistre
 
-		my $sql_doc = "insert into docs(numac,pub_date,prom_date,type,source,version,languages,anonymise) values
-					(?,?,?,?,?,$version,'',?) on duplicate key update 
+		my $sql_doc = "insert into docs(numac,pub_date,prom_date,type,source,version,anonymise) values
+					(?,?,?,?,?,$version,?) on duplicate key update 
 						pub_date = ?,
 						prom_date = ?,
 						type = ?,
@@ -135,12 +135,12 @@ do {
 		if (!$data{raw_title_fr} eq '')
 				{
 				$sth_title->execute($data{numac},'fr',$data{raw_title_fr},$data{norm_title_fr},$data{raw_title_fr},$data{norm_title_fr}) or die "$DBI::errstr";
-				$sth_lang->execute('fr',$data{numac});
+				$sth_lang->execute('fr',$data{numac}) or die "$DBI::errstr";
 				}
 		if (!$data{raw_title_nl} eq '')
 				{
 				$sth_title->execute($data{numac},'nl',$data{raw_title_nl},$data{norm_title_nl},$data{raw_title_nl},$data{norm_title_nl}) or die "$DBI::errstr";
-				$sth_lang->execute('nl',$data{numac});
+				$sth_lang->execute('nl',$data{numac}) or die "$DBI::errstr";
 				}
 
         $pm->finish;

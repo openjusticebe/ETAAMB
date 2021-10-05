@@ -34,6 +34,7 @@ $ln = new lang();
 
 if ($url->lang() !== 'false')
 	$ln->set($url->lang());
+
 define('CURRENT_LANG',strval($ln));
 
 if (!$url->mask_Match() && url_factory::isRoot())
@@ -111,15 +112,7 @@ $page->predisplay();
 
 $referer = new referer();
 $referer->setDict($dict);
-// Test setting
-/*
-$test_string = 'obligations linéaires';
-$test_referer = "http://www.google.be/url?sa=t"
-			   ."&q=".urlencode($test_string);
-$Turl = "http://www.google.fr/search?q=huseyin+uslu+alen%C3%A7on&hl=fr&prmd=ivnso&ei=x_h7TdmrPM60hAeUovzuBg&start=10&sa=N";
-$Turl = "http://www.google.be/url?sa=t&source=web&cd=14&ved=0CCcQFjADOAo&url=http%3A%2F%2Fnl.etaamb.be%2Fkoninklijk-besluit-van-30-juli-2010_n2010011321.html&rct=j&q=horicx%";
 
-*/
 if (REFERER_TEST)
 	{
 	$Turl = "http://www.google.be/search?q=%22loi+numac+%C3%A0+l%27application+arret%C3%A9+de+reconnaissance+mutuelle+des+d%C3%A9cisions+judiciaires+en+mati%C3%A8re+p%C3%A9nale+entre+les+Etats+membres+de+l%27Union+europ%C3%A9enne%22&hl=fr&prmd=ivnsb&ei=ICR7TdeBMIKLhQfD07n8Bg&start=10&sa=N";
@@ -172,7 +165,7 @@ if (INDEX_LOG) $observer->msg('Init Done. Display Started','index','chapter');
 
        <!-- Default smartphone -->
 	   <link href="<?php echo a('css/smphone.css')?>" media="only screen and (max-device-width : 480px)" rel="stylesheet"  type="text/css">
-	   <link href="<?php echo a('/ccs/smphone.css')?>" media="screen and (max-width : 960px)" rel="stylesheet"  type="text/css">
+	   <link href="<?php echo a('css/smphone.css')?>" media="screen and (max-width : 960px)" rel="stylesheet"  type="text/css">
 
        <!-- Iphones -->
 	   <link href="<?php echo a('css/smphone.css')?>" media="only screen and (min-device-width: 320px) and (max-device-width : 480px) and (-webkit-min-device-pixel-ratio: 2)" rel="stylesheet"  type="text/css">
@@ -293,9 +286,12 @@ function a($s)
 function aP($s)
 	{
 	$s= preg_replace_callback('#(<a.*href=")([^"]+)(">[^<]+</a>)#'
-				,create_function(
-					'$match'
-				   ,'return $match[1].a($match[2]).$match[3];')
+                ,function($match) {
+				   return $match[1].a($match[2]).$match[3];
+                }
+				// ,create_function(
+				// 	'$match'
+				//    ,'return $match[1].a($match[2]).$match[3];')
 				,$s);
 	return $s;
 	}

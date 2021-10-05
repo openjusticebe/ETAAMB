@@ -48,6 +48,13 @@ class connector_class
 			throw new Exception('error_db_connect');
 		else if ($this->do_log)
 			$this->log('Connection OK');
+        /* change character set to utf8 */
+        /* it ONLY works if charset is latin1... */
+        if (!$this->conn->set_charset("latin1")) {
+            printf("Error loading character set utf8: %s\n", $this->conn->error);
+        } else {
+            $this->log('Charset set to UTF-8');
+        }
 		return true;
 
 		}

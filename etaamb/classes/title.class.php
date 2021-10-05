@@ -35,7 +35,7 @@ class title extends numac
 		if (!$numac_available)
 			{
 			if ($this->do_log) $this->log('Title Numac not available, error');
-			$this->error = $this->dict->get('error_numac');
+			$this->error = $this->dict->get('my_error_numac');
 			return false;
 			}
 
@@ -62,7 +62,7 @@ class title extends numac
 			{
 			if (REDIRECTION_TEST) printf('<br>Anoned Text, Redirecting');
 			if ($this->do_log) $this->log('Text is Anonymised. Redirecting to'.$url);
-			$this->error = $this->dict->get('error_naturalisation');
+			$this->error = $this->dict->get('my_error_naturalisation');
 			url_factory::redirect('http://etaamb.blogspot.com/2011/06/vie-privee-anonymisation.html',302);
 			return false;
 			}

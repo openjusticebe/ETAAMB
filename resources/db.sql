@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `docs` (
   `source` tinyint(3) unsigned DEFAULT NULL,
   `anonymise` tinyint(1) NOT NULL,
   `version` tinyint(3) unsigned NOT NULL,
-  `languages` set('fr','nl') NOT NULL,
+  `languages` set('fr','nl') DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `numac` (`numac`),
   KEY `pub_date` (`pub_date`),
