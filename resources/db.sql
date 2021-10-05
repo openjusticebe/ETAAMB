@@ -130,9 +130,11 @@ CREATE TABLE IF NOT EXISTS `sources` (
 -- Table structure for table `text`
 --
 
+DROP TABLE IF EXISTS `text`;
 CREATE TABLE IF NOT EXISTS `text` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `numac` int(10) unsigned NOT NULL,
+  `length` int(10) unsigned NOT NULL,
   `ln` varchar(2) NOT NULL,
   `raw` mediumtext NOT NULL,
   `pure` mediumtext NOT NULL,
@@ -154,8 +156,8 @@ CREATE TABLE IF NOT EXISTS `titles` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `numac` int(10) unsigned NOT NULL,
   `ln` varchar(2) NOT NULL,
-  `raw` tinytext,
-  `pure` tinytext,
+  `raw` text,
+  `pure` text,
   PRIMARY KEY (`id`),
   UNIQUE KEY `numac_ln` (`numac`,`ln`),
   KEY `ln` (`ln`),

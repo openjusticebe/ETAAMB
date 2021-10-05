@@ -20,13 +20,14 @@ use HTML::FormatText;
 use Text::Unaccent;
 use Parallel::ForkManager;
 use Encode;
+use lib '.';
 use Page '.';
 use Autocorrect;
 use utf8;
 $|=1;
 my $version=16;
 my $sleep_int=25;
-my $loop_num=10;
+my $loop_num=1;
 
 ## Database init
 $db = $ENV{'DB_DATA'};
@@ -35,13 +36,6 @@ $login = $ENV{'DB_USER'};
 $mdp = $ENV{'DB_PASSWORD'};
 $port = $ENV{'DB_PORT'};
 my $dsn = "DBI:MariaDB:database=$db;port=$port;host=$host";
-my $dbh = DBI->connect(
-    $dsn,
-    $login,
-    $mdp,
-    {PrintError => 0, RaiseError => 0}
-) or die "Db Connection Error";
-
 my $pm = new Parallel::ForkManager($loop_num);
 
 ## DICT SETUP ##############
@@ -55,13 +49,8 @@ $fr_dict = new Autocorrect('fr',$fr_file);
 my $counter= 0;
 do {
 	# 1) On obtient le texte
-
-    my $dbh = DBI->connect($dsn,$login,$mdp,{ mysql_enable_utf8 => 1, }) or die "Db Connection Error";
-	#my $sql = "select raw_pages.numac, raw_pages.pub_date, raw_fr, raw_nl from raw_pages 
-	#		   left join docs on raw_pages.numac=docs.numac 
-	#		   where (docs.numac is null
-	#		   or docs.version < $version)
-	#		   limit 0,1000";
+    my $dbh = DBI->connect( $dsn, $login, $mdp, {PrintError => 0, RaiseError => 0}
+        ) or die "Db Connection Error";
 
 	my $sql = "select raw_pages.numac from raw_pages 
 			   left join docs on raw_pages.numac=docs.numac 
@@ -73,18 +62,17 @@ do {
 			   limit 0, 1000";
 
 	my $sth = $dbh->prepare($sql);
-	$sth->execute() or die "echec $sql\n";
-	#while (my ($numac, $pub_date,$raw_fr, $raw_nl) = $sth->fetchrow_array())
+	$sth->execute() or die "$DBI::errstr $sql\n";
 	while (my ($numac) = $sth->fetchrow_array())
 		{
         $pm->start and next;
-        my $dbh = DBI->connect($dsn,$login,$mdp,{ mysql_enable_utf8 => 1, }) or die "Db Connection Error";
+        my $dbh = DBI->connect( $dsn, $login, $mdp, {PrintError => 0, RaiseError => 0}
+            ) or die "Db Connection Error";
 
-		#print "\nDoing #$numac ";
 		my $sql = "select pub_date, raw_fr, raw_nl from raw_pages
 				   where numac = $numac";
 		my $sth = $dbh->prepare($sql);
-		$sth->execute() or die ("echec for $numac\n Sql:$sql\n");
+		$sth->execute() or die ("$DBI::errstr for $numac\n Sql:$sql\n");
 		my ($pub_date,$raw_fr, $raw_nl) = $sth->fetchrow_array();
 
         #Encode::_utf8_on($raw_fr);
@@ -100,7 +88,6 @@ do {
 
 		# 3) On l'enregistre
 
-        # Update doesn't modify anonymising info
 		my $sql_doc = "insert into docs(numac,pub_date,prom_date,type,source,version,languages,anonymise) values
 					(?,?,?,?,?,$version,'',?) on duplicate key update 
 						pub_date = ?,
@@ -125,36 +112,34 @@ do {
 			{
 		    $anonymise = "1";
 			print "ANON            Doc $data{numac} anon bit wil be set\n";
-            #print "                French  : ".substr($data{norm_title_fr},0,90)."\n";
-			#print "                Dutch   : ".substr($data{norm_title_nl},0,90)."\n";
 			}
 		
 		$sth_doc->execute(
-			# Inser part
+			# Insert part
 			$data{numac},$data{pub_date},$data{prom_date},
 			getType($dbh,$data{type_nl},$data{type_fr}),
 			getSource($dbh,$data{source_nl},$data{source_fr}), $anonymise,
 			# Update part
 			$data{pub_date},$data{prom_date},
 			getType($dbh,$data{type_nl},$data{type_fr}),
-			getSource($dbh,$data{source_nl},$data{source_fr})) or die "echec";
+			getSource($dbh,$data{source_nl},$data{source_fr})) or die "$DBI::errstr";
 
 		my $sth_txt = $dbh->prepare($sql_txt);
 			$sth_txt->execute($data{numac},'fr',$data{raw_fr},$data{norm_fr},length($data{norm_fr})
-							 ,$data{raw_fr},$data{norm_fr},length($data{norm_fr})) or die "echec text fr";
+							 ,$data{raw_fr},$data{norm_fr},length($data{norm_fr})) or die "$DBI::errstr text fr";
 			$sth_txt->execute($data{numac},'nl',$data{raw_nl},$data{norm_nl},length($data{norm_nl})
-							 ,$data{raw_nl},$data{norm_nl},length($data{norm_nl})) or die "echec text nl";
+							 ,$data{raw_nl},$data{norm_nl},length($data{norm_nl})) or die "$DBI::errstr text nl";
 
 		my $sth_title = $dbh->prepare($sql_title);
 		my $sth_lang  = $dbh->prepare($sql_lang);
 		if (!$data{raw_title_fr} eq '')
 				{
-				$sth_title->execute($data{numac},'fr',$data{raw_title_fr},$data{norm_title_fr},$data{raw_title_fr},$data{norm_title_fr}) or die "echec";
+				$sth_title->execute($data{numac},'fr',$data{raw_title_fr},$data{norm_title_fr},$data{raw_title_fr},$data{norm_title_fr}) or die "$DBI::errstr";
 				$sth_lang->execute('fr',$data{numac});
 				}
 		if (!$data{raw_title_nl} eq '')
 				{
-				$sth_title->execute($data{numac},'nl',$data{raw_title_nl},$data{norm_title_nl},$data{raw_title_nl},$data{norm_title_nl}) or die "echec";
+				$sth_title->execute($data{numac},'nl',$data{raw_title_nl},$data{norm_title_nl},$data{raw_title_nl},$data{norm_title_nl}) or die "$DBI::errstr";
 				$sth_lang->execute('nl',$data{numac});
 				}
 
@@ -172,9 +157,10 @@ do {
 	print "+\n" if ($counter%2 == 0);
 
 	$sql = "SELECT count( * ) AS count FROM raw_pages LEFT JOIN docs ON raw_pages.numac = docs.numac WHERE docs.numac IS NULL or docs.version < $version";
-    $dbh = DBI->connect($dsn,$login,$mdp,{ mysql_enable_utf8 => 1, }) or die "Db Connection Error";
+    my $dbh = DBI->connect( $dsn, $login, $mdp, {PrintError => 0, RaiseError => 0}
+        ) or die "Db Connection Error";
 	$sth = $dbh->prepare($sql);
-	$sth->execute() or die "echec";
+	$sth->execute() or die "$DBI::errstr";
 	my ($count) = $sth->fetchrow_array;
 	if ($count == 0)
 		{
@@ -187,16 +173,14 @@ do {
 		}
 } while (1 == 1);
 exit 0;
+
 ## Functions
 sub makeDataObject
 	{
 	my ($pagecontent,$raw_nl,$numac,$pub_date) = @_;
 
-	#$pagecontent = Encode::is_utf8($pagecontent) ? Encode::encode_utf8($pagecontent) : $pagecontent;
 	my $tree_fr = HTML::TreeBuilder->new_from_content($pagecontent); # empty tree
-    #$tree_fr->parse($pagecontent);
 	my $tree_nl = HTML::TreeBuilder->new_from_content($raw_nl); # empty tree
-    #$tree_nl->parse($raw_nl);
 
 
 	$plain_fr = HTML::FormatText->new->format($tree_fr);
@@ -218,6 +202,7 @@ sub makeDataObject
 	$pagedata{"prom_date"} = $page->getPromDate();
 	$pagedata{"prom_date"} = $page->getPromDate() if ($page_nl->getPromDate() eq '--');
 	$pagedata{"prom_date"} = $page_nl->getPromDate() if ($page->getPromDate() eq '--');
+	$pagedata{"prom_date"} = '0000-00-00' if ($page->getPromDate() eq '--');
 
     $pagedata{"raw_title_fr"} = $page->getTitle();
     $pagedata{"norm_title_fr"} = normalize($page->getTitle());
@@ -249,25 +234,14 @@ sub makeDataObject
             $new_nl = $pagedata{"type_nl"};
             }
 
-        #if ($pagedata{"source_fr"} !~ m/ministere des affaires sociales/)
-            #and $pagedata{"norm_title_nl"} !~ m/gewestplan/
-            #and $pagedata{"norm_title_nl"} !~ m/kredietinstelling(en)?/
-            #and $pagedata{"norm_title_nl"} !~ m/wijziging van de lijst/
-            #and $pagedata{"norm_title_nl"} !~ m/nationale loterij/
-            #and $pagedata{"norm_title_nl"} !~ m/indexcijfer van de consumptieprijzen/)
-            #{
-            print "  TYPE CORR --- $numac || NL($nl_index):".$pagedata{"type_nl"}." => $new_nl, FR($fr_index):".$pagedata{"type_fr"}." => $new_fr\n";
-            print "                NL title: ".substr(normalize($page_nl->getTitle()),0,90)."\n";
-            print "                FR title: ".substr(normalize($page->getTitle()),0,90)."\n";
-            #}
+        print "  TYPE CORR --- $numac || NL($nl_index):".$pagedata{"type_nl"}." => $new_nl, FR($fr_index):".$pagedata{"type_fr"}." => $new_fr\n";
+        print "                NL title: ".substr(normalize($page_nl->getTitle()),0,90)."\n";
+        print "                FR title: ".substr(normalize($page->getTitle()),0,90)."\n";
         $pagedata{"type_fr"} = $new_fr;
         $pagedata{"type_nl"} = $new_nl;
         }
     if ($pagedata{"type_fr"} eq $pagedata{"type_nl"} 
         and $pagedata{"type_nl"} eq 'document' )
-        #and $pagedata{"source_fr"} !~ m/ministere des affaires sociales/ 
-        #and $pagedata{"norm_title_fr"} !~ m/prix courant/
-        #and $pagedata{"norm_title_fr"} !~ m/pour la consultation du tableau/ )
         {
         print "          DOCUMENT      $numac has been set as beign a document\n";
         print "                        NL title: ".substr(normalize($page_nl->getTitle()),0,90)."\n";
@@ -313,18 +287,18 @@ sub getSource
 	{
 	my ($dbh, $src_nl, $src_fr) = @_;
 	my $sth = $dbh->prepare("select id from sources where source_nl = ? and source_fr = ?");
-	$sth->execute($src_nl,$src_fr) or die "echec";
+	$sth->execute($src_nl,$src_fr) or die "$DBI::errstr";
 	if (my ($num) = $sth->fetchrow_array())
 		{
 		return $num;
 		}
 	
 	$sth = $dbh->prepare("insert into sources (source_nl, source_fr) values (?,?)");
-	$sth->execute($src_nl,$src_fr) or die "echec";
+	$sth->execute($src_nl,$src_fr) or die "$DBI::errstr";
 
 	sleep(2);
 	$sth = $dbh->prepare("select id from sources where source_nl = ? and source_fr=?");
-	$sth->execute($src_nl,$src_fr) or die "echec";
+	$sth->execute($src_nl,$src_fr) or die "$DBI::errstr";
 	my ($num) = $sth->fetchrow_array();
 	return $num;
 	}
@@ -340,13 +314,13 @@ sub getType
 		my $value = ($src_nl eq "notype") ? $src_fr : $src_nl;
 		my $lang = ($src_nl eq "notype") ? "fr" : "nl";
 		$sth = $dbh->prepare("select id from types where type_$lang = ?");
-		$sth->execute($value) or die "echec";
+		$sth->execute($value) or die "$DBI::errstr";
 		}
 	else
 		{
 		$notype=0;
 		$sth = $dbh->prepare("select id from types where type_nl = ? and type_fr= ?");
-		$sth->execute($src_nl,$src_fr) or die "echec";
+		$sth->execute($src_nl,$src_fr) or die "$DBI::errstr";
 		}
 
 	if (my ($num) = $sth->fetchrow_array())
@@ -357,10 +331,10 @@ sub getType
 	$sth = $dbh->prepare("insert into types (type_nl, type_fr) values (?,?)");
     $src_nl_utf8 = $src_nl;
     $src_fr_utf8 = $src_fr;
-	$sth->execute($src_nl_utf8,$src_fr_utf8) or die "echec";
+	$sth->execute($src_nl_utf8,$src_fr_utf8) or die "$DBI::errstr";
 
 	my $sth = $dbh->prepare("select id from types where type_nl = ? and type_fr = ?");
-	$sth->execute($src_nl_utf8, $src_fr_utf8) or die "echec";
+	$sth->execute($src_nl_utf8, $src_fr_utf8) or die "$DBI::errstr";
 	my ($num) = $sth->fetchrow_array();
 	return $num;
 	}

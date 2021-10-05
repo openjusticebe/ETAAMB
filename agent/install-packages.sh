@@ -29,6 +29,8 @@ apt-get -y install --no-install-recommends \
     libclass-dbi-perl \
     libdbd-mariadb-perl \
     libtext-unaccent-perl \
+    libparallel-forkmanager-perl \
+     libhtml-strip-perl  \
     libwww-perl
 
 # Delete cached files we don't need anymore:
