@@ -117,7 +117,7 @@ class connector_class
 		foreach($a as $v) 
 			{
 			$o = array_values($v);
-			$t[] = implode($o,', ');
+			$t[] = implode(', ', $o);
 			}
 		return $t;
 		}
