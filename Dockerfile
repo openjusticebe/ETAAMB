@@ -42,5 +42,6 @@ FROM app-run AS dev
 # Run Prod
 # ----------------------------------------------------
 FROM app-run AS prod
-RUN rm etaamb/phpinfo.php
+COPY ./etaamb/config.docker.php ./etaamb/config.php
+# RUN rm etaamb/phpinfo.php
 #CMD ["bash"]

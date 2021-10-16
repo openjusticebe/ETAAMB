@@ -69,8 +69,8 @@ Regular tasks are executed to crawl and collect the belgian official journal.
 These scripts are mostly written in **Perl** by the agent.
 
 - moniteur_import/recupId.pl : get the document identifiers
-- getRaw.pl : get the raw content of the documents
-- parseRaws.pl
+- getRaws.pl : get the raw content of the documents
+- parseRaws.pl : parse and store documents in the database
 - precalc
 - manager.php del_unused
 - manager.php set_anon

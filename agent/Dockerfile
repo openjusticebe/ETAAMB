@@ -8,6 +8,7 @@ COPY ./agent/install-packages.sh .
 RUN ./install-packages.sh
 
 COPY ./resources /resources
+COPY ./etaamb /etaamb
 COPY ./agent ./
 
 
