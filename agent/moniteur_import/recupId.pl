@@ -19,7 +19,12 @@ use constant FALSE => 0;
 
 
 ############################ Conf Data
+## Dates to parse in one run
 $dates_to_parse=400;
+## Pause between pages
+$max_pause = 500;
+$min_pause = 100;
+
 $version = 1;
 
 ## Database init
@@ -94,6 +99,7 @@ $browser->timeout(30);
 my $request = '';
 my $response = '';
 my $contents = '';
+$sleep = 0;
 
 foreach (@dates_to_do)
 	{
@@ -127,6 +133,11 @@ foreach (@dates_to_do)
 		my $sth = $dbh->prepare($request);
 		$sth->execute();
 		}
+	print " done\n";
+
+    $sleep = int($min_pause + rand($max_pause - $min_pause));
+	printf ("		Sleeping (%s ms)...", $sleep);
+    select(undef, undef, undef, $sleep / 1000);
 	print " done\n";
 
 	######### Setting date done.

@@ -5,7 +5,7 @@ WORKDIR /agent
 ENV PATH="/agent:$PATH"
 
 COPY ./agent/install-packages.sh .
-RUN ./install-packages.sh
+RUN  ./install-packages.sh
 
 COPY ./resources /resources
 COPY ./etaamb /etaamb

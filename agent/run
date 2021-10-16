@@ -4,10 +4,10 @@ while getopts ":h" opt; do
   case ${opt} in
     h )
       echo "Usage:"
-      echo "    steward -h        Display this help message."
-      echo "    steward db_setup  Sets up database"
-      echo "    steward mysql     Sets up database"
-      echo "    steward run <VERSION>  Run the image locally"
+      echo "    run -h        Display this help message."
+      echo "    run setup_db  Sets up database"
+      echo "    run mysql     Connects to database"
+      echo "    run run <VERSION>  Run the image locally"
       exit 0
       ;;
    \? )
@@ -26,5 +26,9 @@ case "$subcommand" in
     ;;
   mysql)
     mysql -h ${DB_HOST} -u ${DB_USER} -p${DB_PASSWORD} --port ${DB_PORT} ${DB_DATA}
+    ;;
+  *)
+    echo "Invalid command: $subcommand" 1>&2
+    exit 1
     ;;
 esac

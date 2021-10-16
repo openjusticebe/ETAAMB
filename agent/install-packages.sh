@@ -31,6 +31,7 @@ apt-get -y install --no-install-recommends \
     libtext-unaccent-perl \
     libparallel-forkmanager-perl \
     libhtml-strip-perl  \
+    libhtml-format-perl \
     libwww-perl
 
 # Delete cached files we don't need anymore:

@@ -20,8 +20,10 @@ use HTML::FormatText;
 use Text::Unaccent;
 use Parallel::ForkManager;
 use Encode;
+# Fix for docker environment
+# use lib '/agent/moniteur_import';
 use lib '.';
-use Page '.';
+use Page;
 use Autocorrect;
 use utf8;
 $|=1;

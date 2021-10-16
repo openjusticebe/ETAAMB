@@ -9,6 +9,10 @@
 my $version = 1;
 my $page_number = 50;
 
+## Pause between pages
+$max_pause = 800;
+$min_pause = 300;
+
 use DBI;
 use LWP::UserAgent;
 
@@ -50,6 +54,7 @@ while (my @data = $sth->fetchrow_array())
 	}
 
 my $insert = $dbh->prepare("Insert into raw_pages(numac, pub_date, raw_fr, raw_nl, version) values (?,?,?,?,?)");
+$sleep = 0;
 
 for my $doc (@todo)
 	{
@@ -68,6 +73,12 @@ for my $doc (@todo)
 		{
 		$insert->execute($numac,$pub_date,$page_fr,$page_nl,$version);
 		}
+	print " Done\n";
+
+
+    $sleep = int($min_pause + rand($max_pause - $min_pause));
+	printf ("\tSleeping (%s ms)...", $sleep);
+    select(undef, undef, undef, $sleep / 1000);
 	print " Done\n";
 	}
 
