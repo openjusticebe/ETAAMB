@@ -62,11 +62,9 @@ class anoner {
                             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
                             curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
                             $result = curl_exec($ch);
-                            echo "<pre>$result</pre>";
                             curl_close($ch);
                             break;
                         } catch (Exception $e) {
-                            echo "- Curl Error";
                             $t++;
                         }
                     }
@@ -77,33 +75,6 @@ class anoner {
             }
 
         return $output;
-
-        // FIXME: Legacy code, remove as early as convenient
-        /*
-		switch(self::$mode)
-			{
-			case 'multi':
-				$command = sprintf(self::$multi_cmd
-						  ,self::$lang == 'fr' ? 'french' : 'dutch'
-						  ,$list);
-				break;
-			case 'sequential':
-				$link = peb_connect('anoner@localhost','XXXXX');
-				$lang = self::$lang == 'fr' ? 'french' : 'dutch';
-				$msg  = peb_encode('[~s, ~s]',array(array($lang,$list)));
-				$result = peb_rpc('anoner','sequence_check',$msg, $link);
-				$rs   = peb_decode($result);
-				$value = explode(" ",$rs[0]);
-				return $value;
-				break;
-			}
-
-		$res = exec($command,$out);
-		if (empty($out)) self::error();
-		$res = trim($res,'"');
-		$value = explode(" ",$res);
-		return $value;
-         */
 		}
 
 
