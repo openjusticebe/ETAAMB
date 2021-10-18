@@ -2,9 +2,9 @@
 /* Bridge class with erlang anoner app */
 
 class anoner {
-	static $single_cmd = "erl_call -a 'anoner check [%s,\"%s\"]' -n anoner@localhost -c FMMCJG-zp98-oaz913-kjsd1414";
-	static $multi_cmd  = "erl_call -a 'anoner multi_check [%s,\"%s\"]' -n anoner@localhost -c FMMCJG-zp98-oaz913-kjsd1414";
-	static $sequential_cmd  = "erl_call -a 'anoner sequence_check [%s,\"%s\"]' -n anoner@localhost -c FMMCJG-zp98-oaz913-kjsd1414";
+	// static $single_cmd = "erl_call -a 'anoner check [%s,\"%s\"]' -n anoner@localhost -c FMMCJG-zp98-oaz913-kjsd1414";
+	// static $multi_cmd  = "erl_call -a 'anoner multi_check [%s,\"%s\"]' -n anoner@localhost -c FMMCJG-zp98-oaz913-kjsd1414";
+	// static $sequential_cmd  = "erl_call -a 'anoner sequence_check [%s,\"%s\"]' -n anoner@localhost -c FMMCJG-zp98-oaz913-kjsd1414";
 	static $levels 	   = array('50'=>'red','60'=>'orange','80'=>'green');
 	//static $mode	   = 'single';
 	//static $mode	   = 'multi';
@@ -19,20 +19,58 @@ class anoner {
 
 	static function test()
 		{
-		$command = sprintf(self::$single_cmd,'french','papier');
-		$ret = exec($command,$out);
-		return !empty($out) ? true : false;
+        switch(ANON_SERVICE)
+            {
+            case 'etaamb':
+                return curl_init(sprintf("%s/status", ANON_HOST)) !== false;
+            default:
+                return false;
+            }
 		}
 
 	function check_token($token)
 		{
+        throw new Exception('Disabled : code obsolete');
+
+        // FIXME
+        /*
 		$command = sprintf(self::$single_cmd,CURRENT_LANG == 'fr' ? 'french' : 'dutch',$token);
 		$res = exec($command);
 		return (int)$res;
+         */
 		}
 
-	function check_list($list)
+	static function check_list($list)
 		{
+        $output = [];
+
+        switch(ANON_SERVICE)
+            {
+                case 'etaamb':
+                    $url = sprintf("%s/sequence_check", ANON_HOST);
+                    $t = 0;
+
+                    $payload = [
+                        'lang' => self::$lang == 'fr' ? 'french' : 'dutch',
+                        'string' => $list,
+                    ];
+                    while (True) {
+                        $ch = curl_init($url); 
+                        curl_setopt($ch, CURLOPT_POST, 1);
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+                        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+                        $result = curl_exec($ch);
+                        curl_close($ch);
+                        break;
+                    }
+                    $output = explode(' ', $result);
+            }
+
+        return $output;
+
+        // FIXME: Legacy code, remove as early as convenient
+        /*
 		switch(self::$mode)
 			{
 			case 'multi':
@@ -41,7 +79,7 @@ class anoner {
 						  ,$list);
 				break;
 			case 'sequential':
-				$link = peb_connect('anoner@localhost','FMMCJG-zp98-oaz913-kjsd1414');
+				$link = peb_connect('anoner@localhost','XXXXX');
 				$lang = self::$lang == 'fr' ? 'french' : 'dutch';
 				$msg  = peb_encode('[~s, ~s]',array(array($lang,$list)));
 				$result = peb_rpc('anoner','sequence_check',$msg, $link);
@@ -56,12 +94,14 @@ class anoner {
 		$res = trim($res,'"');
 		$value = explode(" ",$res);
 		return $value;
+         */
 		}
 
 
 	static function anonymise($text,$lang)	
 		{
 		if (!self::test()) self::error();
+
 		self::log("Anonymising in mode ".self::$mode." : "
 				 .substr($text,0,120)."...");
 

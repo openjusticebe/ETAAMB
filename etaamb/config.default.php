@@ -13,6 +13,13 @@ if (!defined('WEB_DIR'))
 if (!defined('DATE_FORMAT'))
 	define("DATE_FORMAT",'d/m/Y');
 
+// Set anon service type
+if (!defined('ANON_SERVICE'))
+    define('ANON_SERVICE', 'etaamb');
+
+if (!defined('ANON_HOST'))
+    define('ANON_HOST', 'http://localhost:8050');
+
 // Set code version (updates cached renders)
 if (!defined('VERSION'))
 	define("VERSION","0.1");
