@@ -71,6 +71,7 @@ class anoner {
                         }
                     }
                     $output = explode(' ', $result);
+                    break;
                 default:
                     throw new Exception('No valid anon service selected');
             }
