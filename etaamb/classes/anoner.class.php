@@ -66,10 +66,13 @@ class anoner {
                             curl_close($ch);
                             break;
                         } catch (Exception $e) {
+                            echo "- Curl Error";
                             $t++;
                         }
                     }
                     $output = explode(' ', $result);
+                default:
+                    throw new Exception('No valid anon service selected');
             }
 
         return $output;
