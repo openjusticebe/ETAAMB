@@ -57,8 +57,11 @@ class numac extends default_page
 		$description = new normalize( $this->anonCheck()
 									   ? anoner::anonymise($this->d['title_pure'],$this->dict->l())
 									   : $this->d['title_pure']);
-		list($prom_year,$prom_month,$prom_day) = explode('/'
-						,$this->displayDate($this->d['prom_date'],'Y/m/d'));
+
+        list($prom_year,$prom_month,$prom_day) =  $this->d['prom_date'] != '00000000' 
+            ? explode('/' ,$this->displayDate($this->d['prom_date'],'Y/m/d'))
+            : ['', '', ''];
+
 		$this->terms['description'] = sprintf('%s : %s',
 						       $prom_day.' '.$this->getTerm('month_'.intval($prom_month)).' '.$prom_year,
 							   $description->doTrim()
@@ -152,8 +155,9 @@ class numac extends default_page
 		list($pub_year,$pub_month,$pub_day) = explode('/'
 						,$this->displayDate($this->d['pub_date'],'Y/m/d'));
 
-		list($prom_year,$prom_month,$prom_day) = explode('/'
-						,$this->displayDate($this->d['prom_date'],'Y/m/d'));
+        list($prom_year,$prom_month,$prom_day) =  $this->d['prom_date'] != '00000000' 
+            ? explode('/' ,$this->displayDate($this->d['prom_date'],'Y/m/d'))
+            : [null, null, null];
 
 		$meta[] = sprintf('<meta name="keywords" content="%s">',
 						  $this->d['type']

@@ -54,15 +54,20 @@ class anoner {
                         'lang' => self::$lang == 'fr' ? 'french' : 'dutch',
                         'string' => $list,
                     ];
-                    while (True) {
-                        $ch = curl_init($url); 
-                        curl_setopt($ch, CURLOPT_POST, 1);
-                        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
-                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
-                        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-                        $result = curl_exec($ch);
-                        curl_close($ch);
-                        break;
+                    while ($t < 4) {
+                        try {
+                            $ch = curl_init($url); 
+                            curl_setopt($ch, CURLOPT_POST, 1);
+                            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+                            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+                            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+                            $result = curl_exec($ch);
+                            echo "<pre>$result</pre>";
+                            curl_close($ch);
+                            break;
+                        } catch (Exception $e) {
+                            $t++;
+                        }
                     }
                     $output = explode(' ', $result);
             }
