@@ -1,5 +1,5 @@
 /* Global Css File for Etaamb */
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Lato:wght@100;300;400;700;900&family=Lato:wght@100;300;400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@600&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Lato:wght@100;300;400;700;900&family=Roboto:wght@100;300;400;700;900&display=swap');
 /********************* Temporary stuff */
 #info_just {
     width: 45em;
@@ -65,13 +65,13 @@ div#up_arrow { display:none;}
 /********************* Header */
 #etaamb_title {
 	z-index:0;
-    font-family:'Merriweather', georgia, serif;
+    font-family:'Kumbh Sans', georgia, serif;
     color:#72acdc;
-	font-size:2.5rem;
+	font-size:2.2rem;
     position:absolute;
     overflow:hidden;
-	top:-22px;
-	left:14pxi
+	top:-1.2rem;
+	left:14px;
     }
 
     #etaamb_title a {
@@ -768,6 +768,39 @@ div.document {
 	-webkit-border-top-right-radius:8px;
     }
 
+    div.meta {
+      display: grid; 
+      width:100%;
+      grid-template-columns: 1fr 100px; 
+      grid-template-rows: 100px 1fr; 
+      gap: 0px 0px; 
+      grid-template-areas: 
+        "meta qr"
+        "meta actions"; 
+    }
+
+
+    div.actions {
+        grid-area:actions;
+        text-align:left;
+        }
+
+    div.actions a:focus,
+    div.actions a:visited,
+    div.actions a {
+        font-size:1.2rem;
+        color:#4682b4;
+        border:2px solid #4682b4;
+        padding:2px 2px;
+        margin:0 2px;
+        border-radius:5px;
+        }
+
+    div.actions a:hover {
+        color:#fff;
+        background-color:#4682b4;
+    }
+
     div.document h1.doc_title {
         font-family:'Merriweather', georgia, serif;
         text-align:center;
@@ -781,6 +814,7 @@ div.document {
 		}
 
     div.document dl {
+        grid-area:meta;
         display:flex;
         flex-flow: row wrap;
         margin:1rem 0 2rem;
@@ -822,11 +856,21 @@ div.document {
         font-family:'Merriweather', georgia, serif;
         }
 
-    dd.doc_url a,
-    dd.moniteur_url a {
+    dd.doc_url a {
         font-family:courrier,monospace;
         color:#4894ff;
         }
+
+    dd.eli a {
+        font-weight:900;
+        text-decoration:none;
+    }
+
+    dd.doc_url a:hover {
+        color:#4682b4;
+        font-weight:bold;
+        text-decoration:underline;
+    }
 
 	div#document_text {
 		position:relative;
@@ -854,17 +898,15 @@ div.right_panel {
     max-width:36em;
 	}
 
-div.meta {
-	position:relative;
-	}
 
 div#qrcode {
-	position:absolute;
+    grid-area:qr;
 	right:4px;
 	top:4px;
 	opacity:0.5;
 	filter: alpha(opacity = 50);
 	}
+
 div#qrcode img {
 	width:75px;
 	height:75px;

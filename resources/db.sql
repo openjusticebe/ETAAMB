@@ -15,6 +15,8 @@ CREATE TABLE IF NOT EXISTS `docs` (
   `pub_date` date NOT NULL,
   `prom_date` date NOT NULL,
   `type` tinyint(3) unsigned NOT NULL,
+  `eli_type_fr` tinytext DEFAULT NULL,
+  `eli_type_nl` tinytext DEFAULT NULL,
   `source` tinyint(3) unsigned DEFAULT NULL,
   `anonymise` tinyint(1) NOT NULL,
   `version` tinyint(3) unsigned NOT NULL,
@@ -49,9 +51,10 @@ DROP TABLE IF EXISTS `doc_links`;
 CREATE TABLE IF NOT EXISTS `doc_links` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `numac` int(10) NOT NULL,
-  `chrono` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `eli` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `pdf` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `chrono` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  `eli` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  `ecli` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  `pdf` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `numac` (`numac`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

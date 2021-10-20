@@ -246,6 +246,8 @@ class collection_class
 		$baseQ = 'select  SQL_CACHE
 					docs.numac as numac,
 					docs.anonymise as anon,
+					docs.eli_type_fr as eli_type_fr,
+					docs.eli_type_nl as eli_type_nl,
 					titles.raw as title_raw,
 					titles.pure as title_pure,
 					source_%LN   as source,

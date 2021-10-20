@@ -163,6 +163,8 @@ if (INDEX_LOG) $observer->msg('Init Done. Display Started','index','chapter');
                                         } ?>">
 	   <link rel="shortcut icon" href="<?php echo a('favicon.ico');?>">
 
+	   <link href="<?php echo a('css/fontello.css')?>" rel="stylesheet"  type="text/css">
+
        <!-- Default smartphone -->
 	   <link href="<?php echo a('css/smphone.css')?>" media="only screen and (max-device-width : 480px)" rel="stylesheet"  type="text/css">
 	   <link href="<?php echo a('css/smphone.css')?>" media="screen and (max-width : 960px)" rel="stylesheet"  type="text/css">
@@ -226,9 +228,6 @@ if (INDEX_LOG) $observer->msg('Init Done. Display Started','index','chapter');
             if (LEGAL_FOOTER) include('./page_parts/footer.php');
         ?>
 		<?php 
-			if (HIRE_THE_DEV) 
-				include('./page_parts/hire_the_dev.php');
-
 			if (PRIVATE_LIFE_FORM) 
 				include('./page_parts/private_life.php');
 

@@ -284,56 +284,45 @@ class numac extends default_page
                  </div>
                  <div class="document">
                     <h1 class="doc_title">'.$this->get_title().'</h1>
-                    <div class="meta">
-                        <dl>
-                            <dt>'.$this->getTerm('source')
-								.'</dt> <dd class="source">'
-								.$this->d['source']
-								.'</dd>
-							<dt class="break"></dt>
-                            <dt>numac</dt> <dd class="numac">'
-								.$this->d['numac']
-								.'</dd>
-							<dt class="break"></dt>
-                            <dt>pub.</dt> <dd class="date">'
-								.$this->displayDate($this->d['pub_date'])
-								.'</dd>
-							<dt class="break"></dt>
-                            <dt>prom.</dt> <dd class="date">'
-								.$this->displayDate($this->d['prom_date'])
-								.'</dd>
-							<dt class="break"></dt>
-                            <dt>'.$this->getTerm('moniteur').'</dt>
-                                <dd class="moniteur_url">
-                                <a rel="nofollow" target="_blank "href="'.$this->ejusticeUrl().'">'
-                                .substr($this->ejusticeUrl(),0,50).'(...)</a>
-                            </dd>
-							<dt class="break"></dt>
-                            <dt>ELI</dt>
-                                <dd class="doc_url">
-                                <a rel="nofollow" target="_blank" href="'.$this->eliUrl().'">'
-                                .$this->d['eli'].'</a>
+                        <div class="meta">
+                            <dl>
+                                <dt>'.$this->getTerm('source')
+                                    .'</dt> <dd class="source">'
+                                    .$this->d['source']
+                                    .'</dd>
+                                <dt class="break"></dt>
+                                <dt>numac</dt> <dd class="numac">'
+                                    .$this->d['numac']
+                                    .'</dd>
+                                <dt class="break"></dt>
+                                <dt>pub.</dt> <dd class="date">'
+                                    .$this->displayDate($this->d['pub_date'])
+                                    .'</dd>
+                                <dt class="break"></dt>
+                                <dt>prom.</dt> <dd class="date">'
+                                    .$this->displayDate($this->d['prom_date'])
+                                    .'</dd>
+                                <dt class="break"></dt>
+                                %%ELI-BLOCK%%
+                                <dt>'.$this->getTerm('moniteur').'</dt>
+                                    <dd class="doc_url">
+                                    <a rel="nofollow" target="_blank "href="'.$this->ejusticeUrl().'">'
+                                    .substr($this->ejusticeUrl(),0,50).'(...)</a>
                                 </dd>
-							<dt class="break"></dt>
-                            <dt>refLex</dt>
-                                <dd class="doc_url">
-                                <a rel="nofollow" target="_blank" href="'.$this->d['chrono'].'">'
-                                .substr($this->d['chrono'],0,50).'(...)</a>
-                                </dd>
-							<dt class="break"></dt>
-                            <dt>pdf</dt>
-                                <dd class="doc_url">
-                                <a rel="nofollow" target="_blank" href="'.$this->pdfUrl().'">'
-                                .substr($this->pdfUrl(),0,50).'(...)</a>
-                                </dd>
-							<dt class="break"></dt>
-                        </dl>
-						'.(SHOW_QRCODE ?
-							  '<div id="qrcode">
-							      <img alt="Document Qrcode" src="'.$this->qrcodeUrl().'">
-							   </div>'
-						: '').'
-                    </div>
+                                <dt class="break"></dt>
+                                %%CHRONO-BLOCK%%
+                                <dt class="break"></dt>
+                            </dl>
+                            '.(SHOW_QRCODE ?
+                                  '<div id="qrcode">
+                                      <img alt="Document Qrcode" src="'.$this->qrcodeUrl().'">
+                                   </div>'
+                            : '').'
+                            <div class="actions">
+                                %%PDF-BLOCK%%
+                                <a class="icon-print" rel="nofollow" href="javascript:window.print();"></a>
+                            </div>
+                        </div>
 					<div id="document_text">
                             <div class="document_text">
                             '.$this->render_text($this->d["text"]).'
@@ -341,6 +330,34 @@ class numac extends default_page
 						<!--tag_words-->
 					</div>
                 </div>';
+
+        if ($this->d['eli'])
+            {
+            $el_html = '<dt>ELI</dt>
+                        <dd class="doc_url eli">
+                        <a rel="nofollow" target="_blank" href="'.$this->eliUrl().'">'
+                        .$this->buildELI().'</a>
+                        </dd>';
+            $html = str_replace('%%ELI-BLOCK%%',$el_html,$html);
+            }
+
+        if ($this->d['chrono'])
+            {
+            $el_html = '<dt>refLex</dt>
+                       <dd class="doc_url">
+                       <a rel="nofollow" target="_blank" href="'.$this->d['chrono'].'">'
+                       .substr($this->d['chrono'],0,50).'(...)</a>
+                       </dd>';
+            $html = str_replace('%%CHRONO-BLOCK%%',$el_html,$html);
+            }
+
+        if ($this->d['pdf'])
+            {
+            $el_html = '<a href="'.$this->pdfUrl().'" class="icon-file-pdf" target="_blank" rel="nofollow"></a>';
+            $html = str_replace('%%PDF-BLOCK%%',$el_html,$html);
+            }
+
+        $html = preg_replace('#%%[^%]*%%#m','',$html);
         return $html;
         }
 
@@ -370,8 +387,22 @@ class numac extends default_page
     function eliUrl()
         {
          return 'http://www.ejustice.just.fgov.be/'
-			 .$this->d['eli'];
+			 .$this->buildELI();
     
+        }
+
+    function buildELI()
+        {  
+        if ($this->d['eli'])
+            {
+            return sprintf('eli/%s/%s/%s/%s',
+                $this->d['eli_type_'.$this->dict->l()],
+                $this->displayDate($this->d["prom_date"],'Y/m/d'),
+                $this->d['numac'],
+                strtolower($this->dict->get('moniteur'))
+            );
+            }
+		return $this->d['eli'];
         }
 
     function pdfUrl()

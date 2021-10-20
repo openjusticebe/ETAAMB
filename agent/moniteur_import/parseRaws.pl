@@ -90,13 +90,15 @@ do {
 
 		# 3) On l'enregistre
 
-		my $sql_doc = "insert into docs(numac,pub_date,prom_date,type,source,version,anonymise) values
-					(?,?,?,?,?,$version,?) on duplicate key update 
+		my $sql_doc = "insert into docs(numac,pub_date,prom_date,type,source,version,anonymise,eli_type_fr,eli_type_nl) values
+					(?,?,?,?,?,$version,?,?,?) on duplicate key update 
 						pub_date = ?,
 						prom_date = ?,
 						type = ?,
 						source = ?,
-						version = $version";
+						version = $version,
+                        eli_type_fr = ?,
+                        eli_type_nl = ?";
 
 		my $sql_txt = "insert into text(numac,ln,raw,pure, length) values
 					(?,?,?,?,?) on duplicate key update raw = ?, pure = ?, length = ?";
@@ -124,10 +126,13 @@ do {
 			$data{numac},$data{pub_date},$data{prom_date},
 			getType($dbh,$data{type_nl},$data{type_fr}),
 			getSource($dbh,$data{source_nl},$data{source_fr}), $anonymise,
+            $data{eli_type_fr}, $data{eli_type_nl},
 			# Update part
 			$data{pub_date},$data{prom_date},
 			getType($dbh,$data{type_nl},$data{type_fr}),
-			getSource($dbh,$data{source_nl},$data{source_fr})) or die "$DBI::errstr";
+			getSource($dbh,$data{source_nl},$data{source_fr}),
+            $data{eli_type_fr}, $data{eli_type_nl}
+        ) or die "$DBI::errstr";
 
 		my $sth_txt = $dbh->prepare($sql_txt);
 			$sth_txt->execute($data{numac},'fr',$data{raw_fr},$data{norm_fr},length($data{norm_fr})
@@ -233,6 +238,8 @@ sub makeDataObject
     $pagedata{"chrono"} = $page->getChrono();
     $pagedata{"eli"} = $page->getEli();
     $pagedata{"pdf"} = $page->getPdf();
+    $pagedata{"eli_type_fr"} = $page->getEliType();
+    $pagedata{"eli_type_nl"} = $page_nl->getEliType();
 
 
     if (($nl_index ne $fr_index) 
