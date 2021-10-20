@@ -14,9 +14,9 @@
     font-family: 'Merriweather', georgia, serif;
     font-weight: bold;
     font-size:1rem;
-    color: #fff;
+    color: #fbfbff;
     text-decoration: none;
-    border-bottom: 1px dotted #fff;
+    border-bottom: 1px dotted #fbfbff;
 }
 
 #info_just a:hover {
@@ -31,6 +31,7 @@ body {
     height:100%;
     font-size:16px;
     background-color:#b2d2ec;
+    background-image:url("/assets/img/oj_etaamb_back.png");
 	font-family:'Lato', verdana, sans-serif;
     }
 
@@ -132,7 +133,7 @@ div#up_arrow { display:none;}
 			}	
 
 		#lang_select a:hover {
-			color:#fff;
+			color:#fbfbff;
 			}
 
 		#lang_select a.selected_lang {
@@ -166,8 +167,8 @@ div#up_arrow { display:none;}
 
 		div#priv_menu a:hover {
 			color:#184060;
-			color:#fff;
-			border-top:3px solid #fff;
+			color:#fbfbff;
+			border-top:3px solid #fbfbff;
 			background-color:inherit;
 			}
 
@@ -198,8 +199,8 @@ div#up_arrow { display:none;}
 
 		div#menu a:hover {
 			color:#184060;
-			color:#fff;
-			border-top:3px solid #fff;
+			color:#fbfbff;
+			border-top:3px solid #fbfbff;
 			background-color:inherit;
 			}
 
@@ -226,7 +227,7 @@ div#up_arrow { display:none;}
 	
 		/*
 		div#search_bar a {
-	        color:#fff;
+	        color:#fbfbff;
 			text-decoration:none;
 			text-transform:uppercase;
 	        font-family:'Lato', helvetica,arial,sans-serif;
@@ -258,7 +259,7 @@ div#up_arrow { display:none;}
 		
 		#search_button {
 			margin:0;
-			color:#fff;
+			color:#fbfbff;
 			text-decoration:none;
 			text-transform:uppercase;
 	        font-family:'Lato', helvetica,arial,sans-serif;
@@ -355,6 +356,9 @@ div.quickmenu {
 	left:7px;
 }	
 	div.quickmenu span { font-weight:bold;color:#28699e}
+
+    span.small_title { font-size:1.2rem; font-weight:900;}
+
 	ul.quickmenu { 
 		margin:0;
 		padding:0;
@@ -387,7 +391,8 @@ div.index_table  {
 		padding:0;
 		margin-top:40px;
 		color:#28699e;
-		font-size:1.25rem;;
+		font-size:1.5rem;
+        font-weight:900;
 		/*border-bottom:1px dashed #72acdc;*/
 		}
 
@@ -417,7 +422,7 @@ div.index_table  {
 
 	table.month_index a {
 		color:#184060;
-        border-bottom:10px dotted #184060;
+        border-bottom:10px dotted transparent;
 		text-decoration:none;
 		}
 	table.month_index a:hover span.m_item_table {
@@ -429,7 +434,7 @@ div.index_table  {
 	span.m_item_table { 
 		display:table;
 		border:1px solid #b9d3ee;
-		border-bottom:1px dotted #184060;
+		border-bottom:1px dotted transparent;
 		}
 	span.m_item_row { display:table-row; }
 	span.m_item_cell { 
@@ -451,11 +456,13 @@ div#last_edition {
     }
 
 div#last_edition h1:first-child {
-    font-size:1.25rem;;
+    font-size:2rem;;
+    font-weight:900;
     }
 
 div#last_edition h1 {
-    font-size:1.125rem;
+    font-size:1.125rem;;
+    font-weight:900;
     }
 
 /*
@@ -494,11 +501,12 @@ td.validDay {
 	}
 /******************** datePage */
 span.datepage_title {
-	font-size:1.25rem;;
+	font-size:1.5rem;;
 	color:#28699E;
-	margin:21px 0 0;
+	margin:4rem 0 1rem;
 	padding:0;
 	font-weight:bold;
+    display:block;
 	}
 
 span.datepage_title a { 
@@ -523,7 +531,8 @@ table.calendar {
 table.calendar caption {
 	font-weight:bold;
 	color:#28699e;
-	font-size:.9rem;
+	font-size:1.2rem;
+    font-weight:900;
 	}
 
 table.calendar caption a {
@@ -547,7 +556,7 @@ table.calendar th {
 	height:50px;
 	}
 table.calendar td { color:#4682b4;}
-table.calendar th { color:#4682b4;}
+table.calendar th { color:#4682b4;font-weight:900}
 	
 table.calendar td a {
 	display:block;
@@ -584,17 +593,17 @@ div#year_table {
 a.doclink {
 	text-decoration:none;
     position:relative;
-    background-color:#fff;
+    background-color:#fbfbff;
     display:block;
     margin: 7px 10px;
-    border:1px solid #fff;
+    border:1px solid #fbfbff;
     border-left:5px solid #72acdc;
 	border-top-right-radius:8px;
 	border-bottom-left-radius:8px;
 	-moz-border-radius-topright:8px;
 	-moz-border-radius-bottomleft:8px;
 	-webkit-border-top-right-radius:8px;
-	-webkig-border-bottom-left-radius:8px;
+    box-shadow: 2px 2px 7px -4px #002;
     }
 
 
@@ -603,6 +612,7 @@ a.doclink {
         border-bottom-color:#72acdc;
         border-right-color:#72acdc;
         border-color:#184060;
+        box-shadow: 2px 2px 7px 0px #002;
         }
 
 table.doclink {
@@ -648,7 +658,7 @@ table.doclink {
 	.doclink span.maintitle {
         /*font-family:'Merriweather', georgia, serif,serif;*/
         font-family:'Lato', verdana,sans-serif;
-        font-size:0.75rem;;
+        font-size:0.875rem;;
 		line-height:16px;
         /*
         border-left: 1px solid #b2d2ec;
@@ -660,14 +670,14 @@ table.doclink {
 		padding-top:7px;
         /*
         background-color:#184060;
-        color:#fff;
+        color:#fbfbff;
         /**/
         }
 
 	 a.doclink:hover td.title,
 	 a.doclink:hover span.maintitle{
         background-color:#184060;
-        color:#fff;
+        color:#fbfbff;
         }
     .doclink td.source,
 	.doclink span.source {
@@ -732,12 +742,12 @@ table.doclink {
 		}
 /******************** Document/Numac */
 div.document_title {
-	font-size:1.25rem;;
+	font-size:1.8rem;;
+    font-weight:900;
 	color:#28699E;
-	/*margin:21px 0 0;*/
-	margin-bottom:21px;
-	font-weight:bold;
+	margin:3rem 0 1rem;
 	margin-left:0px;
+    display:block;
 	}
 
 div.document_title a { 
@@ -755,7 +765,8 @@ div.document_title a:hover {
 
 
 div.document {
-    background-color:#fff;
+    box-shadow: 0px 0px 7px -4px #002;
+    background-color:#fbfbff;
     padding:10px 4px;
     margin-left:0px;
 	width:45em;
@@ -769,6 +780,7 @@ div.document {
     }
 
     div.meta {
+      margin-left:.875rem;
       display: grid; 
       width:100%;
       grid-template-columns: 1fr 100px; 
@@ -801,7 +813,7 @@ div.document {
     }
 
     div.actions a:hover {
-        color:#fff;
+        color:#fbfbff;
         background-color:#4682b4;
     }
 
@@ -830,7 +842,7 @@ div.document {
         text-align:right;
         color:#555;
         font-size:.8rem;
-        padding:2px 4px;
+        padding:2px 4px 2px 0;
         font-family:'Lato', helvetica,sans-serif;
         }
 
@@ -967,7 +979,7 @@ span.link .list {
 
 span.link .linktitle.live {
 	background-color:#184060;
-	color:#fff;
+	color:#fbfbff;
 	}
 
 span.link .close {
@@ -1164,7 +1176,7 @@ div#private_life
 	margin-left:-414px;
 	margin-top:-200px;
 	font-size:.7rem;
-	color:#fff;
+	color:#fbfbff;
 	padding:15px;
 	border:3px solid #222;
 	border-radius:8px;
@@ -1185,7 +1197,7 @@ a#private_close {
 	position:absolute;
 	top:0;
 	right:0;
-	color:#fff;
+	color:#fbfbff;
 	text-decoration:none;
 	font-family:sans-serif;
 	height:1em;
@@ -1195,7 +1207,7 @@ a#private_close {
 
 a#private_send {
 	text-decoration:none;
-	color:#fff;
+	color:#fbfbff;
 	font-size:1.2rem;
 	position:absolute;
 	right:20px;
@@ -1206,7 +1218,7 @@ a#private_send {
 	}
 
 	a#private_send:hover {
-		border-color:#fff;
+		border-color:#fbfbff;
 		}
 
 
@@ -1245,15 +1257,15 @@ div#private_life textarea {height:100px;}
 
 #footer_menu {
     padding-left:30px;
-    color:#fff;
+    color:#fbfbff;
     font-family:'Lato', verdana;
     font-size:.6rem;
     }
 
 #footer_menu a {
-    color:#fff;
+    color:#fbfbff;
     font-family:'Lato', verdana;
-    font-size:.6rem;
+    font-size:.75rem;
     text-decoration:none;
     }
 

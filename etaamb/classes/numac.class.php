@@ -304,6 +304,7 @@ class numac extends default_page
                                     .'</dd>
                                 <dt class="break"></dt>
                                 %%ELI-BLOCK%%
+                                <dt class="break"></dt>
                                 <dt>'.$this->getTerm('moniteur').'</dt>
                                     <dd class="doc_url">
                                     <a rel="nofollow" target="_blank "href="'.$this->ejusticeUrl().'">'
@@ -366,7 +367,7 @@ class numac extends default_page
 
 	function qrcodeUrl()
 		{
-		$this_url = 'https://etaamb.be/'.CURRENT_LANG.'/'.$this->numac;
+        $this_url = a($this->numac);
 		$url = 'http://chart.apis.google.com/chart'
 			  .'?cht=qr'
 			  .'&amp;chs=75x75'

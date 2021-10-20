@@ -66,6 +66,10 @@ div.document_text p {
 	widows:4;
 	}
 
+div.actions {
+    display:none;
+}
+
 div.title {
 	font-family:georgia,serif;
 	font-size:12pt;
