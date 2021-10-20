@@ -141,7 +141,7 @@ $p_title->noHtml()
 
 
 if (INDEX_LOG) $observer->msg('Init Done. Display Started','index','chapter');
-?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+?><!DOCTYPE html>
 <html>
 	<head>
 	   <title><?php echo $p_title?></title>
@@ -161,7 +161,9 @@ if (INDEX_LOG) $observer->msg('Init Done. Display Started','index','chapter');
                                         default:
                                             echo "noindex, follow";
                                         } ?>">
-	   <link rel="shortcut icon" href="<?php echo a('favicon.ico');?>">
+	   <link rel="shortcut icon" href="<?php echo a('assets/favicon.ico');?>">
+
+	   <link href="<?php echo a('css/fontello.css')?>" rel="stylesheet"  type="text/css">
 
        <!-- Default smartphone -->
 	   <link href="<?php echo a('css/smphone.css')?>" media="only screen and (max-device-width : 480px)" rel="stylesheet"  type="text/css">
@@ -226,9 +228,6 @@ if (INDEX_LOG) $observer->msg('Init Done. Display Started','index','chapter');
             if (LEGAL_FOOTER) include('./page_parts/footer.php');
         ?>
 		<?php 
-			if (HIRE_THE_DEV) 
-				include('./page_parts/hire_the_dev.php');
-
 			if (PRIVATE_LIFE_FORM) 
 				include('./page_parts/private_life.php');
 

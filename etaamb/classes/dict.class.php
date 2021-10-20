@@ -75,7 +75,7 @@ class dict
 			'linked_list' 	=> 'Textes mentionnés par ce document:',
 			'reversed_list' => 'Textes qui mentionnent ce document:',
 			'notype'		=> 'document',
-            'title'     	=> 'Etaamb',
+            'title'     	=> 'Etaamb.openjustice.be',
 			'moniteur'		=> 'Moniteur',
 			'my_error_title' 	=> 'Erreur de requête',
 			'my_error_oops' 	=> 'Oups...',
@@ -106,6 +106,8 @@ class dict
 			'rss_title_complete' 		=> 'Sommaire du Moniteur Belge',
 			'rss_description_complete'  => 'Tout le contenu de la dernière publication du Moniteur Belge, proposé sur le site etaamb.be',
 			'rss_signature'	=> 'Lisez le contenu complet sur etaamb.be !',
+			'print'	=> 'Afdrukvoorbeeld',
+            'pdf_file' => 'PDF Beeld',
 			'stopwords' 	=> 'alors au aucuns aussi autre avant avec avoir bon car ce cela ces ceux chaque ci comme comment dans de des du dedans dehors depuis deux devrait doit donc dos droite début elle elles en encore essai est et eu fait faites fois font force haut hors ici il ils je juste la le les leur là ma maintenant mais mes mine moins mon mot même ni nommés notre nous nouveaux ou où par parce parole pas personnes peut peu pièce plupart pour pourquoi quand que quel quelle quelles quels qui sa sans ses seulement si sien son sont sous soyez sujet sur ta tandis tellement tels tes ton tous tout trop très tu valeur voie voient vont votre vous vu ça étaient état étions été être'
             ),
         'nl' => array(
@@ -180,7 +182,7 @@ class dict
 			'linked_list' => 'Teksten waarnaar verwezen wordt in dit document: ',
 			'reversed_list' => 'Teksten die naar dit document verwijzen:',
 			'notype'	=> 'document',
-            'title' => 'Etaamb',
+            'title' => 'Etaamb.openjustice.be',
 			'moniteur'	=> 'Staatsblad',
 			'my_error_title' => 'Request Fout',
 			'my_error_oops' => 'Oeps...',
@@ -210,6 +212,8 @@ class dict
 			'rss_title_complete' 		=> 'Inhoudstafel van het Belgisch Staatsblad',
 			'rss_description_complete'  => 'Al de inhoud van de laaste publicatie van het Belgisch Staatsblad, aangeboden via de website etaamb.be',
 			'rss_signature'	=> 'Lees de volledige inhoud op etaamb.be !',
+			'print'	=> 'Aperçu impression',
+            'pdf_file' => 'Image PDF',
 			'stopwords' => 'aan af al alles als ben bij daar dan dat de der deze die dit doch doen door dus een eens en er ge geen haar had heb hebben heeft hem het hier hij hoe hun iets ik in is ja je kan kon maar me meer men met mij mijn moet na naar niet niets nog nu of om omdat ons ook op over reeds te tegen toch toen tot u uit uw van veel voor want waren was wat we wel werd wezen wie wij wil zal ze zei zelf zich zij zijn zo zou'
             )
         );

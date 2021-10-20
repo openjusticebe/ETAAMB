@@ -658,22 +658,28 @@ sub new
 
 ## Getters
 sub getPromDate
+
     {
     my ($self) = @_;
     my %months = (
         janvier=>1,fevrier=>2,mars=>3,avril=>4,mai=>5,juin=>6,juillet=>7,aout=>8,septembre=>9,octobre=>10,novembre=>11,decembre=>12,
         januari=>1,februari=>2,maart=>3,april=>4,mei=>5,juni=>6,juli=>7,augustus=>8,september=>9,oktober=>10,november=>11,december=>12
         );
-    $self->{_content} =~ m/<h3><center><u>\s(\d{1,2})\s(\w{1,})\s(\d{4})\./i;
 
-    if ($3 && $2 && $1 && exists($months{$2}))
+    if ($self->{_content} =~ m/\/eli\/[a-zAz_0-9\-\.\_]+\/(\d{4})\/(\d{2})\/(\d{2})\//i)
         {
-        return $3."-".$months{$2}."-".$1;
+        return $1."-".$2."-".$3;
         }
-    else
+
+    if ($self->{_content} =~ m/<h3><center><u>\s(\d{1,2})\s(\w{1,})\s(\d{4})\./i)
         {
-        return '--';
+        if (exists($months{$2}))
+            {
+            return $3."-".$months{$2}."-".$1;
+            }
         }
+
+    return '--';
     }
 
 sub getType
@@ -794,12 +800,76 @@ sub getSource
         {
 		return "nosource";
         }
-    $self->{_content} =~ m/^<font>([^<]+)<\/font><\/td><\/tr>/im;
-	if ($1 eq '')
+
+    if ($self->{_content} =~ m/^<font>([^<]+)<\/font><\/td><\/tr>/im)
 		{
-		return "nosource";
+        return $1;
 		}
-    return $1;
+    return "nosource";
+    }
+
+sub getEli
+    {
+    my ($self) = @_;
+    if ($self->{_content} =~ m/no article available with such references/i)
+        {
+		return undef;
+        }
+
+    if ($self->{_content} =~ m/(\/eli\/[a-zAz_0-9\/\-\.\_]+)/im)
+		{
+        return $1;
+		}
+    return undef;
+    }
+
+sub getEliType
+    {
+    my ($self) = @_;
+    if ($self->{_content} =~ m/no article available with such references/i)
+        {
+		return undef;
+        }
+
+    if ($self->{_content} =~ m/\/eli\/([a-zAz_0-9\-\.\_]+)\/[a-zAz_0-9\/\-\.\_]+/i)
+		{
+        return $1;
+		}
+    return undef;
+    }
+
+
+sub getPdf
+    {
+    my ($self) = @_;
+    if ($self->{_content} =~ m/no article available with such references/i)
+        {
+		return undef;
+        }
+
+    if ($self->{_content} =~ m/name=urlpdf value="([^"]+)"/i)
+		{
+        return $1 =~ s/^\s+|\s+$//rg;;
+		}
+    return undef;
+    }
+
+sub getChrono
+    {
+    # example : <a href="http://reflex.raadvst-consetat.be/reflex/?page=chrono&c=detail_get&d=detail&docid=66713&tab=chrono" target=_blank > 
+    my ($self) = @_;
+
+    if ($self->{_content} =~ m/no article available with such references/i)
+        {
+		return undef;
+        }
+
+    if ($self->{_content} =~ m/"(http:\/\/reflex.raadvst-consetat.be\/[^"]+)"/i)
+		{
+        return $1 =~ s/^\s+|\s+$//rg;;
+		}
+
+    return undef;
     }
 
 sub getTitle
@@ -887,6 +957,7 @@ sub cleanType
     return $type;
 
 }
+
 sub normalize
     {
     my $txt = shift;

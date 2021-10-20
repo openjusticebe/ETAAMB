@@ -90,13 +90,15 @@ do {
 
 		# 3) On l'enregistre
 
-		my $sql_doc = "insert into docs(numac,pub_date,prom_date,type,source,version,anonymise) values
-					(?,?,?,?,?,$version,?) on duplicate key update 
+		my $sql_doc = "insert into docs(numac,pub_date,prom_date,type,source,version,anonymise,eli_type_fr,eli_type_nl) values
+					(?,?,?,?,?,$version,?,?,?) on duplicate key update 
 						pub_date = ?,
 						prom_date = ?,
 						type = ?,
 						source = ?,
-						version = $version";
+						version = $version,
+                        eli_type_fr = ?,
+                        eli_type_nl = ?";
 
 		my $sql_txt = "insert into text(numac,ln,raw,pure, length) values
 					(?,?,?,?,?) on duplicate key update raw = ?, pure = ?, length = ?";
@@ -105,6 +107,9 @@ do {
 					(?,?,?,?) on duplicate key update raw = ?, pure = ?";
 
 		my $sql_lang = "update docs set languages = concat_ws(',',languages,?) where numac = ?";
+
+        my $sql_doclinks = "insert into doc_links(numac, chrono, eli, pdf) values
+                    (?,?,?,?) on duplicate key update chrono = ?, eli = ?, pdf = ?";
 
 		my $sth_doc = $dbh->prepare($sql_doc);
 		my $anonymise = "0";
@@ -121,10 +126,13 @@ do {
 			$data{numac},$data{pub_date},$data{prom_date},
 			getType($dbh,$data{type_nl},$data{type_fr}),
 			getSource($dbh,$data{source_nl},$data{source_fr}), $anonymise,
+            $data{eli_type_fr}, $data{eli_type_nl},
 			# Update part
 			$data{pub_date},$data{prom_date},
 			getType($dbh,$data{type_nl},$data{type_fr}),
-			getSource($dbh,$data{source_nl},$data{source_fr})) or die "$DBI::errstr";
+			getSource($dbh,$data{source_nl},$data{source_fr}),
+            $data{eli_type_fr}, $data{eli_type_nl}
+        ) or die "$DBI::errstr";
 
 		my $sth_txt = $dbh->prepare($sql_txt);
 			$sth_txt->execute($data{numac},'fr',$data{raw_fr},$data{norm_fr},length($data{norm_fr})
@@ -134,15 +142,24 @@ do {
 
 		my $sth_title = $dbh->prepare($sql_title);
 		my $sth_lang  = $dbh->prepare($sql_lang);
+		my $sth_doclinks  = $dbh->prepare($sql_doclinks);
 		if (!$data{raw_title_fr} eq '')
 				{
 				$sth_title->execute($data{numac},'fr',$data{raw_title_fr},$data{norm_title_fr},$data{raw_title_fr},$data{norm_title_fr}) or die "$DBI::errstr";
 				$sth_lang->execute('fr',$data{numac}) or die "$DBI::errstr";
+				$sth_doclinks->execute($data{numac},
+                    ,$data{chrono}, $data{eli}, $data{pdf}
+                    ,$data{chrono}, $data{eli}, $data{pdf}
+                    ) or die "$DBI::errstr";
 				}
 		if (!$data{raw_title_nl} eq '')
 				{
 				$sth_title->execute($data{numac},'nl',$data{raw_title_nl},$data{norm_title_nl},$data{raw_title_nl},$data{norm_title_nl}) or die "$DBI::errstr";
 				$sth_lang->execute('nl',$data{numac}) or die "$DBI::errstr";
+				$sth_doclinks->execute($data{numac},
+                    ,$data{chrono}, $data{eli}, $data{pdf}
+                    ,$data{chrono}, $data{eli}, $data{pdf}
+                    ) or die "$DBI::errstr";
 				}
 
         $pm->finish;
@@ -217,6 +234,12 @@ sub makeDataObject
     $fr_index = $page->typeIndex($pagedata{"type_fr"});
     $pagedata{"source_fr"} = $page->getSource();
     $pagedata{"source_nl"} = $page_nl->getSource();
+
+    $pagedata{"chrono"} = $page->getChrono();
+    $pagedata{"eli"} = $page->getEli();
+    $pagedata{"pdf"} = $page->getPdf();
+    $pagedata{"eli_type_fr"} = $page->getEliType();
+    $pagedata{"eli_type_nl"} = $page_nl->getEliType();
 
 
     if (($nl_index ne $fr_index) 

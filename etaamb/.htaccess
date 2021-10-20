@@ -3,6 +3,7 @@
 <IfModule rewrite_module>
 	RewriteEngine on
 	RewriteRule ^css/([a-z\/\.0-9\-]*)\.css$ css/$1.css [L,NC]
+	RewriteRule ^assets/([a-z\/\.0-9\-]*)$ assets/$1 [L,NC]
 	RewriteRule ^([a-z\/\.0-9\-]*)\.js$ $1.js [L,NC]
 	RewriteRule ^([a-z\/\.0-9\-]*)\.ico$ $1.ico [L,NC]
 	RewriteRule ^([a-z\/\.0-9\-_]*)\.png$ $1.png [L,NC]
@@ -50,7 +51,7 @@
 
 <IfModule headers_module>
 	<FilesMatch "\.(css|js)$">
-		Header set Cache-Control "max-age=32400, public, must-revalidate"
+		Header set Cache-Control "max-age=1800, public, must-revalidate"
 		FileETag INode Size
 	</FilesMatch>
 </IfModule>
