@@ -29,7 +29,12 @@ use utf8;
 $|=1;
 my $version=16;
 my $sleep_int=25;
-my $loop_num=1;
+
+if (defined $ENV{'THREADS'}) {
+    my $loop_num=$ENV{'THREADS'};
+} else {
+    my $loop_num=1;
+}
 
 ## Database init
 $db = $ENV{'DB_DATA'};
