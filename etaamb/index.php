@@ -161,7 +161,7 @@ if (INDEX_LOG) $observer->msg('Init Done. Display Started','index','chapter');
                                         default:
                                             echo "noindex, follow";
                                         } ?>">
-	   <link rel="shortcut icon" href="<?php echo a('favicon.ico');?>">
+	   <link rel="shortcut icon" href="<?php echo a('assets/favicon.ico');?>">
 
 	   <link href="<?php echo a('css/fontello.css')?>" rel="stylesheet"  type="text/css">
 
