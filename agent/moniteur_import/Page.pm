@@ -664,16 +664,16 @@ sub getPromDate
         janvier=>1,fevrier=>2,mars=>3,avril=>4,mai=>5,juin=>6,juillet=>7,aout=>8,septembre=>9,octobre=>10,novembre=>11,decembre=>12,
         januari=>1,februari=>2,maart=>3,april=>4,mei=>5,juni=>6,juli=>7,augustus=>8,september=>9,oktober=>10,november=>11,december=>12
         );
-    $self->{_content} =~ m/<h3><center><u>\s(\d{1,2})\s(\w{1,})\s(\d{4})\./i;
 
-    if ($3 && $2 && $1 && exists($months{$2}))
+    if ($self->{_content} =~ m/<h3><center><u>\s(\d{1,2})\s(\w{1,})\s(\d{4})\./i)
         {
-        return $3."-".$months{$2}."-".$1;
+        if (exists($months{$2}))
+            {
+            return $3."-".$months{$2}."-".$1;
+            }
         }
-    else
-        {
-        return '--';
-        }
+
+    return '--';
     }
 
 sub getType
@@ -794,12 +794,62 @@ sub getSource
         {
 		return "nosource";
         }
-    $self->{_content} =~ m/^<font>([^<]+)<\/font><\/td><\/tr>/im;
-	if ($1 eq '')
+
+    if ($self->{_content} =~ m/^<font>([^<]+)<\/font><\/td><\/tr>/im)
 		{
-		return "nosource";
+        return $1;
 		}
-    return $1;
+    return "nosource";
+    }
+
+sub getEli
+    {
+    # example : http://www.ejustice.just.fgov.be/eli/arrete/2000/03/29/2000022322/moniteur
+    my ($self) = @_;
+    if ($self->{_content} =~ m/no article available with such references/i)
+        {
+		return "noeli";
+        }
+
+    if ($self->{_content} =~ m/(\/eli\/[a-zAz_0-9\/\-\.\_]+)/im)
+		{
+        return $1;
+		}
+    return "noeli";
+    }
+
+sub getPdf
+    {
+    # example : <INPUT type=hidden name=urlpdf value="/mopdf/2000/04/19_1.pdf#Page2   ">
+    my ($self) = @_;
+    if ($self->{_content} =~ m/no article available with such references/i)
+        {
+		return "nopdf";
+        }
+
+    if ($self->{_content} =~ m/name=urlpdf value="([^"]+)"/im)
+		{
+        return $1 =~ s/^\s+|\s+$//rg;;
+		}
+    return "nopdf";
+    }
+
+sub getChrono
+    {
+    # example : <a href="http://reflex.raadvst-consetat.be/reflex/?page=chrono&c=detail_get&d=detail&docid=66713&tab=chrono" target=_blank > 
+    my ($self) = @_;
+
+    if ($self->{_content} =~ m/no article available with such references/i)
+        {
+		return "nochrono";
+        }
+
+    if ($self->{_content} =~ m/"(http:\/\/reflex.raadvst-consetat.be\/[^"]+)"/im)
+		{
+        return $1 =~ s/^\s+|\s+$//rg;;
+		}
+
+    return "nochrono";
     }
 
 sub getTitle
@@ -887,6 +937,7 @@ sub cleanType
     return $type;
 
 }
+
 sub normalize
     {
     my $txt = shift;

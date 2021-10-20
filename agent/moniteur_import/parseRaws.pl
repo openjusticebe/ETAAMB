@@ -106,6 +106,9 @@ do {
 
 		my $sql_lang = "update docs set languages = concat_ws(',',languages,?) where numac = ?";
 
+        my $sql_doclinks = "insert into doc_links(numac, ln, chrono, eli, pdf) values
+                    (?,?,?,?,?) on duplicate key update chrono = ?, eli = ?, pdf = ?";
+
 		my $sth_doc = $dbh->prepare($sql_doc);
 		my $anonymise = "0";
 
@@ -134,15 +137,24 @@ do {
 
 		my $sth_title = $dbh->prepare($sql_title);
 		my $sth_lang  = $dbh->prepare($sql_lang);
+		my $sth_doclinks  = $dbh->prepare($sql_doclinks);
 		if (!$data{raw_title_fr} eq '')
 				{
 				$sth_title->execute($data{numac},'fr',$data{raw_title_fr},$data{norm_title_fr},$data{raw_title_fr},$data{norm_title_fr}) or die "$DBI::errstr";
 				$sth_lang->execute('fr',$data{numac}) or die "$DBI::errstr";
+				$sth_doclinks->execute($data{numac}, 'fr'
+                    ,$data{chrono}, $data{eli_fr}, $data{pdf}
+                    ,$data{chrono}, $data{eli_fr}, $data{pdf}
+                    ) or die "$DBI::errstr";
 				}
 		if (!$data{raw_title_nl} eq '')
 				{
 				$sth_title->execute($data{numac},'nl',$data{raw_title_nl},$data{norm_title_nl},$data{raw_title_nl},$data{norm_title_nl}) or die "$DBI::errstr";
 				$sth_lang->execute('nl',$data{numac}) or die "$DBI::errstr";
+				$sth_doclinks->execute($data{numac}, 'nl'
+                    ,$data{chrono}, $data{eli_nl}, $data{pdf}
+                    ,$data{chrono}, $data{eli_nl}, $data{pdf}
+                    ) or die "$DBI::errstr";
 				}
 
         $pm->finish;
@@ -217,6 +229,11 @@ sub makeDataObject
     $fr_index = $page->typeIndex($pagedata{"type_fr"});
     $pagedata{"source_fr"} = $page->getSource();
     $pagedata{"source_nl"} = $page_nl->getSource();
+
+    $pagedata{"chrono"} = $page->getChrono();
+    $pagedata{"eli_fr"} = $page->getEli();
+    $pagedata{"eli_nl"} = $page_nl->getEli();
+    $pagedata{"pdf"} = $page->getPdf();
 
 
     if (($nl_index ne $fr_index) 

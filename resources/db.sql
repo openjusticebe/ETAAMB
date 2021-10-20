@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS `docs` (
   `anonymise` tinyint(1) NOT NULL,
   `version` tinyint(3) unsigned NOT NULL,
   `languages` set('fr','nl') DEFAULT NULL,
+  `createdTS` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `numac` (`numac`),
   KEY `pub_date` (`pub_date`),
@@ -37,6 +38,28 @@ CREATE TABLE IF NOT EXISTS `done_dates` (
   `date` date NOT NULL,
   PRIMARY KEY (`date`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `doc_links`
+--
+
+DROP TABLE IF EXISTS `doc_links`;
+CREATE TABLE IF NOT EXISTS `doc_links` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `numac` int(10) NOT NULL,
+  `ln` varchar(2) NOT NULL,
+  `chrono` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `eli` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `pdf` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `numac_ln` (`numac`,`ln`),
+  KEY `ln` (`ln`),
+  KEY `numac` (`numac`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
 
 -- --------------------------------------------------------
 
@@ -86,6 +109,7 @@ CREATE TABLE IF NOT EXISTS `raw_pages` (
   `raw_fr` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `raw_nl` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `version` tinyint(4) NOT NULL,
+  `createdTS` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `numac` (`numac`),
   KEY `pub_date` (`pub_date`)
@@ -104,6 +128,7 @@ CREATE TABLE IF NOT EXISTS `render_cache` (
   `ln` varchar(2) NOT NULL,
   `text` mediumblob NOT NULL,
   `version` tinyint(4) NOT NULL,
+  `createdTS` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `numac_ln` (`numac`,`ln`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=0 ;
@@ -138,6 +163,7 @@ CREATE TABLE IF NOT EXISTS `text` (
   `ln` varchar(2) NOT NULL,
   `raw` mediumtext NOT NULL,
   `pure` mediumtext NOT NULL,
+  `createdTS` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `numac_ln` (`numac`,`ln`),
   KEY `ln` (`ln`),
