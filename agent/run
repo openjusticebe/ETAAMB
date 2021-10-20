@@ -24,6 +24,9 @@ case "$subcommand" in
   setup_db)
     mysql -h ${DB_HOST} -u ${DB_USER} -p${DB_PASSWORD} --port ${DB_PORT} ${DB_DATA} < /resources/db.sql
     ;;
+  reset)
+    mysql -h ${DB_HOST} -u ${DB_USER} -p${DB_PASSWORD} --port ${DB_PORT} ${DB_DATA} < /resources/reset_data.sql
+    ;;
   mysql)
     mysql -h ${DB_HOST} -u ${DB_USER} -p${DB_PASSWORD} --port ${DB_PORT} ${DB_DATA}
     ;;

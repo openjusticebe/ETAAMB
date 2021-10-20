@@ -203,9 +203,9 @@ CREATE TABLE IF NOT EXISTS `types` (
   `type_nl` varchar(255) NOT NULL,
   `type_fr` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
+  `createdTS` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   KEY `type_nl` (`type_nl`),
-  KEY `type_fr` (`type_fr`),
-  KEY `type_fr_2` (`type_nl`)
+  KEY `type_fr` (`type_fr`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
 -- --------------------------------------------------------

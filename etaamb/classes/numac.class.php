@@ -320,7 +320,8 @@ class numac extends default_page
                             : '').'
                             <div class="actions">
                                 %%PDF-BLOCK%%
-                                <a class="icon-print" rel="nofollow" href="javascript:window.print();"></a>
+                                <a class="icon-print" rel="nofollow"
+                                href="javascript:window.print();"  title="'.$this->dict->get('print').'"></a>
                             </div>
                         </div>
 					<div id="document_text">
@@ -353,7 +354,9 @@ class numac extends default_page
 
         if ($this->d['pdf'])
             {
-            $el_html = '<a href="'.$this->pdfUrl().'" class="icon-file-pdf" target="_blank" rel="nofollow"></a>';
+            $el_html = '<a href="'.$this->pdfUrl().'" '.
+                'class="icon-file-pdf" target="_blank" '.
+                'rel="nofollow" title="'.$this->dict->get('pdf_file').'"></a>';
             $html = str_replace('%%PDF-BLOCK%%',$el_html,$html);
             }
 

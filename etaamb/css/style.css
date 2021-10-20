@@ -792,9 +792,13 @@ div.document {
         color:#4682b4;
         border:2px solid #4682b4;
         padding:2px 2px;
-        margin:0 2px;
+        margin:0 1px;
         border-radius:5px;
         }
+
+    div.actions a:first-child {
+        margin-left:0;
+    }
 
     div.actions a:hover {
         color:#fff;
