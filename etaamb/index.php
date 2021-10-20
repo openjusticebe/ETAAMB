@@ -141,7 +141,7 @@ $p_title->noHtml()
 
 
 if (INDEX_LOG) $observer->msg('Init Done. Display Started','index','chapter');
-?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+?><!DOCTYPE html>
 <html>
 	<head>
 	   <title><?php echo $p_title?></title>

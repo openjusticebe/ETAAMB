@@ -49,14 +49,11 @@ DROP TABLE IF EXISTS `doc_links`;
 CREATE TABLE IF NOT EXISTS `doc_links` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `numac` int(10) NOT NULL,
-  `ln` varchar(2) NOT NULL,
   `chrono` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `eli` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `pdf` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `numac_ln` (`numac`,`ln`),
-  KEY `ln` (`ln`),
-  KEY `numac` (`numac`)
+  UNIQUE KEY `numac` (`numac`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 

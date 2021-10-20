@@ -57,17 +57,55 @@ class text_renderer
 	static private function clean_head($t)
 		{
 		if (preg_match('#^\s{3}(FR|NL)\s(FR|NL)#',$t) > 0)
-			$t = preg_replace('#^[^\n]*\n{3}#','',$t);
+            {
+            if (self::$dolog) self::log('Clean NL/FR Line');
+			$t = preg_replace('#^[^\n]*\n{2,3}#','',$t);
+            }
 		if (preg_match('#^(Banque|Kruisp)#',$t) > 0)
+            {
+            if (self::$dolog) self::log('Clean belgielex Line (old)');
 			$t = preg_replace('#^[^\n]*\n\n[^\n]*\n{3}#','',$t);
-        $t = preg_replace('#^\s{3}\w*\n*\s{3}[^\n]*\n*\s{3}#','',$t);
+            }
+		if (preg_match('#^\s{3}(belgique|belgië)lex.be#',$t) > 0)
+            {
+            if (self::$dolog) self::log('Clean belgielex Line (new)');
+			$t = preg_replace('#^[^\n]*\n{2,3}#','',$t);
+            }
+		if (preg_match('#^\s{3}(Raad van State|Conseil d\'Etat)#',$t) > 0)
+            {
+            if (self::$dolog) self::log('Clean belgielex Line (new)');
+			$t = preg_replace('#^[^\n]*\n{2,3}#','',$t);
+            }
+		if (preg_match('#^\s{3}ELI\s#',$t) > 0)
+            {
+            if (self::$dolog) self::log('Clean ELI');
+            $t = preg_replace('#^([^\n]*\n){1,2}\s{3}http://www.*/eli/[^\n]*\n{2,3}#','',$t);
+            }
+		if (preg_match('#^\s{3}(einde|fin)\s#',$t) > 0)
+            {
+            if (self::$dolog) self::log('Clean Fin');
+			$t = preg_replace('#^[^\n]*\n{2,3}#','',$t);
+            }
+		if (preg_match('#^\s{3}(Publicatie|Publié)\s#',$t) > 0)
+            {
+            if (self::$dolog) self::log('Clean Publication');
+			$t = preg_replace('#^[^\n]*\n{1,2}#','',$t);
+            }
+		if (preg_match('#^\s{3}Numac\s:\s#',$t) > 0)
+            {
+            if (self::$dolog) self::log('Clean Numac');
+			$t = preg_replace('#^[^\n]*\n{1}#','',$t);
+            }
+
+        //$t = preg_replace('#^\s{3}\w*\n*\s{3}[^\n]*\n*\s{3}#','',$t);
 		if (self::$dolog) self::log('clean_head text length: '.strlen($t));
 		return $t;
 		}
 
 	static private function clean_tail($t)
 		{
-        $revt = preg_replace('#^\n*[^\n]*\n*\w*[\s\n]*#','',strrev($t));
+        $revt = strrev($t);
+        $revt = preg_replace('#^(.*?\n){2,6}(nigeb|tubed)\s{3}\n{3,6}#','',$revt);
         $t = strrev($revt);
 		if (self::$dolog) self::log('clean_tail text length: '.strlen($t));
 		return $t;

@@ -222,11 +222,15 @@ class collection_class
 					titles.pure as title_pure,
 					source_%LN   as source,
 					type_%LN    as type,
+                    doc_links.chrono as chrono,
+                    doc_links.eli as eli,
+                    doc_links.pdf as pdf,
 					DATE_FORMAT(pub_date,  \'%Y%m%d\') as pub_date,
 					DATE_FORMAT(prom_date, \'%Y%m%d\') as prom_date
 					
 					 FROM `docs` 
 					join titles on docs.numac = titles.numac 
+                    join doc_links on docs.numac = doc_links.numac
 					join sources on docs.source = sources.id 
 					join types on docs.type = types.id';
 		$baseQ = str_replace('%LN',$this->ln,$baseQ);
@@ -246,15 +250,18 @@ class collection_class
 					titles.pure as title_pure,
 					source_%LN   as source,
 					type_%LN    as type,
+                    doc_links.chrono as chrono,
+                    doc_links.eli as eli,
+                    doc_links.pdf as pdf,
 					DATE_FORMAT(pub_date,  \'%Y%m%d\') as pub_date,
 					UNIX_TIMESTAMP(pub_date) as pub_date_stamp,
 					DATE_FORMAT(prom_date, \'%Y%m%d\') as prom_date,
 					text.raw as text,
 					text.pure as textpure,
 					text.id	 as textid
-					
 					 FROM `docs` 
 					join titles on docs.numac = titles.numac 
+                    join doc_links on docs.numac = doc_links.numac
 					join sources on docs.source = sources.id 
 					join text on docs.numac = text.numac
 					join types on docs.type = types.id';

@@ -303,12 +303,30 @@ class numac extends default_page
 								.$this->displayDate($this->d['prom_date'])
 								.'</dd>
 							<dt class="break"></dt>
-                            <dt>'.$this->getTerm('moniteur').'</dt>'
-								.'<dd class="moniteur_url"><a href="'
-								.$this->ejusticeUrl()
-								.'">'
-								.substr($this->ejusticeUrl(),0,70)
-								.'(...)</a></dd>
+                            <dt>'.$this->getTerm('moniteur').'</dt>
+                                <dd class="moniteur_url">
+                                <a rel="nofollow" target="_blank "href="'.$this->ejusticeUrl().'">'
+                                .substr($this->ejusticeUrl(),0,50).'(...)</a>
+                            </dd>
+							<dt class="break"></dt>
+                            <dt>ELI</dt>
+                                <dd class="doc_url">
+                                <a rel="nofollow" target="_blank" href="'.$this->eliUrl().'">'
+                                .$this->d['eli'].'</a>
+                                </dd>
+							<dt class="break"></dt>
+                            <dt>refLex</dt>
+                                <dd class="doc_url">
+                                <a rel="nofollow" target="_blank" href="'.$this->d['chrono'].'">'
+                                .substr($this->d['chrono'],0,50).'(...)</a>
+                                </dd>
+							<dt class="break"></dt>
+                            <dt>pdf</dt>
+                                <dd class="doc_url">
+                                <a rel="nofollow" target="_blank" href="'.$this->pdfUrl().'">'
+                                .substr($this->pdfUrl(),0,50).'(...)</a>
+                                </dd>
+							<dt class="break"></dt>
                         </dl>
 						'.(SHOW_QRCODE ?
 							  '<div id="qrcode">
@@ -347,6 +365,21 @@ class numac extends default_page
 			 .'&amp;caller=summary&amp;pub_date='
              .$this->displayDate($this->d["pub_date"],'y-m-d')
 			 .'&amp;numac='.$this->d['numac'];
+        }
+
+    function eliUrl()
+        {
+         return 'http://www.ejustice.just.fgov.be/'
+			 .$this->d['eli'];
+    
+        }
+
+    function pdfUrl()
+        {
+        # Original page indicator is wrongly formatted
+        $fixed = preg_replace('/[Pp]age(\d+)/', 'page=$1', $this->d['pdf']);
+         return 'http://www.ejustice.just.fgov.be'
+			 .$fixed;
         }
 	
     function render_text($text)

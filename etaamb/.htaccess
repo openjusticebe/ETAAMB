@@ -50,7 +50,7 @@
 
 <IfModule headers_module>
 	<FilesMatch "\.(css|js)$">
-		Header set Cache-Control "max-age=32400, public, must-revalidate"
+		Header set Cache-Control "max-age=1800, public, must-revalidate"
 		FileETag INode Size
 	</FilesMatch>
 </IfModule>
