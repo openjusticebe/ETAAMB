@@ -8,6 +8,7 @@ class url_factory {
 	private $dom =false;
 	private $page=false;
 	private $lang=false;
+	private $html=false;
 	public function __construct($config)
 		{
 		$this->observer = observer::getinstance();
@@ -26,6 +27,9 @@ class url_factory {
 					: false;
 		$this->lang = isset($config['lang']) 
 				  	? $config['lang']
+					: false;
+		$this->html = isset($config['html']) 
+				  	? $config['html']
 					: false;
 		}
 
@@ -116,12 +120,13 @@ class url_factory {
 				? $this->page() : $this->page;
 		$page .= $page == '/' 
 				? 'index.html' : '';
-		$page .= strpos($page,'.html') == false
+		$page .= strpos($page,'.html') == false && $this->html
 				? '.html' : '';
 		if (substr($page,0,1) !== '/') $page = '/'.$page;
 		$url = str_replace('%ln'   ,$lang,$mask);
 		$url = str_replace('%page' ,$page,$url);
 		$url = str_replace('%host' ,$this->host(),$url);
+		$url = preg_replace('#([\w\d])//([\w\d])#m', "$1/$2", $url);
 		$this->url = $url;
 		return $this->url;
 		}

@@ -157,7 +157,7 @@ if (INDEX_LOG) $observer->msg('Init Done. Display Started','index','chapter');
        <meta property="og:title" content="etaamb <?php echo $p_title ?>" />
        <meta property="og:url" content="<?php echo $page->fullUrl() ?>" />
        <meta property="og:description" content="<?php $page->display('extract') ?>" />
-       <meta property="og:image" content="<?php echo a("/assets/img/OG_Image") ?>">
+       <meta property="og:image" content="<?php echo a("/assets/img/OG_Image.jpg", true) ?>">
        <meta property="og:locale" content="<?php echo $ln == 'fr' ? "fr_BE" : "nl_BE" ?>" />
 
        <!-- Twitter Card Content -->
@@ -166,7 +166,7 @@ if (INDEX_LOG) $observer->msg('Init Done. Display Started','index','chapter');
        <meta name="twitter:creator" content="@pieterjan_m">
        <meta name="twitter:title" content="<?php echo $p_title ?>">
        <meta name="twitter:description" content="<?php $page->display('description') ?>">
-       <meta name="twitter:image" content="<?php echo a("/assets/img/OG_Image") ?>">
+       <meta name="twitter:image" content="<?php echo a("/assets/img/OG_Image.jpg", true) ?>">
 
        <meta name="robots" content="<?php switch(get_class($page))
                                         {
@@ -286,7 +286,7 @@ function l($s)
    echo $dict->get($s);
    }
 
-function a($s)
+function a($s, $force_full=false)
 	{
 	if (preg_match('#\.[a-z]{2,4}$#i',$s) == 0)
 		$s .= '.html';
@@ -295,6 +295,11 @@ function a($s)
 		$url = new url_factory(array('page' => $s,'lang' => CURRENT_LANG));
 		return $url->raw();
 		}
+    else if ($force_full)
+        {
+		$url = new url_factory(array('page' => $s,'lang' => false, 'html' => false));
+		return $url->raw();
+        }
 	return '/'.$s;
 	}
 
