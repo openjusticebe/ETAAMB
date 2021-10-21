@@ -207,13 +207,13 @@ class stat_sorter
 
 class statistics 
 	{
-	private function groupAdd($group, $id, $values)
+	private static function groupAdd($group, $id, $values)
 		{
 		$group[$id] = $values;
 		return $group;
 		}
 
-	private function groupMeans($group)
+	private static function groupMeans($group)
 		{
 		$items = count($group);
 		$vectorLength = self::groupLength($group);
@@ -252,23 +252,23 @@ class statistics
 		}
 
 
-	private function groupLength($group)
+	private static function groupLength($group)
 		{
 		return count(current($group));
 		}
 
-	private function valuesAbsoluteDeviation($values)
+	private static function valuesAbsoluteDeviation($values)
 		{
 		//return stats_absolute_deviation($values);
 		}
 
-	public function mean($values)
+	public static function mean($values)
 		{
 		$length = count($values);
 		return array_sum($values)/$length;
 		}
 
-	public function standard_deviation($values)
+	public static function standard_deviation($values)
 		{
 		$mean = self::mean($values);
 		$length = count($values);
@@ -281,7 +281,7 @@ class statistics
 		return sqrt(array_sum($diffsquared)/$length);
 		}
 
-	public function variance($values,$mn=false)
+	public static function variance($values,$mn=false)
 		{
 		$mean = $mn !== false ? $mn : self::mean($values);
 		$buf = 0;
@@ -293,7 +293,7 @@ class statistics
 		return $buf;
 		}
 
-	public function median($values)
+	public static function median($values)
 		{
 		sort($values);
 		$length = count($values);
@@ -305,17 +305,17 @@ class statistics
 		return $median;
 		}
 
-	private function pearson2_skewness($values)
+	private static function pearson2_skewness($values)
 		{
 		return 3*(self::mean($values)-self::median($values))/self::standard_deviation($values);
 		}
 
-	private function pearson1_skewness($values)
+	private static function pearson1_skewness($values)
 		{
 		return (self::mean($values)-self::mode($values))/self::standard_deviation($values);
 		}
 
-	private function mode($values)
+	private static function mode($values)
 		{
 		$length = count($values);
 		$repetitions = array();
