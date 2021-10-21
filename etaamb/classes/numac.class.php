@@ -186,7 +186,9 @@ class numac extends default_page
         $meta[] = sprintf('<meta name="DC.Type" content="%s">', $this->d['eli_type_'.$this->dict->l()]);
         $meta[] = sprintf('<meta name="DC.Format" content="text/html">');
         $meta[] = sprintf('<meta name="DC.Identifier" content="%s">', $this->d['numac']);
-        $meta[] = sprintf('<meta name="DC.Source" content="%s">', $this->eliUrl());
+        // $meta[] = sprintf('<meta name="DC.Source" content="%s">', $this->eliUrl());
+        // Zotero & Jurism don't agree with the PURL definition of "source"
+        $meta[] = sprintf('<meta name="DC.Source" content="etaamb.openjustice.be">');
         $meta[] = sprintf('<meta name="DC.Language" content="%s">', $this->dict->l());
         if ($this->d['pdf'])
             {

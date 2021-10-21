@@ -153,6 +153,9 @@ if (INDEX_LOG) $observer->msg('Init Done. Display Started','index','chapter');
 	   <meta name="msvalidate.01" content="F0E964CE6711F065A11268CFBD644C7B" >
 	   <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1">
 
+        <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/" />
+        <link rel="schema.DCTERMS" href="http://purl.org/dc/terms/" />
+
         <!-- OG Content -->
        <meta property="og:title" content="<?php echo $p_title ?>" />
        <meta property="og:url" content="<?php echo $page->fullUrl() ?>" />
