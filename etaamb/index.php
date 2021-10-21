@@ -152,6 +152,14 @@ if (INDEX_LOG) $observer->msg('Init Done. Display Started','index','chapter');
 	   <meta name="google-site-verification" content="liTBFiv7YynOwP85ZXv3hsDPriOmk7qSsd6LQyR4KaY" >
 	   <meta name="msvalidate.01" content="F0E964CE6711F065A11268CFBD644C7B" >
 	   <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1">
+
+        <!-- OG Content -->
+       <meta property="og:title" content="etaamb.openjustice.be" />
+       <meta property="og:url" content="<?php echo $page->fullUrl() ?>" />
+       <meta property="og:description" content="<?php $page->display('description') ?>" />
+       <meta property="og:image" content="/assets/img/OG_Image.jpg" />
+       <meta property="og:locale" content="<?php echo $ln == 'fr' ? "fr_BE" : "nl_BE" ?>" />
+
        <meta name="robots" content="<?php switch(get_class($page))
                                         {
                                         case 'title':
