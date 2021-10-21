@@ -121,6 +121,13 @@ class normalize
 		return $this;
 		}
 
+    public function fixSpace()
+        {
+        $this->term = preg_replace("#\s{1,}#"," ", $this->term);
+        $this->term = preg_replace("#([\.;:])([\w\d])#","$1 $2", $this->term);
+		return $this;
+        }
+
 	public function str()
 		{
 		return $this->term;

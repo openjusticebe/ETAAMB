@@ -67,6 +67,14 @@ class numac extends default_page
 							   $description->doTrim()
 							   			   ->noHtml()
 							   			   );
+
+        $chars = 240;
+        $text = $this->render_text(substr($this->d["text"], 0, $chars * 1.4));
+		$desc_long = new normalize($text);
+        $this->terms['extract'] = sprintf('%s(...)',
+            $desc_long->noHtml()->doTrim()->fixSpace()
+        );
+
 		return $this;
 		}
 
@@ -196,6 +204,13 @@ class numac extends default_page
 						   ,$text);
 		return $text;
 		}
+
+    function getExtract($chars=120)
+        {
+        $text = $this->render_text(substr($this->d["text"], 0, $chars * 2));
+        $text = str_replace(["\n", "<br>", "<br/>"], ' ', $text);
+        return trim(strip_tags($text));
+        }
 
 	function render_page()
 		{

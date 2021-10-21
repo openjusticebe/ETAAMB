@@ -154,9 +154,9 @@ if (INDEX_LOG) $observer->msg('Init Done. Display Started','index','chapter');
 	   <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1">
 
         <!-- OG Content -->
-       <meta property="og:title" content="etaamb.openjustice.be" />
+       <meta property="og:title" content="etaamb <?php echo $p_title ?>" />
        <meta property="og:url" content="<?php echo $page->fullUrl() ?>" />
-       <meta property="og:description" content="<?php $page->display('description') ?>" />
+       <meta property="og:description" content="<?php $page->display('extract') ?>" />
        <meta property="og:image" content="/assets/img/OG_Image.jpg" />
        <meta property="og:locale" content="<?php echo $ln == 'fr' ? "fr_BE" : "nl_BE" ?>" />
 
