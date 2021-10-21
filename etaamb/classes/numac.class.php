@@ -176,7 +176,7 @@ class numac extends default_page
 							  .$prom_year
 						 .', '.$this->dict->get('moniteur'));
 
-		echo implode("\n\t",$meta);
+		echo sprintf("%s\n%s", implode("\n\t",$meta), $this->getLinkedData());
 		}
 
 	function main()
@@ -829,4 +829,44 @@ class numac extends default_page
 		preg_match('#(\d{10})$#',$this->name,$match);
 		return $match[1];
 		}
+
+    function getLinkedData()
+        {
+
+		list($day,$month,$year) = explode('/' , $this->displayDate($this->d['pub_date']));
+		$pubDateLink = a(sprintf('pub/%s/%s/%s',
+						$year,$month,$day));
+        return '
+            <script type="application/ld+json">
+            {
+              "@context": "https://schema.org",
+              "@id": "'.$this->eliUrl().'",
+              "@type": "Legislation",
+              "image": [
+                "'.a("/assets/img/OG_Image.jpg", true).'"
+              ],
+              "name" : [
+                    { "@value": "'.$this->terms['description'].'" }
+              ],
+              "legislationIdentifier" : "'.$this->d['numac'].'",
+              "legislationType" : "'.$this->d['eli_type_'.$this->dict->l()].'",
+              "inLanguage" : ["'.$this->dict->l().'"],
+              "legislationDate" : "'.$this->displayDate($this->d["prom_date"], "Y-m-d").'",
+              "datePublished" : "'.$this->displayDate($this->d["pub_date"], "Y-m-d").'",
+              "isPartOf" : {
+                  "@id": "'.$pubDateLink.'",
+                  "@type" : "PublicationIssue",
+                  "name" : "Belgian Official Journal from '.$this->displayDate($this->d["pub_date"], "Y-m-d").'"
+              },
+              "publisher": {
+                "@type": "Organization",
+                "name": "OpenJustice.be",
+                "logo": {
+                  "@type": "ImageObject",
+                  "url": "https://openjustice.be/wp-content/uploads/2021/01/Screenshot-2021-02-21-at-20.40.26.png"
+                }
+              }
+            }
+            </script>';
+        }
 }
