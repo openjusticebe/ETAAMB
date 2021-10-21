@@ -339,14 +339,14 @@ class statistics
 
 class calc
 	{
-	function to_norm($num,$base,$to=100)
+	static function to_norm($num,$base,$to=100)
 		{
 		if ($base == 0) return 0;
 		$val = ($num/$base) * $to;
 		return intval($val);
 		}
 
-	function make_vector_dict($str)
+	static function make_vector_dict($str)
 		{
 		$arr = explode(' ',$str);
 		$dict = array();
@@ -361,7 +361,7 @@ class calc
 		return $dict;
 		}
 
-	function to_vector($str,$dict)
+	static function to_vector($str,$dict)
 		{
 		$str = trim($str);
 		$array  = array_count_values(explode(' ',$str));
@@ -377,7 +377,7 @@ class calc
 		return array_values($vector);
 		}
 
-	function cosine_similarity($a,$b)
+	static function cosine_similarity($a,$b)
 		{
 		$sq = function($v) { return $v*$v;};
 		$A = 0;
