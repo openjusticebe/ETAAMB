@@ -335,7 +335,7 @@ class numac extends default_page
                                 <dt class="break"></dt>
                                 <dt>'.$this->getTerm('moniteur').'</dt>
                                     <dd class="doc_url">
-                                    <a rel="nofollow" target="_blank href="'.$this->ejusticeUrl().'">'
+                                    <a rel="nofollow" target="_blank" href="'.$this->ejusticeUrl().'">'
                                     .substr($this->ejusticeUrl(),0,50).'(...)</a>
                                 </dd>
                                 <dt class="break"></dt>
@@ -448,13 +448,14 @@ class numac extends default_page
     function render_text($text)
         {
 		if ($this->do_log) $this->log('Numac Text Rendering. Length:'.strlen($text));
+		$text = text_renderer::make($text,$this->dict->l());
+
 		if ($this->anonCheck() && AUTO_ANONYMISE)
 			{
 			if ($this->do_log) $this->log('Numac Render Anon step Length:'.strlen($text));
 			$text = anoner::anonymise($text,$this->dict->l());
 			}
 
-		$text = text_renderer::make($text,$this->dict->l());
 		if ($this->do_log) $this->log('Numac Render Render Step Length:'.strlen($text));
 		$text = $this->linkedDocs_enrich($text);
 		if ($this->do_log) $this->log('Numac Render Linked Docs step Length:'.strlen($text));

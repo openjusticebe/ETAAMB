@@ -14,10 +14,10 @@ CREATE TABLE IF NOT EXISTS `docs` (
   `numac` int(11) NOT NULL,
   `pub_date` date NOT NULL,
   `prom_date` date NOT NULL,
-  `type` tinyint(3) unsigned NOT NULL,
+  `type` mediumint(8) unsigned NOT NULL,
   `eli_type_fr` tinytext DEFAULT NULL,
   `eli_type_nl` tinytext DEFAULT NULL,
-  `source` tinyint(3) unsigned DEFAULT NULL,
+  `source` mediumint(8) unsigned DEFAULT NULL,
   `anonymise` tinyint(1) NOT NULL,
   `version` tinyint(3) unsigned NOT NULL,
   `languages` set('fr','nl') DEFAULT NULL,
@@ -142,8 +142,8 @@ CREATE TABLE IF NOT EXISTS `render_cache` (
 DROP TABLE IF EXISTS `sources`;
 CREATE TABLE IF NOT EXISTS `sources` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `source_nl` varchar(1024) DEFAULT NULL,
-  `source_fr` varchar(1024) DEFAULT NULL,
+  `source_nl` varchar(8192) DEFAULT NULL,
+  `source_fr` varchar(8192) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `source_fr` (`source_fr`),
   KEY `source_nl` (`source_nl`)

@@ -28,12 +28,11 @@ use Autocorrect;
 use utf8;
 $|=1;
 my $version=16;
-my $sleep_int=25;
 
-if (defined $ENV{'THREADS'}) {
-    my $loop_num=$ENV{'THREADS'};
-} else {
-    my $loop_num=1;
+
+my $loop_num=1;
+if (defined $ENV{THREADS}) {
+    $loop_num=$ENV{THREADS};
 }
 
 ## Database init
@@ -43,7 +42,8 @@ $login = $ENV{'DB_USER'};
 $mdp = $ENV{'DB_PASSWORD'};
 $port = $ENV{'DB_PORT'};
 my $dsn = "DBI:MariaDB:database=$db;port=$port;host=$host";
-my $pm = new Parallel::ForkManager($loop_num);
+print "Starting with $loop_num threads\n";
+my $pm = Parallel::ForkManager->new($loop_num);
 
 ## DICT SETUP ##############
 ############################
@@ -70,9 +70,10 @@ do {
 
 	my $sth = $dbh->prepare($sql);
 	$sth->execute() or die "$DBI::errstr $sql\n";
+    PARSE:
 	while (my ($numac) = $sth->fetchrow_array())
 		{
-        $pm->start and next;
+        $pm->start and next PARSE;
         my $dbh = DBI->connect( $dsn, $login, $mdp, {PrintError => 0, RaiseError => 0}
             ) or die "Db Connection Error";
 
@@ -126,18 +127,18 @@ do {
 			print "ANON            Doc $data{numac} anon bit wil be set\n";
 			}
 		
+        $doc_source = getSource($dbh,$data{source_nl},$data{source_fr});
+        $doc_type = getType($dbh,$data{type_nl},$data{type_fr});
 		$sth_doc->execute(
 			# Insert part
 			$data{numac},$data{pub_date},$data{prom_date},
-			getType($dbh,$data{type_nl},$data{type_fr}),
-			getSource($dbh,$data{source_nl},$data{source_fr}), $anonymise,
+			$doc_type, $doc_source, $anonymise,
             $data{eli_type_fr}, $data{eli_type_nl},
 			# Update part
 			$data{pub_date},$data{prom_date},
-			getType($dbh,$data{type_nl},$data{type_fr}),
-			getSource($dbh,$data{source_nl},$data{source_fr}),
+			$doc_type, $doc_source,
             $data{eli_type_fr}, $data{eli_type_nl}
-        ) or die "$DBI::errstr";
+        ) or die "$DBI::errstr $data{numac} source: $doc_source type: $doc_type";
 
 		my $sth_txt = $dbh->prepare($sql_txt);
 			$sth_txt->execute($data{numac},'fr',$data{raw_fr},$data{norm_fr},length($data{norm_fr})
@@ -170,14 +171,9 @@ do {
         $pm->finish;
 		}
 
-    #print "\nWaiting for children..\n";
+    print "\nWaiting for children..\n";
     $pm->wait_all_children;
 	$counter++;
-	if ($counter%$sleep_int == 0)
-		{
-		sleep(1);
-		print "z";
-		}
 	print "+\n" if ($counter%2 == 0);
 
 	$sql = "SELECT count( * ) AS count FROM raw_pages LEFT JOIN docs ON raw_pages.numac = docs.numac WHERE docs.numac IS NULL or docs.version < $version";
@@ -193,7 +189,11 @@ do {
 		}
 	else
 		{
-		print "\n $count to go !!\n";
+		print "##############################################################\n";
+		print "##############################################################\n";
+		print "                  1000 mark, $count to go !!                  \n";
+		print "##############################################################\n";
+		print "##############################################################\n";
 		}
 } while (1 == 1);
 exit 0;
@@ -273,7 +273,7 @@ sub makeDataObject
     if ($pagedata{"type_fr"} eq $pagedata{"type_nl"} 
         and $pagedata{"type_nl"} eq 'document' )
         {
-        print "          DOCUMENT      $numac has been set as beign a document\n";
+        print "          DOCUMENT      $numac has been set as being a document\n";
         print "                        NL title: ".substr(normalize($page_nl->getTitle()),0,90)."\n";
         print "                        FR title: ".substr(normalize($page->getTitle()),0,90)."\n";
         }
@@ -326,7 +326,7 @@ sub getSource
 	$sth = $dbh->prepare("insert into sources (source_nl, source_fr) values (?,?)");
 	$sth->execute($src_nl,$src_fr) or die "$DBI::errstr";
 
-	sleep(2);
+    select(undef, undef, undef, 100 / 1000);
 	$sth = $dbh->prepare("select id from sources where source_nl = ? and source_fr=?");
 	$sth->execute($src_nl,$src_fr) or die "$DBI::errstr";
 	my ($num) = $sth->fetchrow_array();

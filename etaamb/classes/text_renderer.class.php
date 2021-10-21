@@ -56,7 +56,7 @@ class text_renderer
 
 	static private function clean_head($t)
 		{
-		if (preg_match('#^\s{3}(FR|NL|DE)\s(FR|NL|DE)#',$t) > 0)
+		if (preg_match('#^\s{3}(FR|NL|DE)(\s(FR|NL|DE)){1,2}#',$t) > 0)
             {
             if (self::$dolog) self::log('Clean NL/FR/DE Line');
 			$t = preg_replace('#^[^\n]*\n{2,3}#','',$t);
