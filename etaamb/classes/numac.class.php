@@ -176,6 +176,19 @@ class numac extends default_page
 							  .$prom_year
 						 .', '.$this->dict->get('moniteur'));
 
+        $meta[] = sprintf('<meta name="DC.Title" content="%s">', $this->getTerm('title'));
+        $meta[] = sprintf('<meta name="DC.Creator" content="%s">', $this->getTerm('moniteur'));
+        $meta[] = sprintf('<meta name="DC.Subject" content="etaamb.openjustice.be">');
+        $meta[] = sprintf('<meta name="DC.Description" content="%s">', $this->getTerm('description'));
+        $meta[] = sprintf('<meta name="DC.Publisher" content="%s">', $this->getTerm('moniteur'));
+        $meta[] = sprintf('<meta name="DC.Contributor" content="openjustice.be">');
+        $meta[] = sprintf('<meta name="DC.Date" content="%s">', $this->displayDate($this->d["prom_date"], "Y-m-d"));
+        $meta[] = sprintf('<meta name="DC.Type" content="%s">', $this->d['eli_type_'.$this->dict->l()]);
+        $meta[] = sprintf('<meta name="DC.Format" content="html">');
+        $meta[] = sprintf('<meta name="DC.Identifier" content="%s">', $this->d['numac']);
+        $meta[] = sprintf('<meta name="DC.Source" content="%s">', $this->getTerm('source'));
+        $meta[] = sprintf('<meta name="DC.Language" content="nl">');
+
 		echo sprintf("%s\n%s", implode("\n\t",$meta), $this->getLinkedData());
 		}
 
