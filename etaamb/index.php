@@ -143,7 +143,7 @@ $p_title->noHtml()
 if (INDEX_LOG) $observer->msg('Init Done. Display Started','index','chapter');
 ?><!DOCTYPE html>
 <html>
-	<head>
+	<head profile="http://dublincore.org/documents/2008/08/04/dc-html/">
 	   <title><?php echo $p_title?></title>
        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	   <meta http-equiv="content-language" content="<?php echo $ln?>">
@@ -154,7 +154,7 @@ if (INDEX_LOG) $observer->msg('Init Done. Display Started','index','chapter');
 	   <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no, initial-scale=1">
 
         <!-- OG Content -->
-       <meta property="og:title" content="etaamb <?php echo $p_title ?>" />
+       <meta property="og:title" content="<?php echo $p_title ?>" />
        <meta property="og:url" content="<?php echo $page->fullUrl() ?>" />
        <meta property="og:description" content="<?php $page->display('extract') ?>" />
        <meta property="og:image" content="<?php echo a("/assets/img/OG_Image.jpg", true) ?>">
@@ -209,6 +209,7 @@ if (INDEX_LOG) $observer->msg('Init Done. Display Started','index','chapter');
            echo '<link href="'.a('css/debug.css').'" media="screen" rel="stylesheet" type="text/css" >';
 
 	   $page->meta();
+
 	   ?>
 
 	   <script type="text/javascript">
