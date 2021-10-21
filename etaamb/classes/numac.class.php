@@ -177,8 +177,7 @@ class numac extends default_page
 						 .', '.$this->dict->get('moniteur'));
 
         $meta[] = sprintf('<meta name="DC.Title" content="%s">', $this->getTerm('title'));
-        $meta[] = sprintf('<meta name="DC.Creator" content="%s">', $this->getTerm('moniteur'));
-        $meta[] = sprintf('<meta name="DC.Subject" content="etaamb.openjustice.be">');
+        $meta[] = sprintf('<meta name="DC.Creator" content="%s">', $this->d['source']);
         $meta[] = sprintf('<meta name="DC.Description" content="%s">', $this->getTerm('description'));
         $meta[] = sprintf('<meta name="DC.Publisher" content="%s">', $this->getTerm('moniteur'));
         $meta[] = sprintf('<meta name="DC.Contributor" content="openjustice.be">');
@@ -187,7 +186,7 @@ class numac extends default_page
         $meta[] = sprintf('<meta name="DC.Format" content="html">');
         $meta[] = sprintf('<meta name="DC.Identifier" content="%s">', $this->d['numac']);
         $meta[] = sprintf('<meta name="DC.Source" content="%s">', $this->getTerm('source'));
-        $meta[] = sprintf('<meta name="DC.Language" content="nl">');
+        $meta[] = sprintf('<meta name="DC.Language" content="%s">', $this->dict->l());
 
 		echo sprintf("%s\n%s", implode("\n\t",$meta), $this->getLinkedData());
 		}
@@ -335,7 +334,7 @@ class numac extends default_page
                                 <dt class="break"></dt>
                                 <dt>'.$this->getTerm('moniteur').'</dt>
                                     <dd class="doc_url">
-                                    <a rel="nofollow" target="_blank "href="'.$this->ejusticeUrl().'">'
+                                    <a rel="nofollow" target="_blank href="'.$this->ejusticeUrl().'">'
                                     .substr($this->ejusticeUrl(),0,50).'(...)</a>
                                 </dd>
                                 <dt class="break"></dt>
