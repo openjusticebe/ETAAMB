@@ -143,7 +143,7 @@ $p_title->noHtml()
 if (INDEX_LOG) $observer->msg('Init Done. Display Started','index','chapter');
 ?><!DOCTYPE html>
 <html>
-	<head profile="http://dublincore.org/documents/2008/08/04/dc-html/">
+	<head>
 	   <title><?php echo $p_title?></title>
        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	   <meta http-equiv="content-language" content="<?php echo $ln?>">
