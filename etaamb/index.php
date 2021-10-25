@@ -214,18 +214,6 @@ if (INDEX_LOG) $observer->msg('Init Done. Display Started','index','chapter');
 	   $page->meta();
 
 	   ?>
-
-	   <script type="text/javascript">
-		   var _gaq = _gaq || [];
-		   _gaq.push(['_setAccount', 'UA-4219222-6']);
-		   _gaq.push(['_trackPageview']);
-
-		   (function() {
-				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-			})();
-		</script>
 	</head>
 
 	<body class="<?php if (EU_POPUP) echo 'eupopup eupopup-bottom';?>">
@@ -280,6 +268,37 @@ if (INDEX_LOG) $observer->msg('Init Done. Display Started','index','chapter');
    var Words = <?php echo $highlighter->js_integrate(); ?>;
    var Host = '<?php echo $url->host();?>';
    </script>
+
+    <!-- Google -->
+   <script type="text/javascript">
+	   var _gaq = _gaq || [];
+	   _gaq.push(['_setAccount', 'UA-4219222-6']);
+	   _gaq.push(['_trackPageview']);
+
+	   (function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+
+    <!-- Matomo -->
+    <script type="text/javascript">
+      var _paq = window._paq = window._paq || [];
+      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u="//matomo.openjustice.lltl.be/";
+        _paq.push(['setTrackerUrl', u+'matomo.php']);
+        _paq.push(['setSiteId', '8']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+      })();
+    </script>
+    <!-- End Matomo Code -->
+
+
 	</body>
 </html><?php
 
