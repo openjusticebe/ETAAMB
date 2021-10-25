@@ -40,7 +40,7 @@ body {
     flex-direction:column;
     font-size:16px;
     }
-#main {
+#content {
 	padding-left:4px;
 	padding-bottom:28px;
 	margin-top:58px;
@@ -92,6 +92,10 @@ h2 {
     #etaamb_title a:hover {
         color:#184060;
         }
+
+.twitter_integration {
+    display:none;
+}
 
 /********************************* Language Select 
 *************************************************/
@@ -569,7 +573,7 @@ table.doclink {
 
 /***************************** Document Page Style
 *************************************************/
-div.document_title {
+.document_title {
 	font-size:1.2rem;
 	color:#28699E;
 	/*margin:21px 0 0;*/
@@ -578,12 +582,12 @@ div.document_title {
 	margin-left:0px;
 	}
 
-	div.document_title a { 
+	.document_title a { 
 		color:#184060;
 		text-decoration:none;
 		}
 
-	div.document_title a:hover { 
+	.document_title a:hover { 
 		text-decoration:underline;
 		}
 
@@ -591,7 +595,7 @@ div.actions {
     display:none;
 }
 
-div.document {
+.document {
     box-shadow: 0px 0px 7px -4px #002;
     background-color:#fff;
     padding:10px 0px;
@@ -607,7 +611,7 @@ div.document {
 	padding:0px 1% 0;
     }
 
-    div.document h1.doc_title {
+    .document h1.doc_title {
         font-family:georgia,serif;
         text-align:justify;
         font-weight:bold;
@@ -615,17 +619,17 @@ div.document {
 		display:none;
         }
 
-    div.document dt {
+    .document dt {
         display:inline;
         color:#555;
         font-size:0.625rem;
         font-family:helvetica,sans-serif;
         }
-	div.document dt.break{
+	.document dt.break{
 		display:block;
 		}
 
-    div.document dd {
+    .document dd {
         display:inline;
         text-align:left;
         margin-left:4px;
@@ -633,7 +637,7 @@ div.document {
         
         }
 
-    div.document dd.date {
+    .document dd.date {
         font-family:helvetica, sans-serif;
         font-size:0.75rem;
         width:80px;
@@ -663,7 +667,7 @@ div.document {
 		word-wrap: break-word;
         }
 
-    div.document_text {
+    .document_text {
         font-family:georgia, serif;
         font-size:0.9rem;
         line-height:16px;

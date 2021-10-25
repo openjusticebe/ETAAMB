@@ -263,14 +263,23 @@ class numac extends default_page
 				.$pubDateLink
 				;
 		if ($this->do_log) $this->log('Numac Return Main Page');
-		$DocPanel   = sprintf('<div class="document_title">%s</div>%s'
+		$DocPanel   = sprintf('<navigation class="document_title">%s</navigation>%s'
 					  ,$title, $this->docDisplay());
-		$RightPanel = sprintf('<div class="right_panel">'
+		$RightPanel = sprintf('<aside class="right_panel">'
 					   .'<div class="etaamb_description">%s</div>'
+                       .'<div class="twitter_integration">
+                        <a class="twitter-timeline"
+                            href="https://twitter.com/OpenJusticeB"
+                            data-chrome="noheader, nofooter, noborders"
+                            data-theme="light"
+                            data-dnt="false"
+                            data-tweet-limit="2"
+                            data-width="auto" ></a>
+                        <script async src="http://platform.twitter.com/widgets.js" charset="utf-8"></script></div>'
 					   .'%s'
 					   .'<div class="documents_reverse text_links">%s</div>'
 					   .'<div class="documents_linked text_links">%s</div>'
-					   .'</div>'
+					   .'</aside>'
 					   ,'<!--etaamb_desc-->'
 					   ,'<!--referer_data-->'
 					   ,'<!--reverse_links-->'
@@ -308,9 +317,9 @@ class numac extends default_page
 
 
         $html = '<div id="info_just">
-                    <a href="'.$this->getTerm('just_url').'" >'.$this->getTerm('just_title').'</a>
+                 <a href="'.$this->getTerm('just_url').'" >'.$this->getTerm('just_title').'</a>
                  </div>
-                 <div class="document">
+                 <main class="document">
                     <h1 class="doc_title">'.$this->get_title().'</h1>
                         <div class="meta">
                             <dl>
@@ -353,13 +362,13 @@ class numac extends default_page
                                 href="javascript:window.print();"  title="'.$this->dict->get('print').'"></a>
                             </div>
                         </div>
-					<div id="document_text">
+					<div id="document_text" >
                             <div class="document_text">
                             '.$this->render_text($this->d["text"]).'
                     </div>
 						<!--tag_words-->
 					</div>
-                </div>';
+                </main>';
 
         if ($this->d['eli'])
             {

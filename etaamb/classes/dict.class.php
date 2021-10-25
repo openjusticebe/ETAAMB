@@ -5,10 +5,10 @@ class dict
 
     var $langs = array (
         "fr" => array (
-            'title_just_title' => 'La publication online des décisions de Justice : constats d’urgence',
-            'title_just_url' => 'https://openjustice.be/2020/05/16/la-publication-online-des-decisions-de-justice-constats-durgence/',
-            'numac_just_title' => 'La publication online des décisions de Justice : constats d’urgence',
-            'numac_just_url' => 'https://openjustice.be/2020/05/16/la-publication-online-des-decisions-de-justice-constats-durgence/',
+            'title_just_title' => 'Un service de l\'asbl OpenJustice.be',
+            'title_just_url' => 'https://openjustice.be/',
+            'numac_just_title' => 'Un service de l\'asbl OpenJustice.be',
+            'numac_just_url' => 'https://openjustice.be/',
 			'search'		=> 'rechercher',
 			'index_title' => 'Bienvenue sur Etaamb | Index Global',
 			'index_description' => 'Index Par Date des publications du Moniteur Belge',
@@ -112,10 +112,10 @@ class dict
 			'stopwords' 	=> 'alors au aucuns aussi autre avant avec avoir bon car ce cela ces ceux chaque ci comme comment dans de des du dedans dehors depuis deux devrait doit donc dos droite début elle elles en encore essai est et eu fait faites fois font force haut hors ici il ils je juste la le les leur là ma maintenant mais mes mine moins mon mot même ni nommés notre nous nouveaux ou où par parce parole pas personnes peut peu pièce plupart pour pourquoi quand que quel quelle quelles quels qui sa sans ses seulement si sien son sont sous soyez sujet sur ta tandis tellement tels tes ton tous tout trop très tu valeur voie voient vont votre vous vu ça étaient état étions été être'
             ),
         'nl' => array(
-            'title_just_title' => 'Justitie digitaliseren: Call to Contribution',
-            'title_just_url' => 'https://justice-pourlepeuple-doorhetvolk.be/',
-            'numac_just_title' => 'Justitie digitaliseren: Call to Contribution',
-            'numac_just_url' => 'https://justice-pourlepeuple-doorhetvolk.be/',
+            'title_just_title' => 'Een dienst van vzw OpenJustice.be',
+            'title_just_url' => 'https://openjustice.be',
+            'numac_just_title' => 'Een dienst van  vzw OpenJustice.be',
+            'numac_just_url' => 'https://openjustice.be',
 			'search'		=> 'opzoeken',
 			'index_title' => 'Welkom op Etaamb | Globale Index',
 			'index_description' => 'Index per Datum van de publicaties van het Belgisch Staatsblad',

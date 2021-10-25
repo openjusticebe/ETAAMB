@@ -13,7 +13,7 @@
 #info_just a {
     font-family: 'Merriweather', georgia, serif;
     font-weight: bold;
-    font-size:1rem;
+    font-size:1.5rem;
     color: #fbfbff;
     text-decoration: none;
     border-bottom: 1px dotted #fbfbff;
@@ -23,7 +23,20 @@
     border-bottom-style:solid;
 }
 
+.twitter_integration {
+    margin-top:2rem;
+    margin-bottom:2rem;
+    width:100%;
+    max-width:36rem;
+    background-color:#fff;
+    border-radius:5px;
+    box-shadow: 2px 2px 7px -4px #002;
+}
 
+.twitter_integration iframe {
+    width:100% !important;
+    max-width:36rem;
+}
 /********************* Global */
 html { position:relative;min-height:100%;}
 body {
@@ -35,7 +48,7 @@ body {
 	font-family:'Lato', verdana, sans-serif;
     }
 
-#main {
+#content {
 	padding-left:14px;
 	padding-bottom:28px;
 	margin-top:28px;
@@ -741,7 +754,7 @@ table.doclink {
 		outline:0;
 		}
 /******************** Document/Numac */
-div.document_title {
+.document_title {
 	font-size:1.8rem;;
     font-weight:900;
 	color:#28699E;
@@ -750,13 +763,13 @@ div.document_title {
     display:block;
 	}
 
-div.document_title a { 
+.document_title a { 
 	color:#184060;
 	text-decoration:none;
     border-bottom:2px dotted #184060;
 	}
 
-div.document_title a:hover { 
+.document_title a:hover { 
 	/*text-decoration:underline;*/
     border-bottom-style:solid;
     border-bottom-color:#000;
@@ -764,7 +777,7 @@ div.document_title a:hover {
 	}
 
 
-div.document {
+.document {
     box-shadow: 0px 0px 7px -4px #002;
     background-color:#fbfbff;
     padding:10px 4px;
@@ -817,7 +830,7 @@ div.document {
         background-color:#4682b4;
     }
 
-    div.document h1.doc_title {
+    .document h1.doc_title {
         font-family:'Merriweather', georgia, serif;
         text-align:center;
         padding:0 2rem;
@@ -825,11 +838,11 @@ div.document {
         font-size:1rem;
         }
 
-	div.document dt.break{
+	.document dt.break{
 		display:none;
 		}
 
-    div.document dl {
+    .document dl {
         grid-area:meta;
         display:flex;
         flex-flow: row wrap;
@@ -837,7 +850,7 @@ div.document {
     }
 
 
-    div.document dt {
+    .document dt {
         flex-basis:10%;
         text-align:right;
         color:#555;
@@ -846,7 +859,7 @@ div.document {
         font-family:'Lato', helvetica,sans-serif;
         }
 
-    div.document dd {
+    .document dd {
         flex-basis:80%;
         flex-grow:1;
         margin:0;
@@ -894,7 +907,7 @@ div.document {
 		padding:0;
 		}
 
-    div.document_text {
+    .document_text {
         font-family: 'Merriweather', georgia, serif;
         font-family: 'Lato', verdana, sans-serif;
         font-size:.875rem;
@@ -905,7 +918,7 @@ div.document {
         color:#010106;
         }
 
-div.right_panel {
+.right_panel {
 	position:absolute;
 	margin-left:47em;
 	top:123px;
