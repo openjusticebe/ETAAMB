@@ -263,7 +263,10 @@ class numac extends default_page
 				.$pubDateLink
 				;
 		if ($this->do_log) $this->log('Numac Return Main Page');
-		$DocPanel   = sprintf('<navigation class="document_title">%s</navigation>%s'
+        $DocPanel   = sprintf('<div id="doc_display">
+                               <navigation class="document_title">%s</navigation>
+                               %s
+                               </div>'
 					  ,$title, $this->docDisplay());
 		$RightPanel = sprintf('<aside class="right_panel">'
 					   .'<div class="etaamb_description">%s</div>'
@@ -284,7 +287,7 @@ class numac extends default_page
 					   ,'<!--referer_data-->'
 					   ,'<!--reverse_links-->'
 					   ,$this->linkedDocs());
-		return priv_filter($this->numac,$DocPanel.$RightPanel,$this->d['anon']);
+		return priv_filter($this->numac,'<div id="divider">'.$DocPanel.$RightPanel."</div>",$this->d['anon']);
 		}
 	
 	function preCalc($talk=false)

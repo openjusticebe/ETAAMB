@@ -52,6 +52,8 @@ CREATE TABLE IF NOT EXISTS `doc_links` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `numac` int(10) NOT NULL,
   `chrono` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  `chamber` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  `senate` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   `eli` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   `ecli` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
   `pdf` tinytext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,

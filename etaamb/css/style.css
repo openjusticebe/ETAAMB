@@ -24,10 +24,10 @@
 }
 
 .twitter_integration {
-    margin-top:2rem;
+    margin-top:.8rem;
     margin-bottom:2rem;
     width:100%;
-    max-width:36rem;
+    max-width:32rem;
     background-color:#fff;
     border-radius:5px;
     box-shadow: 2px 2px 7px -4px #002;
@@ -920,13 +920,26 @@ table.doclink {
         color:#010106;
         }
 
+#divider {
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    justify-content:flex-start;
+    gap:1rem;
+    align-content:flex-start;
+}
+
+#doc_display {
+    flex-grow:0;
+}
+
 .right_panel {
-	position:absolute;
-	margin-left:47em;
-	top:123px;
 	padding-right:7px;
 	padding-bottom:35px;
     max-width:36em;
+    min-width:6rem;
+    flex: 1 2 0;
+    padding-top:8rem;
 	}
 
 
