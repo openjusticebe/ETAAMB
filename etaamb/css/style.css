@@ -11,7 +11,7 @@
 }
 
 #info_just a {
-    font-family: 'Merriweather', georgia, serif;
+    font-family: 'Lato', verdana, serif;
     font-weight: bold;
     font-size:1.5rem;
     color: #fbfbff;
@@ -38,20 +38,22 @@
     max-width:36rem;
 }
 /********************* Global */
-html { position:relative;min-height:100%;}
+html { position:relative;height:100%;}
 body {
-    margin:0 0 14px;padding:0;
+    margin:0 0;padding:0;
     height:100%;
     font-size:16px;
     background-color:#b2d2ec;
     background-image:url("/assets/img/oj_etaamb_back.png");
 	font-family:'Lato', verdana, sans-serif;
+    display:flex;
+    flex-direction:column;
     }
 
 #content {
 	padding-left:14px;
 	padding-bottom:28px;
-	margin-top:28px;
+    flex: 1 0 auto;
 	}
 
 .dark {color:#184060;}
@@ -1261,11 +1263,9 @@ div#private_life textarea {height:100px;}
 #legal_footer {
     background-color:#000;
     padding:2px 0px 3px;
-    position:absolute;
     height:14px;
     width:100%;
-    bottom:0;
-    left:0;
+    flex-shrink: 0;
     }
 
 #footer_menu {

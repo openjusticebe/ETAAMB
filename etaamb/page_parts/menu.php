@@ -1,12 +1,5 @@
 <?php if (INDEX_LOG) $observer->msg('Flow Start','index','chapter');?>
  <!--etaamb 2011 | -->
- <?php if (HIRE_THE_DEV) {?>
-	 <div id="hire">
-	 <a href="#" class="hire" id="hire_open">Hire the Dev !</a>
-	 <div id="hire_overstep"></div>
-	 </div>
- <?php }?>
-
 <?php if (SHOW_SEARCH_BAR) include('./page_parts/search.php'); ?>
 
  <div id="priv_menu">
@@ -20,7 +13,7 @@
 	<?php }?>
  	<a href="<?php echo $dict->get('about_link');?>"><?php echo $dict->get('about');?></a><span> - </span>
  	<a href="http://etaamb.blogspot.com/">web log</a><span> - </span>
- 	<a href="http://www.twitter.com/etaamb">twitter</a><span> - </span>
+ 	<a href="http://www.twitter.com/OpenjusticeB">twitter</a><span> - </span>
  	<!--
  	<a id="footer_bugtracker" href="http://gitbug.appspot.com/projects/etaamb/">bug tracker</a><span> - </span>
  	-->

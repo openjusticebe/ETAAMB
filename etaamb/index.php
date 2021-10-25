@@ -230,11 +230,6 @@ if (INDEX_LOG) $observer->msg('Init Done. Display Started','index','chapter');
 
 	<body class="<?php if (EU_POPUP) echo 'eupopup eupopup-bottom';?>">
 	<?php //flush();?>
-		<div id="content">
-			<?php echo $page->main();
-			if (INDEX_LOG) $observer->msg('Main Page Display Done','index','chapter');
-			?>
-		</div>
 		<banner id="header">
 			<?php
 			if ($page->header()) echo $page->header(); else
@@ -242,6 +237,11 @@ if (INDEX_LOG) $observer->msg('Init Done. Display Started','index','chapter');
 
 			?>
 		</banner>
+		<div id="content">
+			<?php echo $page->main();
+			if (INDEX_LOG) $observer->msg('Main Page Display Done','index','chapter');
+			?>
+		</div>
 		<div id="up_arrow"><a href="#">^</a></div>
         <?php
             if ($page->footer()) echo $page->footer(); 
