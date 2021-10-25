@@ -73,7 +73,17 @@ class text_renderer
             }
 		if (preg_match('#^\s{3}(Raad van State|Conseil d\'Etat)#',$t) > 0)
             {
-            if (self::$dolog) self::log('Clean belgielex Line (new)');
+            if (self::$dolog) self::log('Clean RVS Line');
+			$t = preg_replace('#^[^\n]*\n{2,3}#','',$t);
+            }
+		if (preg_match('#^\s{3}(Chambre des représentants|Kamer van volksvertegenwoordigers)#',$t) > 0)
+            {
+            if (self::$dolog) self::log('Clean Chamber Line');
+			$t = preg_replace('#^[^\n]*\n{2,3}#','',$t);
+            }
+		if (preg_match('#^\s{3}S(e|é)na?at#',$t) > 0)
+            {
+            if (self::$dolog) self::log('Clean Senate Line');
 			$t = preg_replace('#^[^\n]*\n{2,3}#','',$t);
             }
 		if (preg_match('#^\s{3}ELI\s#',$t) > 0)

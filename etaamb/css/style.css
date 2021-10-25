@@ -27,7 +27,7 @@
     margin-top:.8rem;
     margin-bottom:2rem;
     width:100%;
-    max-width:32rem;
+    max-width:28rem;
     background-color:#fff;
     border-radius:5px;
     box-shadow: 2px 2px 7px -4px #002;
@@ -417,8 +417,8 @@ div.index_table  {
 
 	div.index_table h1 a:hover{
 		border-bottom-style:solid;
-        border-bottom-color:#000;
-        color:#000;
+        border-bottom-color:#113;
+        color:#113;
 		}
 
 	div.index_table ul {margin:0;padding:0;}
@@ -431,8 +431,8 @@ div.index_table  {
         border-bottom:1px dotted #184060;
 		}
 	div.index_table li a:hover {
-		border-bottom:1px solid #000;
-        color:#000;
+		border-bottom:1px solid #113;
+        color:#113;
 		}
 
 	table.month_index a {
@@ -532,9 +532,9 @@ span.datepage_title a {
 
 span.datepage_title a:hover { 
 	/*text-decoration:underline; */
-    color:#000;
+    color:#113;
     border-bottom-style:solid;
-    border-bottom-color:#000;
+    border-bottom-color:#113;
 	}
 
 table.calendar {
@@ -558,9 +558,9 @@ table.calendar caption a {
 
 table.calendar caption a:hover {
 	/*text-decoration:underline; */
-    color:#000;
+    color:#113;
     border-bottom-style:solid;
-    border-bottom-color:#000;
+    border-bottom-color:#113;
 	}
 	
 
@@ -774,8 +774,8 @@ table.doclink {
 .document_title a:hover { 
 	/*text-decoration:underline;*/
     border-bottom-style:solid;
-    border-bottom-color:#000;
-    color:#000;
+    border-bottom-color:#113;
+    color:#113;
 	}
 
 
@@ -908,6 +908,20 @@ table.doclink {
 		margin:0;
 		padding:0;
 		}
+
+    dd.other_doc_url a {
+        font-family:courrier,monospace;
+        background-color: #28699E;
+        border-radius:3px;
+        color:#fff;
+        text-decoration:none;
+        padding:1px 3px;
+        margin: 0 2px;
+    }
+
+    dd.other_doc_url a:hover {
+        background-color:#113;
+    }
 
     .document_text {
         font-family: 'Merriweather', georgia, serif;
@@ -1274,7 +1288,7 @@ div#private_life textarea {height:100px;}
 
 /********************** Global Footer */
 #legal_footer {
-    background-color:#000;
+    background-color:#113;
     padding:2px 0px 3px;
     height:14px;
     width:100%;

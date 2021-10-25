@@ -1,6 +1,5 @@
 body .document {
     width:auto;
-    min-width:45em;
     }
 
 body .right_panel {
@@ -9,6 +8,10 @@ body .right_panel {
     margin:0;
     right:0;
     }
+
+#doc_display {
+    max-width:75%;
+}
 
 body .document_text {
     width:auto;
@@ -25,4 +28,14 @@ body .document_text {
     -webkit-column-fill:balance;
     column-fill:balance;
     }
+
+body #divider {
+    display:flex;
+    flex-direction:row;
+    flex-wrap:nowrap;
+    justify-content:flex-start;
+    gap:1rem;
+    align-content:flex-start;
+}
+
 

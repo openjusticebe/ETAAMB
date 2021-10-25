@@ -23,6 +23,7 @@ services:
     container_name: etaamb_steward
     build:
       context: ./
+      target: dev
       dockerfile: ./agent/Dockerfile
     volumes:
       - ./resources:/resources

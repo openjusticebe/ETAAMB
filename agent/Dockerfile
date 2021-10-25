@@ -12,5 +12,18 @@ COPY ./etaamb /etaamb
 COPY ./agent ./
 
 
+
+# ----------------------------------------------------
+# Run Dev
+# ----------------------------------------------------
+FROM common-base AS dev
+ENTRYPOINT ["tail"]
+CMD ["-f","/dev/null"]
+
+# ----------------------------------------------------
+# Run Prod
+# ----------------------------------------------------
+FROM common-base AS prod
+COPY ./etaamb/config.docker.php /etaamb/config.php
 ENTRYPOINT ["tail"]
 CMD ["-f","/dev/null"]

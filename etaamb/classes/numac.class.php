@@ -351,7 +351,7 @@ class numac extends default_page
                                     .substr($this->ejusticeUrl(),0,50).'(...)</a>
                                 </dd>
                                 <dt class="break"></dt>
-                                %%CHRONO-BLOCK%%
+                                %%DOCS-BLOCK%%
                                 <dt class="break"></dt>
                             </dl>
                             '.(SHOW_QRCODE ?
@@ -383,14 +383,32 @@ class numac extends default_page
             $html = str_replace('%%ELI-BLOCK%%',$el_html,$html);
             }
 
-        if ($this->d['chrono'])
+        if ($this->d['chrono_id'] || $this->d['senate_id'] || $this->d['chamber_id'])
             {
-            $el_html = '<dt>refLex</dt>
-                       <dd class="doc_url">
-                       <a rel="nofollow" target="_blank" href="'.$this->d['chrono'].'">'
-                       .substr($this->d['chrono'],0,50).'(...)</a>
-                       </dd>';
-            $html = str_replace('%%CHRONO-BLOCK%%',$el_html,$html);
+            $el_html = ['<dt class="other_doc_url">',$this->dict->get('other_sources'),'</dt>'];
+            $el_html[] = '<dd class="other_doc_url">';
+
+            if ($this->d['chrono_id']) {
+                $el_html[] = '<a rel="nofollow" target="_blank" href="'
+                    .$this->chronoUrl()
+                    .'">'.$this->dict->get('source_council')
+                    .'</a>';
+            }
+            if ($this->d['chamber_id']) {
+                $el_html[] = '<a rel="nofollow" target="_blank" href="'
+                    .$this->chamberUrl()
+                    .'">'.$this->dict->get('source_chamber')
+                    .'</a>';
+            }
+            if ($this->d['senate_id']) {
+                $el_html[] = '<a rel="nofollow" target="_blank" href="'
+                    .$this->senateUrl()
+                    .'">'.$this->dict->get('source_senate')
+                    .'</a>';
+            }
+            $el_html[] = '</dd>';
+
+            $html = str_replace('%%DOCS-BLOCK%%',implode('', $el_html),$html);
             }
 
         if ($this->d['pdf'])
@@ -433,6 +451,37 @@ class numac extends default_page
          return 'http://www.ejustice.just.fgov.be/'
 			 .$this->buildELI();
     
+        }
+
+    function senateUrl()
+        {
+        $mask = 'https://www.senate.be/www/?MIval=dossier&LEG=%s&NR=%s&LANG=%s';
+        return sprintf(
+            $mask,
+            $this->d['senate_leg'],
+            $this->d['senate_id'],
+            $this->dict->l()
+        );
+        }
+
+    function chamberUrl()
+        {
+        $mask = 'https://www.dekamer.be/kvvcr/showpage.cfm?section=flwb&language=%s&cfm=/site/wwwcfm/flwb/flwbn.cfm?&dossierID=%s&legislat=%s';
+        return sprintf(
+            $mask,
+            $this->dict->l(),
+            $this->d['chamber_id'],
+            $this->d['chamber_leg']
+        );
+        }
+
+    function chronoUrl()
+        {
+        $mask = 'http://reflex.raadvst-consetat.be/reflex/?page=chrono&c=detail_get&d=detail&docid=%s&tab=chrono';
+        return sprintf(
+            $mask,
+            $this->d['chrono_id']
+        );
         }
 
     function buildELI()

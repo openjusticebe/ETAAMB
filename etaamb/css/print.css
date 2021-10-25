@@ -11,6 +11,9 @@ div#etaamb_menu_container
 ,div#tagwords
 ,#etaamb_title
 ,#legal_footer
+,dt.other_doc_url
+,dd.other_doc_url
+,dd.other_doc_url a
 ,#info_just
 	{
 	display:none;
