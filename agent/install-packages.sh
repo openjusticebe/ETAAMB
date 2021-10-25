@@ -21,7 +21,6 @@ apt-get -y upgrade
 
 # Install a new package, without unnecessary recommended packages:
 apt-get -y install --no-install-recommends \
-    vim-tiny \
     build-essential \
     curl \
     default-mysql-client\
@@ -32,7 +31,11 @@ apt-get -y install --no-install-recommends \
     libparallel-forkmanager-perl \
     libhtml-strip-perl  \
     libhtml-format-perl \
-    libwww-perl
+    libwww-perl \
+    php7.4 \
+    php7.4-mysql \
+    php7.4-curl \
+    vim-tiny
 
 # Delete cached files we don't need anymore:
 apt-get clean

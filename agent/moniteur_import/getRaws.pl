@@ -10,8 +10,8 @@ my $version = 1;
 my $page_number = 50;
 
 ## Pause between pages
-$max_pause = 800;
-$min_pause = 300;
+$max_pause = 80;
+$min_pause = 30;
 
 use DBI;
 use LWP::UserAgent;

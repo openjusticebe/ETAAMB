@@ -27,7 +27,12 @@ use Page;
 use Autocorrect;
 use utf8;
 $|=1;
-my $version=16;
+
+# #### Version changelog
+# ######################
+# 17 : Chrono ID, Senate & Chamber ID & Leg
+# < 17 : Original etaamb format (historical)
+my $version=17;
 
 
 my $loop_num=1;
@@ -96,15 +101,25 @@ do {
 
 		# 3) On l'enregistre
 
-		my $sql_doc = "insert into docs(numac,pub_date,prom_date,type,source,version,anonymise,eli_type_fr,eli_type_nl) values
-					(?,?,?,?,?,$version,?,?,?) on duplicate key update 
+		my $sql_doc = "insert into docs
+                    (numac,pub_date,prom_date,type,
+                     source,version,anonymise,eli_type_fr,eli_type_nl,
+                     chrono_id, chamber_id, senate_id, chamber_leg, senate_leg)
+                    values
+					(?,?,?,?,?,$version,?,?,?,?,?,?,?,?) on duplicate key update 
 						pub_date = ?,
 						prom_date = ?,
 						type = ?,
 						source = ?,
 						version = $version,
                         eli_type_fr = ?,
-                        eli_type_nl = ?";
+                        eli_type_nl = ?,
+                        chrono_id = ?,
+                        chamber_id = ?,
+                        senate_id = ?,
+                        chamber_leg = ?,
+                        senate_leg = ?
+                        ";
 
 		my $sql_txt = "insert into text(numac,ln,raw,pure, length) values
 					(?,?,?,?,?) on duplicate key update raw = ?, pure = ?, length = ?";
@@ -134,10 +149,12 @@ do {
 			$data{numac},$data{pub_date},$data{prom_date},
 			$doc_type, $doc_source, $anonymise,
             $data{eli_type_fr}, $data{eli_type_nl},
+            $data{chrono_id}, $data{chamber_id}, $data{senate_id}, $data{chamber_leg}, $data{senate_leg},
 			# Update part
 			$data{pub_date},$data{prom_date},
 			$doc_type, $doc_source,
-            $data{eli_type_fr}, $data{eli_type_nl}
+            $data{eli_type_fr}, $data{eli_type_nl},
+            $data{chrono_id}, $data{chamber_id}, $data{senate_id}, $data{chamber_leg}, $data{senate_leg}
         ) or die "$DBI::errstr $data{numac} source: $doc_source type: $doc_type";
 
 		my $sth_txt = $dbh->prepare($sql_txt);
@@ -245,7 +262,9 @@ sub makeDataObject
     $pagedata{"pdf"} = $page->getPdf();
     $pagedata{"eli_type_fr"} = $page->getEliType();
     $pagedata{"eli_type_nl"} = $page_nl->getEliType();
-
+    $pagedata{"chrono_id"} = $page->getChronoData();
+    ($pagedata{"chamber_id"}, $pagedata{"chamber_leg"}) = $page->getChamberData();
+    ($pagedata{"senate_id"}, $pagedata{"senate_leg"}) = $page->getSenateData();
 
     if (($nl_index ne $fr_index) 
         and $pagedata{"raw_title_fr"} ne "" 

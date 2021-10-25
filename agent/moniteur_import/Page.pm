@@ -856,7 +856,6 @@ sub getPdf
 
 sub getChrono
     {
-    # example : <a href="http://reflex.raadvst-consetat.be/reflex/?page=chrono&c=detail_get&d=detail&docid=66713&tab=chrono" target=_blank > 
     my ($self) = @_;
 
     if ($self->{_content} =~ m/no article available with such references/i)
@@ -866,10 +865,60 @@ sub getChrono
 
     if ($self->{_content} =~ m/"(http:\/\/reflex.raadvst-consetat.be\/[^"]+)"/i)
 		{
-        return $1 =~ s/^\s+|\s+$//rg;;
+        return $1 =~ s/^\s+|\s+$//rg;
 		}
 
     return undef;
+    }
+
+
+
+sub getChronoData
+    {
+    # Returns Chrono Id
+    my ($self) = @_;
+
+    if ($self->{_content} =~ m/no article available with such references/i)
+        {
+		return undef;
+        }
+
+    if ($self->{_content} =~ m/reflex.raadvst-consetat.be\/reflex\/\?page=chrono&c=detail_get&d=detail&docid=(\d*)&tab=chrono/i)
+		{
+        return $1;
+		}
+
+    return undef;
+    }
+
+sub getChamberData
+    {
+    # Returns Chamber data (ID, Legislation #)
+    my ($self) = @_;
+    if ($self->{_content} =~ m/no article available with such references/i)
+        {
+        return (undef, undef);
+        }
+    if ($self->{_content} =~ m/www\.dekamer\.be\/kvvcr\/showpage\.cfm\?section=flwb&language=\w{2}&cfm=\/site\/wwwcfm\/flwb\/flwbn\.cfm\?&dossierID=(\d*)&legislat=(\d*)/i)
+		{
+        return ($1, $2)
+		}
+    return (undef, undef);
+    }
+
+sub getSenateData
+    {
+    # Returns Chamber data (ID, Legislation #)
+    my ($self) = @_;
+    if ($self->{_content} =~ m/no article available with such references/i)
+        {
+        return (undef, undef);
+        }
+    if ($self->{_content} =~ m/www\.senaa?t\.be\/www\/\?MIval=dossier&LEG=(\d*)&NR=(\d*)&LANG=/i)
+		{
+        return ($2, $1)
+		}
+    return (undef, undef);
     }
 
 sub getTitle
