@@ -17,7 +17,7 @@
 #info_just a {
     font-family: georgia;
     font-weight: bold;
-    font-size:14pt;
+    font-size:0.8rem;
     color: #fff;
     text-decoration: none;
     border-bottom: 1px dotted #fff;
@@ -34,15 +34,16 @@ body {
     height:100%;
 	width:100%;
     background-color:#b2d2ec;
-    background-image:url("/img/oj_etaamb_back.png");
+    background-image:url("/assets/img/oj_etaamb_back.png");
 	font-family:verdana, sans-serif;
+    display:flex;
+    flex-direction:column;
+    font-size:16px;
     }
-
 #main {
 	padding-left:4px;
 	padding-bottom:28px;
 	margin-top:58px;
-    background-image:url("/img/oj_etaamb_back.png");
 	}
 
 
@@ -65,7 +66,7 @@ h2 {
 	padding:0;
 	margin-top:10px;
 	color:#28699e;
-	font-size:18px;
+	font-size:1.125rem;
 	font-weight:bold;
 	}
 
@@ -76,7 +77,7 @@ h2 {
 	z-index:0;
     font-family:georgia,serif;
     color:#72acdc;
-	font-size:40px;
+	font-size:2.5rem;
     position:absolute;
 	top:-15px;
 	left:0;
@@ -110,7 +111,7 @@ h2 {
         color:#8fbde3;
 		text-transform:uppercase;
         font-family:helvetica,arial,sans-serif;
-		font-size:11px;
+		font-size:0.685rem;
 		width:39px;
 		display:block;
 		float:left;
@@ -146,12 +147,12 @@ h2 {
         color:#8fbde3;
 		text-decoration:none;
         font-family:helvetica,arial,sans-serif;
-		font-size:11px;
+		font-size:0.685rem;
 		text-transform:uppercase;
 		color:#184060;
 		padding-bottom:2px;
 		line-height:15pt;
-		font-size:9pt;
+		font-size:0.8rem;
 		padding-right:6px;
 		padding-left:6px;
 		border-left:1px solid #b2d2ec;
@@ -182,12 +183,12 @@ div#footer {
         color:#8fbde3;
 		text-decoration:none;
         font-family:helvetica,arial,sans-serif;
-		font-size:11px;
+		font-size:0.685rem;
 		text-transform:uppercase;
 		color:#184060;
 		padding-bottom:2px;
 		line-height:15pt;
-		font-size:9pt;
+		font-size:0.8rem;
 		padding-right:6px;
 		padding-left:6px;
 		border-left:1px solid #b2d2ec;
@@ -221,7 +222,7 @@ div#up_arrow {
 
 	div#up_arrow a {
 		text-decoration:none;
-		font-size:2em;
+		font-size:2rem;
 		font-family:verdana, sans-serif;
 		color:#184060;
 		display:block;
@@ -285,7 +286,7 @@ div.index_table {
 		padding:0;
 		margin-top:21px;
 		color:#28699e;
-		font-size:26px;
+		font-size:2rem;;
 		border:2px solid transparent;
 		}
 
@@ -327,7 +328,7 @@ div.index_table {
 	
 	span.m_number {
 		text-align:center;
-		font-size:11px;
+		font-size:0.685rem;
 		}
 	span.m_name {
 		text-align:center;
@@ -337,7 +338,7 @@ div.index_table {
 /********************************* Date Page Style
 *************************************************/
 span.datepage_title {
-	font-size:24px;
+	font-size:1.5rem;
 	color:#28699E;
 	margin:21px 0 0;
 	padding:0;
@@ -362,7 +363,7 @@ table.calendar {
 	table.calendar caption {
 		font-weight:bold;
 		color:#28699e;
-		font-size:16px;
+		font-size:1rem;
 		}
 	
 	table.calendar caption a {
@@ -383,7 +384,7 @@ table.calendar {
 		}
 	table.calendar td { color:#4682b4;}
 	table.calendar th { 
-		font-size:14px;
+		font-size:0.875rem;
 		color:#4682b4;
 		height:20px;
 		}
@@ -396,7 +397,7 @@ table.calendar {
 		text-decoration:none;
 		color:#184060;
 		font-weight:bold;
-		font-size:14px;
+		font-size:0.875rem;
 		border:1px solid #72acdc;
 		}
 	
@@ -441,6 +442,7 @@ a.doclink {
 	-moz-border-radius-bottomleft:8px;
 	-webkit-border-top-right-radius:8px;
 	-webkig-border-bottom-left-radius:8px;
+    box-shadow: 2px 2px 7px -4px #002;
     }
 
 
@@ -473,7 +475,7 @@ table.doclink {
 	.doclink th,
 	.doclink span.title {
         font-family:verdana, sans-serif;
-        font-size:9px;
+        font-size:0.56rem;
         text-align:left;
         color:#6f9db3;
 		font-weight:bold;
@@ -482,7 +484,7 @@ table.doclink {
 
 	.doclink span.doctitle {
         font-family:verdana,sans-serif;
-        font-size:11px;
+        font-size:0.685rem;
         color:#184060;
 		font-weight:bold;
         padding:2px 7px 0 7px;
@@ -491,7 +493,7 @@ table.doclink {
     .doclink td.title,
 	.doclink span.maintitle {
         font-family:verdana,sans-serif;
-        font-size:12px;
+        font-size:0.75rem;
 		line-height:16px;
         padding:2px 7px 0 7px;
         color:#333;
@@ -509,7 +511,7 @@ table.doclink {
         color:#8fbde3;
         color:#28699e;
         font-family:georgia,serif;
-        font-size:12px;
+        font-size:0.75rem;
 		width:auto;
         }
 
@@ -518,12 +520,12 @@ table.doclink {
         color:#8fbde3;
         color:#28699e;
         font-family:georgia,serif;
-        font-size:12px;
+        font-size:0.75rem;
         }
 	.doclink td.date ,
 	.doclink span.date {
         font-family:helvetica, sans-serif;
-        font-size:12px;
+        font-size:0.75rem;
         font-weight:bold;
         color:#184060;
         }
@@ -531,7 +533,7 @@ table.doclink {
 	.doclink td.numac,
     .doclink span.numac {
         font-family:helvetica, sans-serif;
-        font-size:10px;
+        font-size:0.625rem;
         color:#555;
         }
 
@@ -568,7 +570,7 @@ table.doclink {
 /***************************** Document Page Style
 *************************************************/
 div.document_title {
-	font-size:24px;
+	font-size:1.2rem;
 	color:#28699E;
 	/*margin:21px 0 0;*/
 	margin-bottom:21px;
@@ -585,7 +587,12 @@ div.document_title {
 		text-decoration:underline;
 		}
 
+div.actions {
+    display:none;
+}
+
 div.document {
+    box-shadow: 0px 0px 7px -4px #002;
     background-color:#fff;
     padding:10px 0px;
     margin-left:-2px;
@@ -604,14 +611,14 @@ div.document {
         font-family:georgia,serif;
         text-align:justify;
         font-weight:bold;
-        font-size:12px;
+        font-size:0.75rem;
 		display:none;
         }
 
     div.document dt {
         display:inline;
         color:#555;
-        font-size:10px;
+        font-size:0.625rem;
         font-family:helvetica,sans-serif;
         }
 	div.document dt.break{
@@ -622,13 +629,13 @@ div.document {
         display:inline;
         text-align:left;
         margin-left:4px;
-		font-size:10px;
+		font-size:0.625rem;
         
         }
 
     div.document dd.date {
         font-family:helvetica, sans-serif;
-        font-size:12px;
+        font-size:0.75rem;
         width:80px;
         font-weight:bold;
         color:#333;
@@ -636,7 +643,7 @@ div.document {
 
     dd.numac {
         font-family:helvetica, sans-serif;
-        font-size:12px;
+        font-size:0.75rem;
         width:80px;
         color:#555;
         }
@@ -645,12 +652,12 @@ div.document {
         color:#8fbde3;
         color:#28699e;
         font-family:georgia,serif;
-        font-size:14px;
+        font-size:0.875rem;
         }
 
     dd.moniteur_url a {
         font-family:courrier,monospace;
-        font-size:10px;
+        font-size:0.625rem;
         color:#4894ff;
 		overflow:hidden;
 		word-wrap: break-word;
@@ -658,7 +665,7 @@ div.document {
 
     div.document_text {
         font-family:georgia, serif;
-        font-size:11px;
+        font-size:0.9rem;
         line-height:16px;
         }
 
@@ -745,7 +752,7 @@ div.etaamb_description {
 
 div.linkedListDesc {
 	color:#184060;
-	font-size:16px;
+	font-size:1rem;
 	margin-top:8px;
 	font-weight:bold;
 	}
@@ -761,13 +768,13 @@ div.referer_data {
 	border-radius:8px;
 	color:#b9d3ee;
 	padding:0px 6px 30px;
-	font-size:12px;
+	font-size:0.75rem;
 	position:relative;
 	}
 
 	div.referer_data .refererDataDesc {
 		color:#72acdc;
-		font-size:16px;
+		font-size:1rem;
 		font-weight:bold;
 		margin-top:10px;
 		position:relative;
@@ -811,13 +818,13 @@ span.match_preview{
     padding-left:30px;
     color:#fff;
     font-family:verdana;
-    font-size:8pt;
+    font-size:.70rem;
     }
 
 #footer_menu a {
     color:#fff;
     font-family:verdana;
-    font-size:8pt;
+    font-size:.70rem;
     text-decoration:none;
     }
 
