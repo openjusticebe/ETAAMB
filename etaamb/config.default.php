@@ -129,7 +129,6 @@ if (!defined('OBSERVER_SILENT_LOG'))  define ('OBSERVER_SILENT_LOG',true);
 if (!defined('LIMIT_EXTRACTED_LINKS'))   define ('LIMIT_EXTRACTED_LINKS',6);
 if (!defined('FILTER_NUMAC_EXTRACTION')) define ('FILTER_NUMAC_EXTRACTION',true);
 
-if (!defined('HIRE_THE_DEV'))  			 define ('HIRE_THE_DEV',false);
 if (!defined('AUTO_ANONYMISE'))        	 define ('AUTO_ANONYMISE',true);
 if (!defined('PRIVATE_LIFE_FORM'))  	 define ('PRIVATE_LIFE_FORM',true);
 if (!defined('PRIVATE_LIFE_EVERYWHERE'))  	 define ('PRIVATE_LIFE_EVERYWHERE',true);
