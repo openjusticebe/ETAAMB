@@ -20,7 +20,7 @@ class month extends default_page
 		$this->error = array();
 		$limit = isset($this->data['dateType'])
 				 && $this->data['dateType'] == 'prom'
-				  ? '1803' : '1997';
+				  ? '1000' : '1997';
 
 		$y = $d[0] <= date('Y') && $d[0] >= $limit ? true : false;
 		$m = $d[1] > 0 && $d[1] < 13 ? true : false;
