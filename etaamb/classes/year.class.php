@@ -18,7 +18,7 @@ class year extends default_page
 		$year = intval($this->data[0]);
 		$limit = isset($this->data['dateType'])
 				 && $this->data['dateType'] == 'prom'
-				  ? '1803' : '1997';
+				  ? '1000' : '1997';
 		if ($year >= $limit
 			&& $year <= date('Y'))
 			{
