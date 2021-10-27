@@ -17,9 +17,9 @@ CREATE TABLE IF NOT EXISTS `docs` (
   `type` mediumint(8) unsigned NOT NULL,
   `eli_type_fr` tinytext DEFAULT NULL,
   `eli_type_nl` tinytext DEFAULT NULL,
-  `chrono_id` mediumint(8) DEFAULT NULL,
-  `chamber_id` mediumint(8) DEFAULT NULL,
-  `senate_id` mediumint(8) DEFAULT NULL,
+  `chrono_id` int unsigned DEFAULT NULL,
+  `chamber_id` int unsigned DEFAULT NULL,
+  `senate_id` int unsigned DEFAULT NULL,
   `chamber_leg` tinyint(3) unsigned DEFAULT NULL,
   `senate_leg` tinyint(3) unsigned DEFAULT NULL,
   `source` mediumint(8) unsigned DEFAULT NULL,
@@ -31,7 +31,9 @@ CREATE TABLE IF NOT EXISTS `docs` (
   UNIQUE KEY `numac` (`numac`),
   KEY `pub_date` (`pub_date`),
   KEY `prom_date` (`prom_date`),
-  KEY `type` (`type`)
+  KEY `type` (`type`),
+  KEY `version` (`version`),
+  KEY `anonymise` (`anonymise`),
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
 -- --------------------------------------------------------
@@ -83,6 +85,10 @@ CREATE TABLE IF NOT EXISTS `links_cache` (
   KEY `numac_ln_version` (`numac`,`ln`,`version`),
   KEY `numac_ln` (`numac`,`ln`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+CREATE INDEX version ON links_cache(version);
+CREATE INDEX numac ON links_cache(numac);
+CREATE INDEX ln ON links_cache(ln);
+CREATE INDEX linkto_numac ON links_cache(linkto, numac);
 
 -- --------------------------------------------------------
 
@@ -119,6 +125,9 @@ CREATE TABLE IF NOT EXISTS `raw_pages` (
   UNIQUE KEY `numac` (`numac`),
   KEY `pub_date` (`pub_date`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=0 ;
+CREATE INDEX version ON raw_pages(version);                                                                             
+ALTER TABLE raw_pages ADD FULLTEXT(raw_fr);                                                                           
+~                                                   
 
 -- --------------------------------------------------------
 
@@ -135,8 +144,13 @@ CREATE TABLE IF NOT EXISTS `render_cache` (
   `version` tinyint(4) NOT NULL,
   `createdTS` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `numac_ln` (`numac`,`ln`)
+  UNIQUE KEY `numac_ln` (`numac`,`ln`),
+  UNIQUE KEY `numac_ln_version` (`numac`, `ln`, `version`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=0 ;
+CREATE INDEX version ON render_cache(version);                                                                           
+CREATE INDEX numac ON render_cache(numac);                                                                               
+CREATE INDEX ln ON render_cache(ln);                                                                                     
+                            
 
 -- --------------------------------------------------------
 
@@ -172,6 +186,7 @@ CREATE TABLE IF NOT EXISTS `text` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `numac_ln` (`numac`,`ln`),
   KEY `ln` (`ln`),
+  KEY `length` (`length`),
   KEY `numac` (`numac`),
   FULLTEXT KEY `FT_pure` (`pure`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;

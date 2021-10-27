@@ -75,7 +75,7 @@ if ($LARGE_TEXTS)
 				  group by numac';
 else if ($ANON_TEXTS)
 	$raw_query = 'select numac from docs where anonymise = 1
-				  and numac in ('.$raw_query.') group by nymac';
+				  and numac in ('.$raw_query.') group by numac';
 else 
 	$raw_query .= ' limit 0,'.PRECALC_NUM;
 
