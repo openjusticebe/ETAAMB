@@ -278,12 +278,13 @@ class numac extends default_page
                             data-dnt="false"
                             data-tweet-limit="2"
                             data-width="auto" ></a>
-                        <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></div>'
+                        <script async src="%s://platform.twitter.com/widgets.js" charset="utf-8"></script></div>'
 					   .'%s'
 					   .'<div class="documents_reverse text_links">%s</div>'
 					   .'<div class="documents_linked text_links">%s</div>'
 					   .'</aside>'
 					   ,'<!--etaamb_desc-->'
+                       ,URL_PROTOCOL
 					   ,'<!--referer_data-->'
 					   ,'<!--reverse_links-->'
 					   ,$this->linkedDocs());
