@@ -21,8 +21,9 @@ apt-get -y upgrade
 
 # Install a new package, without unnecessary recommended packages:
 apt-get -y install --no-install-recommends \
-    vim-tiny \
-    build-essential
+    ssmtp \
+    mailutils \
+    vim-tiny
 
 # Delete cached files we don't need anymore:
 apt-get clean
