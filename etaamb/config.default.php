@@ -80,6 +80,17 @@ if (!isset($DB_CONFIG)) {
     );
 }
 
+if (!isset($MAIL_CONFIG)) {
+    $MAIL_CONFIG= array(
+                "host" => getenv('SMTP_HOST'),
+                "port" => getenv('SMTP_PORT'),
+                "username" => getenv('SMTP_USER'),
+                "auth" => true,
+                "password" => getenv('SMTP_PASSWORD')
+    );
+}
+if (!defined('MAIL_ADMIN'))  define ('MAIL_ADMIN', 'etaamb@example.com');
+
 define("DOMAIN_PROD" ,'etaamb.be');
 // Default Dev Domain
 define("DOMAIN_DEV" ,'127.0.0.1:8042/');

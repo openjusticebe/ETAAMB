@@ -66,6 +66,11 @@ services:
       context: .
       target: dev
       dockerfile: ./Dockerfile
+      args:
+        - SMTP_HOST=localhost
+        - SMTP_PORT=25
+        - SMTP_USER=null
+        - SMTP_PASSWORD=null
       # command: ./misc/entrypoint.sh
     volumes:
       - ./etaamb:/app/etaamb

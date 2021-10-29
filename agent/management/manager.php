@@ -46,8 +46,8 @@ chdir(dirname(__FILE__));
 
 define('CLASS_DIR','/etaamb/classes/');
 $_SERVER['HTTP_HOST'] = '127.0.0.1';
-require_once('/config/config.php');
-require_once('/config/config.default.php');
+require_once('/etaamb/config.php');
+require_once('/etaamb/config.default.php');
 require_once(CLASS_DIR.'observer.class.php');
 require_once(CLASS_DIR.'connector.class.php');
 require_once(CLASS_DIR.'collection.class.php');
@@ -94,6 +94,8 @@ if ($SET_ANON)
 			   ,'samenstelling van een wervingsreserve%'
 			   ,'%generieke test%'
 			   ,'%test generique%'
+               ,'%toelatingen tot de stage%'
+               ,'%admissions au stage%'
 
 			   ,'vergunning om het beroep van privedetective%' // Autorisation de detective privé
 			   ,'autorisation exercer la profession de detective prive%'

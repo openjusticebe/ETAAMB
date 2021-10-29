@@ -302,7 +302,7 @@ function send_priv_mail()
 		}
 	$.ajax({
 		type: 	'POST',
-		url : 	'https://'+Host+'/mail.php',
+		url : 	'//'+Host+'/mail.php',
 		data:	{terms:terms,email:email,comment:comm,url:url},
 		success:send_priv_success
 	});
