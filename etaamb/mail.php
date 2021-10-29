@@ -26,7 +26,7 @@ try {
 
     $message = 'Bonjour,
 
-Vous recevez ce message car une personne à signalé une donnéé personelle à supprimer.
+Vous recevez ce message car une personne a signalé une donnéé personelle à supprimer.
 
 Pour anonymiser le document, connectez-vous sur un "steward" d\'Etaamb et exécutez la commande suivante :
 
@@ -36,14 +36,14 @@ Pour anonymiser le document, connectez-vous sur un "steward" d\'Etaamb et exécu
 Contenu signalé :
 --------------------------
 
-Termes   : '.$terms.'
-Adresse  : '.$url.'
+Termes : '.$terms.'
+Page   : '.$url.'
 
 ';
 
     $message .= !empty($mail) ? "contact : $mail\n" : '';
     $message .= !empty($mail) ? "\ncommentaire :\n$comment\n" : '';
-    $message .= '\n--------------------------\n\n\n';
+    $message .= "\n--------------------------\n\n\n";
     $message .= "\n\nAdministration etaamb.openjustice.be";
 
     $headers = 'From: noreply@openjustice.be' . "\r\n" ;
