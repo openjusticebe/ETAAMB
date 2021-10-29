@@ -4,7 +4,7 @@
 
 // Etaamb 2010 Work in progress
 
-var em = ['etaamb'];
+var em = ['team'];
 var maxLinkedDocsShowed = 5;
 var minLinkedDocsShowed = 3;
 
@@ -52,7 +52,7 @@ var dict = function()
 
 $(document).ready(function()
     {
-	em.push('gmail'+'.'+'com');
+	em.push('openjustice'+'.'+'be');
     $('body').click(clickhandler);
 	$('a.contact').attr("href",'mailto:'+em.join('@'));
 	$('.email').html(em.join('@'));
