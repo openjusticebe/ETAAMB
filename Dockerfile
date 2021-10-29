@@ -67,7 +67,13 @@ RUN sed -i 's/^SMTP = .*/SMTP=/' $PHP_INI_DIR/php.ini && \
 # Run Prod
 # ----------------------------------------------------
 FROM app-run AS prod
+
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 RUN docker-php-ext-install opcache && \
     docker-php-ext-enable opcache
+
+# Prod has his own secured relay
+RUN sed -i 's/^UseTLS=.*/UseTLS=NO/' /etc/ssmtp/ssmtp.conf && \
+    sed -i 's/^UseSTARTTLS=.*/UseSTARTTLS=NO/' /etc/ssmtp/ssmtp.conf
+
 COPY ./etaamb/config.docker.php ./etaamb/config.php

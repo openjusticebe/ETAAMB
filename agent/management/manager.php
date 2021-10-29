@@ -94,8 +94,8 @@ if ($SET_ANON)
 			   ,'samenstelling van een wervingsreserve%'
 			   ,'%generieke test%'
 			   ,'%test generique%'
-               ,'%toelatingen tot de stage%'
-               ,'%admissions au stage%'
+               ,'toelatingen tot de stage%'
+               ,'admissions au stage%'
 
 			   ,'vergunning om het beroep van privedetective%' // Autorisation de detective privé
 			   ,'autorisation exercer la profession de detective prive%'
