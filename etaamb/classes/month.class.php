@@ -11,6 +11,7 @@ class month extends default_page
 				.' '.$this->getTerm('month_'.intval($this->data[1]))
 				.' '.$this->data[0];
 		$this->col->setFilter('month',$this->data);
+        $this->terms['extract'] = $this->terms['description'];
 		return $this;
 		}
 

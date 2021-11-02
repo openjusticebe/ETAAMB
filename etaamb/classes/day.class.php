@@ -19,6 +19,7 @@ class day extends default_page
 						.' '.$this->getTerm('month_'.$d[1])
 						.' '.$d[0];
 		$this->col->setFilter('day',$this->data);
+        $this->terms['extract'] = $this->terms['description'];
 		return $this;
 		}
 	function isDataOk()
