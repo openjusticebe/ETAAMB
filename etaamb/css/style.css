@@ -763,6 +763,10 @@ table.doclink {
 	margin:3rem 0 1rem;
 	margin-left:0px;
     display:block;
+    white-space: break-spaces;
+    word-break: break-word; /* Chrome, Safari */
+    overflow-wrap: anywhere; /* Firefox */
+    max-width:45rem;
 	}
 
 .document_title a { 
@@ -784,7 +788,7 @@ table.doclink {
     background-color:#fbfbff;
     padding:10px 4px;
     margin-left:0px;
-	width:45em;
+	width:45rem;
 	z-index:400;
 	border-top-right-radius:8px;
 	border-top-left-radius:8px;

@@ -1,6 +1,6 @@
 body .document {
     width:auto;
-    }
+}
 
 body .right_panel {
     width:auto;
@@ -9,6 +9,7 @@ body .right_panel {
     right:0;
     }
 
+body .document_title,
 #doc_display {
     max-width:75%;
 }
