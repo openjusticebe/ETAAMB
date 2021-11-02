@@ -10,6 +10,7 @@ class year extends default_page
 				. ' '
 				. $this->data[0];
 		$this->col->setFilter('year',$this->data);
+        $this->terms['extract'] = $this->terms['description'];
 		return $this;
 		}
 

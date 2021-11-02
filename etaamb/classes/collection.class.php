@@ -227,21 +227,16 @@ class collection_class
                     docs.senate_leg as senate_leg,
                     docs.chamber_id as chamber_id,
                     docs.chamber_leg as chamber_leg,
-                    doc_links.chrono as chrono,
-                    doc_links.eli as eli,
-                    doc_links.pdf as pdf,
 					DATE_FORMAT(pub_date,  \'%Y%m%d\') as pub_date,
 					DATE_FORMAT(prom_date, \'%Y%m%d\') as prom_date
-					
 					 FROM `docs` 
 					join titles on docs.numac = titles.numac 
-                    join doc_links on docs.numac = doc_links.numac
 					join sources on docs.source = sources.id 
 					join types on docs.type = types.id';
 		$baseQ = str_replace('%LN',$this->ln,$baseQ);
 		$this->filter[] = sprintf('titles.ln  = \'%s\'',$this->ln);;
 		$sql = $this->toQuery($baseQ)
-					.' order by docs.type asc';
+					.' order by types.ord ASC';
 		if ($this->do_log) $this->log('Obtaining docs meta');
 		return $this->db->query($sql);
 		}
@@ -288,7 +283,7 @@ class collection_class
 	public function getTypes()
 		{
 		$sql = 'SELECT SQL_CACHE DISTINCT type_%LN AS
-		TYPE FROM types';
+		TYPE FROM types ORDER BY ord ASC';
 		$sql = str_replace('%LN',$this->ln,$sql);
 		if ($this->do_log) $this->log('Obtaining Types');
 		return $this->db->query($sql, Q_FLAT);

@@ -7,7 +7,7 @@ class numac extends default_page
 	{
 	var $render_cache = false;
 	private $langOk = array();
-	static  $version = 5;
+	static  $version = 6;
 	public function __construct()
 		{
 		$this->observer = observer::getinstance();
@@ -321,7 +321,7 @@ class numac extends default_page
 
 
         $html = '<div id="info_just">
-                 <a href="'.$this->getTerm('just_url').'" >'.$this->getTerm('just_title').'</a>
+                 <a target="_blank" href="'.$this->getTerm('just_url').'" >'.$this->getTerm('just_title').'</a>
                  </div>
                  <main class="document">
                     <h1 class="doc_title">'.$this->get_title().'</h1>

@@ -220,6 +220,7 @@ CREATE TABLE IF NOT EXISTS `titles` (
 DROP TABLE IF EXISTS `types`;
 CREATE TABLE IF NOT EXISTS `types` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `ord` tinyint(4) unsigned NULL,
   `type_nl` varchar(255) NOT NULL,
   `type_fr` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),

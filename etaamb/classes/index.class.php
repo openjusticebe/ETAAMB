@@ -2,6 +2,12 @@
 class index extends default_page
 	{
 
+    function init()
+        {
+        $this->terms['extract'] = $this->dict->get('index_description');
+		return $this;
+        }
+
 	function isDataOk()
 		{
 		return true;
