@@ -7,7 +7,7 @@ class numac extends default_page
 	{
 	var $render_cache = false;
 	private $langOk = array();
-	static  $version = 5;
+	static  $version = 6;
 	public function __construct()
 		{
 		$this->observer = observer::getinstance();
