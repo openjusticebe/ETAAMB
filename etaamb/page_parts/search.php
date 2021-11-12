@@ -1,10 +1,10 @@
 <div id="search_bar">
-	<form method=GET action="http://www.google.com/search">
+	<form method=GET action="https://www.google.com/search">
 		<div id="search_meta">
 			<input type="hidden" name="ie" value="UTF-8">
 			<input type="hidden" name="oe" value="UTF-8">
-			<input type="hidden" name="domains" value="www.etaamb.be">
-			<input type="hidden" name="sitesearch" value="www.etaamb.be">
+			<input type="hidden" name="domains" value="etaamb.openjustice.be">
+			<input type="hidden" name="sitesearch" value="etaamb.openjustice.be">
 		</div>
 		<div id="search_input">
 			<input type="text" id="search_text" name="q" maxlength="255" size="40">

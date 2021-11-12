@@ -115,7 +115,7 @@ $referer->setDict($dict);
 
 if (REFERER_TEST)
 	{
-	$Turl = "http://www.google.be/search?q=%22loi+numac+%C3%A0+l%27application+arret%C3%A9+de+reconnaissance+mutuelle+des+d%C3%A9cisions+judiciaires+en+mati%C3%A8re+p%C3%A9nale+entre+les+Etats+membres+de+l%27Union+europ%C3%A9enne%22&hl=fr&prmd=ivnsb&ei=ICR7TdeBMIKLhQfD07n8Bg&start=10&sa=N";
+	$Turl = "https://www.google.be/search?q=%22loi+numac+%C3%A0+l%27application+arret%C3%A9+de+reconnaissance+mutuelle+des+d%C3%A9cisions+judiciaires+en+mati%C3%A8re+p%C3%A9nale+entre+les+Etats+membres+de+l%27Union+europ%C3%A9enne%22&hl=fr&prmd=ivnsb&ei=ICR7TdeBMIKLhQfD07n8Bg&start=10&sa=N";
 	$referer->set($Turl);
 	}
 
