@@ -320,9 +320,12 @@ class numac extends default_page
 		if ($this->do_log) $this->log('Numac Document Display');
 
 
-        $html = '<div id="info_just">
+        $html = '
+                <!--
+                <div id="info_just">
                  <a target="_blank" href="'.$this->getTerm('just_url').'" >'.$this->getTerm('just_title').'</a>
-                 </div>
+                </div>
+                -->
                  <main class="document">
                     <h1 class="doc_title">'.$this->get_title().'</h1>
                         <div class="meta">
