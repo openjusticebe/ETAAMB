@@ -7,7 +7,7 @@ class numac extends default_page
 	{
 	var $render_cache = false;
 	private $langOk = array();
-	static  $version = 6;
+	static  $version = 7;
 	public function __construct()
 		{
 		$this->observer = observer::getinstance();
@@ -430,7 +430,7 @@ class numac extends default_page
 	function qrcodeUrl()
 		{
         $this_url = a($this->numac);
-		$url = 'http://chart.apis.google.com/chart'
+		$url = 'https://chart.apis.google.com/chart'
 			  .'?cht=qr'
 			  .'&amp;chs=75x75'
 			  .'&amp;chld=L|0' // Max url lentgth: 90
@@ -443,7 +443,7 @@ class numac extends default_page
 
 	function ejusticeUrl()
         {
-         return 'http://www.ejustice.just.fgov.be/cgi/article_body.pl?language='
+         return 'https://www.ejustice.just.fgov.be/cgi/article_body.pl?language='
              .$this->dict->l()
 			 .'&amp;caller=summary&amp;pub_date='
              .$this->displayDate($this->d["pub_date"],'y-m-d')
@@ -452,7 +452,7 @@ class numac extends default_page
 
     function eliUrl()
         {
-         return 'http://www.ejustice.just.fgov.be/'
+         return 'https://www.ejustice.just.fgov.be/'
 			 .$this->buildELI();
     
         }
@@ -506,7 +506,7 @@ class numac extends default_page
         {
         # Original page indicator is wrongly formatted
         $fixed = preg_replace('/[Pp]age(\d+)/', 'page=$1', $this->d['pdf']);
-         return 'http://www.ejustice.just.fgov.be'
+         return 'https://www.ejustice.just.fgov.be'
 			 .$fixed;
         }
 	
