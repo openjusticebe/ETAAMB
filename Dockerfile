@@ -21,6 +21,7 @@ RUN sed -i '/LoadModule rewrite_module/s/^#//g' /etc/apache2/apache2.conf && \
 # Etaamb uses Rewrite, Expires and Headers mods
 RUN cp /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/ && \
     cp /etc/apache2/mods-available/expires.load /etc/apache2/mods-enabled/ && \
+    cp /etc/apache2/mods-available/proxy.load /etc/apache2/mods-enabled/ && \
     cp /etc/apache2/mods-available/headers.load /etc/apache2/mods-enabled/
 
 # Install needed PHP extensions
