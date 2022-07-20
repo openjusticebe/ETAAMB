@@ -5,10 +5,10 @@ class dict
 
     var $langs = array (
         "fr" => array (
-            'title_just_title' => 'NOJEMBER 2021<br/>transformation numérique du droit et de la justice',
-            'title_just_url' => 'https://nojember.openjustice.be/',
-            'numac_just_title' => 'NOJEMBER 2021<br/>transformation numérique du droit et de la justice',
-            'numac_just_url' => 'https://nojember.openjustice.be/',
+            'title_just_title' => 'Comment obtenir une aide juridique ?',
+            'title_just_url' => 'https://baj.openjustice.be/',
+            'numac_just_title' => 'Comment obtenir une aide juridique ?',
+            'numac_just_url' => 'https://baj.openjustice.be/',
 			'search'		=> 'rechercher',
 			'index_title' => 'Bienvenue sur Etaamb | Index Global',
 			'index_description' => 'Index Par Date des publications du Moniteur Belge',

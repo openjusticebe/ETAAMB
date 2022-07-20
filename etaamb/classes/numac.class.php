@@ -321,11 +321,9 @@ class numac extends default_page
 
 
         $html = '
-                <!--
                 <div id="info_just">
                  <a target="_blank" href="'.$this->getTerm('just_url').'" >'.$this->getTerm('just_title').'</a>
                 </div>
-                -->
                  <main class="document">
                     <h1 class="doc_title">'.$this->get_title().'</h1>
                         <div class="meta">
