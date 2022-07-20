@@ -1,10 +1,5 @@
  Options +FollowSymlinks
 
-<IfModule proxy_module>
-	ProxyPass "/baj"  "http://srv-captain--baj-internal:80"
-	ProxyPassReverse "/baj"  "http://srv-captain--baj-internal:80"
-</Ifmodule>
-
 <IfModule rewrite_module>
 	RewriteEngine on
 	RewriteRule ^css/([a-z\/\.0-9\-]*)\.css$ css/$1.css [L,NC]
