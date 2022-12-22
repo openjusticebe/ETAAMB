@@ -15,6 +15,13 @@ class connector_class
 		return $this;
 		}
 
+    public function __destruct()
+        {
+        # Explicitely closing is optionnal, but we're having some issues !
+		if (!isset($this->conn)) return true;
+        $this->conn->close();
+        }
+
 	public function setConfig($config)
 		{
 		$c = array_values($config);
