@@ -18,7 +18,7 @@ class connector_class
     public function __destruct()
         {
         # Explicitely closing is optionnal, but we're having some issues !
-		if (!isset($this->conn)) return true;
+        if (!isset($this->conn)) return true;
         $this->conn->close();
         }
 
