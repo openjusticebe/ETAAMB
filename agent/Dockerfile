@@ -7,6 +7,8 @@ ENV PATH="/agent:/agent/misc:/agent/moniteur_import:$PATH"
 COPY ./agent/install-packages.sh .
 RUN  ./install-packages.sh
 
+RUN sed -e 's/max_execution_time = 30/max_execution_time = 3600/' -i /etc/php/7.4/cli/php.ini
+
 COPY ./resources /resources
 COPY ./etaamb /etaamb
 COPY ./agent ./
