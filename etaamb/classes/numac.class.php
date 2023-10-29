@@ -286,7 +286,7 @@ class numac extends default_page
 					   .'<div class="documents_linked text_links">%s</div>'
 					   .'</aside>'
 					   ,'<!--etaamb_desc-->'
-                       ,URL_PROTOCOL
+                       //,URL_PROTOCOL
 					   ,'<!--referer_data-->'
 					   ,'<!--reverse_links-->'
 					   ,$this->linkedDocs());
