@@ -13,8 +13,8 @@
 	<?php }?>
  	<a href="<?php echo $dict->get('about_link');?>"><?php echo $dict->get('about');?></a><span> - </span>
  	<a href="http://etaamb.blogspot.com/">web log</a><span> - </span>
- 	<a href="http://www.twitter.com/OpenjusticeB">twitter</a><span> - </span>
  	<!--
+ 	<a href="http://www.twitter.com/OpenjusticeB">twitter</a><span> - </span>
  	<a id="footer_bugtracker" href="http://gitbug.appspot.com/projects/etaamb/">bug tracker</a><span> - </span>
  	-->
  	<a href="http://www.google.be" class="contact">contact</a>
