@@ -13,9 +13,19 @@ class anoner {
 	static $lang	   = false;
 
 	static $common_patterns = array(
-		"selor_selection" => array('mask' => "#\s{3}(\d{1,4}\. )[A-Z][A-Za-zÀ-ÿ \-']+, [A-Z][A-Za-zÀ-ÿ \-']+, (\d{4} )?[A-Z][A-Za-zÀ-ÿ \-'()]+\n#"
-								  ,'repl' => '<br>$1<span class="anonymized">****</span>, <span class="anonymized">*****</span>, <span class="anonymized">*****</span>, <span class="anonymized">****</span>')
-		);
+        "selor_selection" => array(
+            'mask' => "#\s{3}(\d{1,4}\. )[A-Z][A-Za-zÀ-ÿ \-']+, [A-Z][A-Za-zÀ-ÿ \-']+, (\d{4} )?[A-Z][A-Za-zÀ-ÿ \-'()]+\n#",
+            'repl' => '<br>$1<span class="anonymized">****</span>, <span class="anonymized">*****</span>, <span class="anonymized">*****</span>, <span class="anonymized">****</span>'
+        ),
+        "infrabel_agents" => array(
+            'mask' => "#([A-Z'\-]+){1,} [A-Z][A-Za-zÀ-ÿ \-']+,? \(id. ?[0-9]+\);?#",
+            'repl' => '<span class="anonymized">****</span> <span class="anonymized">*****</span> (id. <span class="anonymized">*</span>)'
+        ),
+        "infrabel_id" => array(
+            'mask' => "#\(id. ?[0-9]+\)#",
+            'repl' => '(id. <span class="anonymized">*</span>)'
+		)
+    );
 
 	static function test()
 		{
