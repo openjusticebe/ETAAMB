@@ -27,6 +27,11 @@ class anoner {
 		)
     );
 
+    static $forced_matches = array(
+        "Virginie",
+        "Jean-Marie",
+    );
+
 	static function test()
 		{
         switch(ANON_SERVICE)
@@ -128,6 +133,7 @@ class anoner {
 		if ($badcount < 1000)
 			{
 			$text	   = self::remove_common_patterns($text);
+			$text	   = self::remove_forced_matches($text);
 			$text	   = self::remove_dates($text);
 			$text 	   = self::remove_gender($text);
 			$text 	   = self::remove_newnames($text);
@@ -138,6 +144,7 @@ class anoner {
 		else
 			{
 			$text	   = self::remove_common_patterns($text);
+			$text	   = self::remove_forced_matches($text);
 			$text	   = self::remove_dates($text);
 			$text 	   = self::remove_gender($text);
 			$text 	   = self::remove_living_place($text);
@@ -248,6 +255,12 @@ class anoner {
 			}
 		return $text;
 		}
+
+    static function remove_forced_matches($text)
+        {
+        $text = str_replace(self::$forced_matches, '<span class="anonymized">****</span>', $text);
+        return $text;
+        }
 
 	static function remove_capitalized($badtable, $text)
 		{
