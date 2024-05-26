@@ -30,7 +30,7 @@ $dates_to_parse=400;
 $max_pause = 500;
 $min_pause = 100;
 
-$version = 2;
+$version = 1;
 
 ## Database init
 $db = $ENV{'DB_DATA'};
