@@ -45,7 +45,7 @@ define("URLMASK"
 Using **docker-compose**, and after configuration, the whole environment can be run as follows :
 
 1. `docker-compose up` in the root repository directory will initiate a local development environment
-2. Once launched, run `docker exec -it etaamb_steward run db_setup` in another terminal to crete the database tables
+2. Once launched, run `docker exec -it etaamb_steward run db_setup` in another terminal to create the database tables
 3. TODO
 
 ## Logging

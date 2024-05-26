@@ -2,6 +2,9 @@
 # Author:    Pieterjan  Montens <gnaeus@gnaeus_app.willy.manor>
 # Created:   Fri Aug 6 13:34:38 2010 +0000
 # Description: Raw Page getter
+# Changelog:
+# Sun May 26 22:07:00 2024 +0001
+#   - Adapt to new layout
 #
 # Db form: id | numac | pub_date | raw_fr | raw_nl
 # Get X pages on each run
@@ -63,10 +66,12 @@ for my $doc (@todo)
 
 	print "\tGetting pages for doc $numac, $pub_date..";
 
-	$url_nl = sprintf("http://www.ejustice.just.fgov.be/cgi/article_body.pl?language=%s&caller=summary&pub_date=%s&numac=%u", 'nl', $pub_date, $numac);
-	$url_fr = sprintf("http://www.ejustice.just.fgov.be/cgi/article_body.pl?language=%s&caller=summary&pub_date=%s&numac=%u", 'fr', $pub_date, $numac);
+	$url_nl = sprintf("https://www.ejustice.just.fgov.be/cgi/article.pl?language=%s&sum_date=%s&lg_txt=%s&caller=sum&numac_search=%s&view_numac=", 'nl', $pub_date, 'n', $numac);
 
-	$page_nl = getPage($url_nl);
+	$url_fr = sprintf("https://www.ejustice.just.fgov.be/cgi/article.pl?language=%s&sum_date=%s&lg_txt=%s&caller=sum&numac_search=%s&view_numac=", 'fr', $pub_date, 'f', $numac);
+
+
+    $page_nl = getPage($url_nl);
 	$page_fr = getPage($url_fr);
 
 	if ($page_nl && $page_fr)
@@ -82,7 +87,7 @@ for my $doc (@todo)
 	print " Done\n";
 	}
 
-print "\n";
+print "\nAll done\n";
 
 ## Subs
 sub getPage
