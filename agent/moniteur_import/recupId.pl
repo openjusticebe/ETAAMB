@@ -2,6 +2,9 @@
 # Author:    Pieterjan  Montens <gnaeus@gnaeus_app.willy.manor>
 # Created:   Fri Aug 6 13:34:38 2010 +0000
 # Description: Document ID getter for belgian official journal
+# Changelog:
+#   Sun May 26 22:07:00 2024 +0001
+#       - Adapt to new layout
 #
 # 1) generate date list
 # 2) filter out done dates and get 10 dates 
@@ -12,7 +15,9 @@ use LWP::Simple;
 use LWP::UserAgent;
 use HTTP::Request;
 use HTTP::Response;
+use URI::Escape;
 use DBI;
+use Data::Dumper;
 $| = 1;
 use constant TRUE => 1;
 use constant FALSE => 0;
@@ -109,12 +114,28 @@ foreach (@dates_to_do)
 	print "		Extracting ids...";
 	$dt_string = sprintf("http://www.ejustice.just.fgov.be/cgi/summary_body.pl?language=%s&pub_date=%u-%02u-%02u",
 							'fr',$_->year(),$_->month(),$_->day());
-	$request = HTTP::Request->new(GET => $dt_string);
+    my $url = "https://www.ejustice.just.fgov.be/cgi/summary.pl";
+	my $data= {
+        sum_date => sprintf("%u-%02u-%02u", $_->year(),$_->month(),$_->day()),
+        language => 'fr',
+        view_numac => '',
+    };
+
+    #my $encoded_data = join('&', map { uri_escape($_) . '=' . uri_escape($data{$_}) } keys %$data);
+    my $encoded_data = join('&', map { uri_escape($_) . '=' . uri_escape($data->{$_}) } keys %$data);
+
+    my $headers = HTTP::Headers->new(
+        'Content-Type' => 'application/x-www-form-urlencoded',
+        'Accept' => 'text/html',
+    );
+    #$request = HTTP::Request->new(GET => $dt_string);
+    $request = HTTP::Request->new('POST', $url, $headers, $encoded_data);
 	$response = $browser->request($request);
 	if ($response->is_error()) {printf ("	Erreur connexion:%s\n", $response->status_line); next;}
 	$contents = $response->content();
 	my @ids=();
-	while ($contents=~ m/name=(\d{10})/gi)
+    #while ($contents=~ m/name=(\d{10})/gi)
+	while ($contents=~ m/numac_search=(\d{10})/gi)
 		{
 		push(@ids,$1);
 		}
@@ -122,7 +143,7 @@ foreach (@dates_to_do)
 	print " $count ids\n";
 		
 	########### Recording ID
-	print "		Recording ids...";
+	print "		Recording ids... (first: $ids[0])";
 	foreach $id (@ids)
 		{
 		$request = sprintf("Insert into raw_ids (doc_id, date, version) values (%u, '%s', %u)",
@@ -163,12 +184,12 @@ sub get_last_date
 {
 	my $browser = LWP::UserAgent->new();
 	$browser->timeout(30);
-	my $url = 'http://www.ejustice.just.fgov.be/cgi/summary_body.pl?language=fr&pub_date=';
+    my $url='https://www.ejustice.just.fgov.be/cgi/summary.pl?language=nl&view_numac=';
 	my $request = HTTP::Request->new(GET => $url);
 	my $response = $browser->request($request);
 	if ($response->is_error()) {printf ("	Erreur connexion:%s\n", $response->status_line); return FALSE;}
 	my $content = $response->content();
-	$content =~ /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})<\/a>/;
+	$content =~ /sum_date=(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})&/;
 
 	return DateTime->new(year => $+{year}, month => $+{month}, day => $+{day});
 }

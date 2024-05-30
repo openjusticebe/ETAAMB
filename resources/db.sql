@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `docs` (
   KEY `prom_date` (`prom_date`),
   KEY `type` (`type`),
   KEY `version` (`version`),
-  KEY `anonymise` (`anonymise`),
+  KEY `anonymise` (`anonymise`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=0 ;
 
 -- --------------------------------------------------------
@@ -127,7 +127,6 @@ CREATE TABLE IF NOT EXISTS `raw_pages` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=0 ;
 CREATE INDEX version ON raw_pages(version);                                                                             
 ALTER TABLE raw_pages ADD FULLTEXT(raw_fr);                                                                           
-~                                                   
 
 -- --------------------------------------------------------
 

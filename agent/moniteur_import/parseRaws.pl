@@ -30,10 +30,14 @@ $|=1;
 
 # #### Version changelog
 # ######################
+# 18 : New MB version after 16/05/2024
 # 17 : Chrono ID, Senate & Chamber ID & Leg
 # < 17 : Original etaamb format (historical)
-my $version=17;
+my $version=18;
 
+# this version of parseraws is made to work with following raw versions :
+# (previous file is compatible with "original" only)
+my $raw_source_version = "052024";
 
 my $loop_num=1;
 if (defined $ENV{THREADS}) {
@@ -66,11 +70,11 @@ do {
 
 	my $sql = "select raw_pages.numac from raw_pages 
 			   left join docs on raw_pages.numac=docs.numac 
-			   where docs.numac is null
+			   where docs.numac is null and raw_source_version = $raw_source_version
 			    union
 			   select raw_pages.numac from raw_pages 
 			   left join docs on raw_pages.numac=docs.numac 
-			   where docs.version != $version
+			   where docs.version != $version and raw_source_version = $raw_source_version
 			   limit 0, 1000";
 
 	my $sth = $dbh->prepare($sql);

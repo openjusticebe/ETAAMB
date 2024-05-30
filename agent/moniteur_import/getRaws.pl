@@ -2,12 +2,18 @@
 # Author:    Pieterjan  Montens <gnaeus@gnaeus_app.willy.manor>
 # Created:   Fri Aug 6 13:34:38 2010 +0000
 # Description: Raw Page getter
+# Changelog:
+#   Sun May 26 22:07:00 2024 +0001
+#       - Adapt to new layout
 #
 # Db form: id | numac | pub_date | raw_fr | raw_nl
 # Get X pages on each run
 
 my $version = 1;
 my $page_number = 50;
+# All raw version before 16/05/2024 : original"
+# All raw verions after the 16/05/2025 update: 052024
+my $raw_source_version = "052024";
 
 ## Pause between pages
 $max_pause = 80;
@@ -53,7 +59,7 @@ while (my @data = $sth->fetchrow_array())
 	push @todo,$res;
 	}
 
-my $insert = $dbh->prepare("Insert into raw_pages(numac, pub_date, raw_fr, raw_nl, version) values (?,?,?,?,?)");
+my $insert = $dbh->prepare("Insert into raw_pages(numac, pub_date, raw_fr, raw_nl, version, raw_source_version) values (?,?,?,?,?,?)");
 $sleep = 0;
 
 for my $doc (@todo)
@@ -63,15 +69,17 @@ for my $doc (@todo)
 
 	print "\tGetting pages for doc $numac, $pub_date..";
 
-	$url_nl = sprintf("http://www.ejustice.just.fgov.be/cgi/article_body.pl?language=%s&caller=summary&pub_date=%s&numac=%u", 'nl', $pub_date, $numac);
-	$url_fr = sprintf("http://www.ejustice.just.fgov.be/cgi/article_body.pl?language=%s&caller=summary&pub_date=%s&numac=%u", 'fr', $pub_date, $numac);
+	$url_nl = sprintf("https://www.ejustice.just.fgov.be/cgi/article.pl?language=%s&sum_date=%s&lg_txt=%s&caller=sum&numac_search=%s&view_numac=", 'nl', $pub_date, 'n', $numac);
 
-	$page_nl = getPage($url_nl);
+	$url_fr = sprintf("https://www.ejustice.just.fgov.be/cgi/article.pl?language=%s&sum_date=%s&lg_txt=%s&caller=sum&numac_search=%s&view_numac=", 'fr', $pub_date, 'f', $numac);
+
+
+    $page_nl = getPage($url_nl);
 	$page_fr = getPage($url_fr);
 
 	if ($page_nl && $page_fr)
 		{
-		$insert->execute($numac,$pub_date,$page_fr,$page_nl,$version);
+		$insert->execute($numac,$pub_date,$page_fr,$page_nl,$version,$raw_source_version);
 		}
 	print " Done\n";
 
@@ -82,7 +90,7 @@ for my $doc (@todo)
 	print " Done\n";
 	}
 
-print "\n";
+print "\nAll done\n";
 
 ## Subs
 sub getPage
