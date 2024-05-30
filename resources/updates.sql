@@ -26,3 +26,7 @@ UPDATE types SET `ord` = 4 WHERE type_nl = 'programmawet';
 UPDATE types SET `ord` = 3 WHERE type_nl = 'wet'; 
 UPDATE types SET `ord` = 2 WHERE type_nl = 'wijziging aan de grondwet'; 
 UPDATE types SET `ord` = 100 WHERE ord IS NULL; 
+
+-- 30/05/24 : add value raw_source_version
+ALTER TABLE raw_pages ADD `raw_source_version` varchar(255);
+UPDATE raw_pages SET `raw_source_version` = 'original';

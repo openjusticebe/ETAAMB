@@ -671,7 +671,8 @@ sub getPromDate
         return $1."-".$2."-".$3;
         }
 
-    if ($self->{_content} =~ m/<h3><center><u>\s(\d{1,2})\s(\w{1,})\s(\d{4})\./i)
+    #if ($self->{_content} =~ m/<h3><center><u>\s(\d{1,2})\s(\w{1,})\s(\d{4})\./i)
+    if ($self->{_content} =~ m/"intro-text">\s*(\d{1,2})\s(\w{1,})\s(\d{4})\./i)
         {
         if (exists($months{$2}))
             {
@@ -738,7 +739,7 @@ sub getType
         $term  = @{$termdef}[0];
         for my $mask (@{@{$termdef}[1]})
             {
-            if ($title =~ m/^$mask|^(\s*(\d+\/){2}\d+\s*\.?|\s*\d+(er)?\s+\w+\s+\d+\s*\.?|[^\.]*\.\s*|\s*)-?\s*[^a-z]{0,}$mask/i)
+            if ($title =~ m/^$mask|^(\s*(\d+\/){2}\d+\s*\.?|\s*\d+(er)?\s*\w+\s*\d+\s*\.?|[^\.]*\.\s*|\s*)-?\s*[^a-z]{0,}$mask/i)
                 {
                 return $term;
                 }
@@ -801,7 +802,8 @@ sub getSource
 		return "nosource";
         }
 
-    if ($self->{_content} =~ m/^<font>([^<]+)<\/font><\/td><\/tr>/im)
+    #if ($self->{_content} =~ m/^<font>([^<]+)<\/font><\/td><\/tr>/im)
+    if ($self->{_content} =~ m/h1 class="page__title">\s*<span>([^<]+)\s*<\/span>/im)
 		{
         return $1;
 		}
@@ -847,7 +849,8 @@ sub getPdf
 		return undef;
         }
 
-    if ($self->{_content} =~ m/name=urlpdf value="([^"]+)"/i)
+    #if ($self->{_content} =~ m/name=urlpdf value="([^"]+)"/i)
+    if ($self->{_content} =~ m/href="(\/mopdf[^"]+)"/i)
 		{
         return $1 =~ s/^\s+|\s+$//rg;;
 		}
@@ -927,16 +930,17 @@ sub getTitle
 	my $text = $self->{_raw};
 	my $final_title= '';
 
-	if ($text =~ m/<h3><center><u>(([^\.]+\.)?(\s\-)?\s?(?<title>.+?)|\s*)<\/u><\/center><\/h3><br>\s*(?<sub_title>[\s\S]{0,250})[^<]*<br>(?<text_begin>[\s\S]{0,100})/im)
+    # if ($text =~ m/<h3><center><u>(([^\.]+\.)?(\s\-)?\s?(?<title>.+?)|\s*)<\/u><\/center><\/h3><br>\s*(?<sub_title>[\s\S]{0,250})[^<]*<br>(?<text_begin>[\s\S]{0,100})/im)
+	if ($text =~ m/"intro-text">\s*(([^\.]+\.)?(\s\-)?\s?(?<title>.+?)|\s*)\s*<\/p>\s*<p class="intro-date">(?<sub_title>[\s\S]{0,250})<\/p>[\s\S]+role="main">\s*(?<text_begin>[\s\S]{0,100})/im)
 		{
 		my $title 		= $+{title};
 		my $sub_title = $+{sub_title};
 		my $text_begin = $+{text_begin};
-		if ($title !~ m/^\s*$/)	
+		if (defined $title && $title !~ m/^\s*$/)	
 			{
 			$final_title = $title;
 			}
-		elsif ($sub_title !~ m/^\s*$/)
+		elsif (defined $sub_title && $sub_title !~ m/^\s*$/)
 			{
 			my $hs = HTML::Strip->new();
 			$final_title = $hs->parse($sub_title.'(...) '.$text_begin.'(...)');
