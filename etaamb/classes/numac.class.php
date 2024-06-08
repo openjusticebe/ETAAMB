@@ -430,7 +430,7 @@ class numac extends default_page
 	function qrcodeUrl()
 		{
         $this_url = a($this->numac);
-        $url = 'https://qc.openjustice.lltl.be/'
+        $url = 'https://qc.openjustice.lltl.be'
 			  .'/qr?'
 			  .'text='.urlencode($this_url);
 			  #.'size=75'
