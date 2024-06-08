@@ -106,6 +106,11 @@ class text_renderer
             if (self::$dolog) self::log('Clean Numac');
 			$t = preg_replace('#^[^\n]*\n{1}#','',$t);
             }
+		if (preg_match('#\s{3}={4,}#',$t) > 0)
+            {
+            if (self::$dolog) self::log('Clean New Structure heading');
+			$t = preg_replace('#^[\s\S]*\s{3}={4,}\s#','',$t);
+            }
 
         //$t = preg_replace('#^\s{3}\w*\n*\s{3}[^\n]*\n*\s{3}#','',$t);
 		if (self::$dolog) self::log('clean_head text length: '.strlen($t));
@@ -116,6 +121,12 @@ class text_renderer
 		{
         $revt = strrev($t);
         $revt = preg_replace('#^(.*?\n){2,6}(nigeb|tubed)\s{3}\n{3,6}#','',$revt);
+
+		if (preg_match('#-{7}\s{3}#',$revt) > 0)
+            {
+            if (self::$dolog) self::log('Clean New Structure footer');
+			$revt = preg_replace('#^[\s\S]*-{7}\s{3}\s:\s(skniL|sneiL)#','',$revt);
+            }
         $t = strrev($revt);
 		if (self::$dolog) self::log('clean_tail text length: '.strlen($t));
 		return $t;

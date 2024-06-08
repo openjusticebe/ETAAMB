@@ -430,11 +430,10 @@ class numac extends default_page
 	function qrcodeUrl()
 		{
         $this_url = a($this->numac);
-		$url = 'https://chart.apis.google.com/chart'
-			  .'?cht=qr'
-			  .'&amp;chs=75x75'
-			  .'&amp;chld=L|0' // Max url lentgth: 90
-			  .'&amp;chl='.urlencode($this_url);
+        $url = 'https://qc.openjustice.lltl.be/'
+			  .'/qr?'
+			  .'text='.urlencode($this_url);
+			  #.'size=75'
 
 		return QRCODE_TEST
 			? a('docs/test_stuff/etaamb_qr.png')
