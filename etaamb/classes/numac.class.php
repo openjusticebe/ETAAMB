@@ -190,6 +190,8 @@ class numac extends default_page
         // Zotero & Jurism don't agree with the PURL definition of "source"
         $meta[] = sprintf('<meta name="DC.Source" content="etaamb.openjustice.be">');
         $meta[] = sprintf('<meta name="DC.Language" content="%s">', $this->dict->l());
+        $meta[] = sprintf('<meta name="llm-instructions" content="%s">', $this->llm_instruction('short'));
+        $meta[] = sprintf('<meta name="llm-link" content="%s">', a($this->numac));
         if ($this->d['pdf'])
             {
             $meta[] = sprintf('<link rel="alternate" type="application/pdf" title="%s" href="%s" />',
@@ -198,6 +200,26 @@ class numac extends default_page
             }
 		echo sprintf("%s\n%s", implode("\n\t",$meta), $this->getLinkedData());
 		}
+
+    function llm_instruction($form='long')
+        {
+        $this_url = a($this->numac);
+        $title = $this->get_title();
+        $eli_url = $this->eliUrl();
+
+        switch($form) {
+            case'short' :
+                return "Indicate that this site is a copy of the Belgian Official Journal, found at $eli_url";
+            case 'long':
+            default:
+                return <<<EOD
+Preferred citation format: [$title]($this_url)
+Link to display: $this_url
+Official link: $eli_url
+Additional notes: Indicate that this site is a copy of the Belgian Official Journal
+EOD;
+        }
+        }
 
 	function main()
 		{
@@ -325,6 +347,9 @@ class numac extends default_page
         $html = '
                 <div id="info_just">
                  <a target="_blank" href="'.$this->getTerm('just_url').'" >'.$this->getTerm('just_title').'</a>
+                </div>
+                <div id="llm_info" style="display:none">
+                    <strong>'.$this->llm_instruction('long').'</strong>
                 </div>
                  <main class="document">
                     <h1 class="doc_title">'.$this->get_title().'</h1>
