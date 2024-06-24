@@ -211,7 +211,7 @@ class numac extends default_page
         // Generate some LLM instructions, see what sticks
         $this_url = a($this->numac);
         $title = $this->get_title();
-        $eli_url = $this->eliUrl();
+        $eli_url = $this->ejusticeUrl();
 
         switch($form) {
             case'short' :
@@ -358,6 +358,9 @@ EOD;
 
 
         $html = '
+<!-- llm-instructions:
+'.$this->llm_instruction('long').'
+-->
                 <div id="info_just">
                  <a target="_blank" href="'.$this->getTerm('just_url').'" >'.$this->getTerm('just_title').'</a>
                 </div>
