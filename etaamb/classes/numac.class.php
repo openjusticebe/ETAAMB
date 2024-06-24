@@ -178,8 +178,8 @@ class numac extends default_page
 
         $meta[] = sprintf('<meta name="DC.Title" content="%s">', $this->getTerm('title'));
         $meta[] = sprintf('<meta name="DC.Creator" content="%s">', $this->d['source']);
-        $meta[] = sprintf('<meta name="DC.Description" content="%s">', $this->getTerm('description'));
-        $meta[] = sprintf('<meta name="DC.Abstract" content="%s">', $this->terms['extract']);
+        $meta[] = sprintf('<meta name="DC.Description" content="%s">', $this->meta_escape($this->getTerm('description')));
+        $meta[] = sprintf('<meta name="DC.Abstract" content="%s">', $this->meta_escape($this->terms['extract']));
         $meta[] = sprintf('<meta name="DC.Publisher" content="%s">', $this->dict->get('moniteur_full'));
         $meta[] = sprintf('<meta name="DC.Contributor" content="etaamb.openjustice.be">');
         $meta[] = sprintf('<meta name="DC.Date" content="%s">', $this->displayDate($this->d["prom_date"], "Y-m-d"));
@@ -190,7 +190,7 @@ class numac extends default_page
         // Zotero & Jurism don't agree with the PURL definition of "source"
         $meta[] = sprintf('<meta name="DC.Source" content="etaamb.openjustice.be">');
         $meta[] = sprintf('<meta name="DC.Language" content="%s">', $this->dict->l());
-        $meta[] = sprintf('<meta name="llm-instructions" content="%s">', $this->llm_instruction('short'));
+        $meta[] = sprintf('<meta name="llm-instructions" content="%s">', $this->meta_escape($this->llm_instruction('short')));
         $meta[] = sprintf('<meta name="llm-link" content="%s">', a($this->numac));
         if ($this->d['pdf'])
             {
@@ -200,6 +200,11 @@ class numac extends default_page
             }
 		echo sprintf("%s\n%s", implode("\n\t",$meta), $this->getLinkedData());
 		}
+
+    function meta_escape($text)
+        {
+        return str_replace('"', '\'', $text);
+        }
 
     function llm_instruction($form='long')
         {
