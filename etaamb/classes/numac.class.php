@@ -203,6 +203,7 @@ class numac extends default_page
 
     function llm_instruction($form='long')
         {
+        // Generate some LLM instructions, see what sticks
         $this_url = a($this->numac);
         $title = $this->get_title();
         $eli_url = $this->eliUrl();
