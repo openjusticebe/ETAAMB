@@ -197,7 +197,7 @@ do {
 	$counter++;
 	print "+\n" if ($counter%2 == 0);
 
-	$sql = "SELECT count( * ) AS count FROM raw_pages LEFT JOIN docs ON raw_pages.numac = docs.numac WHERE docs.numac IS NULL or docs.version < $version";
+	$sql = "SELECT count( * ) AS count FROM raw_pages LEFT JOIN docs ON raw_pages.numac = docs.numac WHERE (docs.numac IS NULL or docs.version < $version) and raw_source_version = $raw_source_version ";
     my $dbh = DBI->connect( $dsn, $login, $mdp, {PrintError => 0, RaiseError => 0}
         ) or die "Db Connection Error";
 	$sth = $dbh->prepare($sql);
@@ -216,6 +216,12 @@ do {
 		print "##############################################################\n";
 		print "##############################################################\n";
 		}
+
+    if ($counter > 5)
+        {
+		print "\n Max loop number exceeded\n\n";
+		exit 0;
+        }
 } while (1 == 1);
 exit 0;
 
