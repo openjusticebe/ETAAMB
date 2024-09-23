@@ -45,7 +45,8 @@ $sql = " Select doc_id, date from raw_ids
 		  union
 		 Select doc_id, date from raw_ids 
 		 left join raw_pages on raw_ids.doc_id = raw_pages.numac
-		 where raw_pages.numac is null";
+		 where raw_pages.numac is null
+limit 250";
 
 my $sth = $dbh->prepare($sql);
 $sth->execute();
