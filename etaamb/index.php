@@ -1,4 +1,5 @@
 <?php 
+setlocale(LC_TIME, 'be_FR');
 require_once('config.php');
 require_once('config.default.php');
 require_once(CLASS_DIR.'observer.class.php');
@@ -19,7 +20,6 @@ require_once(CLASS_DIR.'highlighter.class.php');
 require_once(CLASS_DIR.'statistics.class.php');
 require_once(CLASS_DIR.'url.class.php');
 require_once(CLASS_DIR.'tagger.class.php');
-require_once('./tools/calendar.php');
 
 $observer = observer::getInstance();
 if (INDEX_LOG) {
