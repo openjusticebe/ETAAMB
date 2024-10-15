@@ -67,6 +67,22 @@ class docDispay {
 		</span>
 	</span>';
 
+	private $data;
+	private $c;
+	private $numac;
+	private $title;
+	private $source;
+	private $type;
+	private $promDate;
+	private $pubDate;
+	private $docTitle;
+	private $idString;
+	private $addClass;
+	private $template;
+
+    private $dict;
+    private $link;
+
 	public function __construct($numac)
 		{
 		$this->data = array();

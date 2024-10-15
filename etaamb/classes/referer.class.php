@@ -14,6 +14,12 @@ passer d'un élement à un autre, avec un nouvel élément d'UI
 */
 define('MAX_KEYWORDS',14);
 class referer {
+    private $observer;
+    private $do_log;
+    private $dict;
+    private $checked;
+
+    public $url;
 
 	public function __construct()
 		{

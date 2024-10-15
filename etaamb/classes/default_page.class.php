@@ -4,10 +4,28 @@ abstract class default_page
 	{
 	var $terms 	= array();
 	var $error 	= '';
-	var $do_log = false;
+	public $do_log = false;
 	var $years 	= array();
 	var $months = array();
 	var $days 	= array();
+    public $data;
+    public $docs;
+    public $docsMeta;
+
+    public $parser;
+    public $highlighter;
+    public $tagger;
+    public $referer;
+
+    public $col;
+    public $url_object;
+    public $expires;
+    public $lastMod;
+    public $dict;
+    public $doc;
+
+    public $observer;
+
 	// abstract
 	abstract public function isDataOk();
 
@@ -114,12 +132,23 @@ abstract class default_page
 		return $this->numacs();
 		}
 
+    public function utf8_dec($term)
+        {
+        if (!$term) return '';
+        return mb_convert_encoding($term, "UTF-8", mb_detect_encoding($term));
+        }
+
 	public function docsMeta($force=false)
 		{
 		if (isset($this->docsMeta) && !$force) return $this->docsMeta;
 		$result = $this->col->docsMeta();
 		foreach ($result as &$doc)
-			$doc  = array_map('utf8_encode',$doc);
+            {
+			//$doc  = array_map('utf8_encode',$doc);
+            $doc  = array_map(
+                [$this, 'utf8_dec']
+                ,$doc);
+            }
 		if (!$force) $this->docsMeta = $result;
 		return $result;
 		}
@@ -130,13 +159,13 @@ abstract class default_page
 		$temp = $this->col->doc();
 		if (!$multi && count($temp) == 1)
 			{
-			$doc  = array_map('utf8_encode',$temp[0]);
+			$doc  = array_map([$this, 'utf8_dec'],$temp[0]);
 			$this->doc = $doc;
 			}
 		else
 			{
 			foreach ($temp as &$doc)
-				$doc  = array_map('utf8_encode',$doc);
+				$doc  = array_map([$this, 'utf8_dec'],$doc);
 			$this->doc = $temp;
 			}
 		return $this->doc();

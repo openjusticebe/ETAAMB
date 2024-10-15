@@ -2,7 +2,11 @@
 // Router class to route url requests, and to parse them.
 
 class url_router {
-	var $do_log = false;
+	private $do_log = false;
+    private $observer;
+    private $url;
+    private $arr;
+    
 
 	public function __construct($url=false)
 		{

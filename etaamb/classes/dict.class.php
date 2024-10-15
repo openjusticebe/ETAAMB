@@ -246,6 +246,7 @@ class dict
 			'stopwords' => 'aan af al alles als ben bij daar dan dat de der deze die dit doch doen door dus een eens en er ge geen haar had heb hebben heeft hem het hier hij hoe hun iets ik in is ja je kan kon maar me meer men met mij mijn moet na naar niet niets nog nu of om omdat ons ook op over reeds te tegen toch toen tot u uit uw van veel voor want waren was wat we wel werd wezen wie wij wil zal ze zei zelf zich zij zijn zo zou'
             )
         );
+    public $l;
 
     public function __construct($l)
         {

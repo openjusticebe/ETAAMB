@@ -5,6 +5,8 @@ class tagger
 	{
 	private $con;
 	private $do_log = false;
+    private $observer;
+    private $connector;
 	
 	public function __construct()
 		{

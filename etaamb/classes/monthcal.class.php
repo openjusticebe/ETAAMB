@@ -3,6 +3,18 @@
 
 class monthcal
 	{
+    public $year;
+    public $month;
+    public $weekday;
+    public $validDays;
+    public $legend;
+    public $datetype;
+    public $class;
+    public $monthFirst;
+
+    private $c;
+    private $dict;
+
 	public function __construct($year,$month)
 		{
 		$this->year 	 = $year;

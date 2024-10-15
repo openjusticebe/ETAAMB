@@ -81,6 +81,9 @@ services:
       - DB_PASSWORD=mariadb
       - DB_HOST=etaamb_db
       - DB_PORT=3306
+      - ETAAMB_DOMAIN=localhost:8042
+      - ETAAMB_PROTOCOL=http
+      - ADMIN_MAIL=test@example.com
     ports:
       - "8042:80"
     depends_on:

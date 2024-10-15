@@ -8,6 +8,8 @@ class lang
 	private $debug = false;
 	private $cookiePath = '/';
 	private $do_log = false;
+    private $observer;
+    private $lang;
 
 	public function __construct()
 		{

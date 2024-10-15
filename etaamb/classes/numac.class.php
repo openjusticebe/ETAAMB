@@ -5,9 +5,16 @@ define('NO_REDIRECT',false);
 
 class numac extends default_page
 	{
-	var $render_cache = false;
+	public $render_cache = false;
 	private $langOk = array();
 	static  $version = 7;
+
+    public $d;
+    public $name;
+    public $numac;
+    public $anon;
+
+
 	public function __construct()
 		{
 		$this->observer = observer::getinstance();

@@ -7,6 +7,11 @@ class parser {
 	var $old_date_limit = 1980;
 	static $version 	= 9;
 	var $do_log			= false;
+    private $observer;
+    private $useCache;
+    private $col;
+    private $dict;
+
 
 	var $months = array( 'fr' => array(
 			'janvier','fevrier','mars',

@@ -5,6 +5,8 @@ class observer
 	{
 	var $buffer = array();
 	private static $instance;
+    private $log_start;
+    private $file_log;
 
 	static public function log($msg, $from, $type='')
 		{
