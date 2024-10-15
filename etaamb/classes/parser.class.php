@@ -7,10 +7,20 @@ class parser {
 	var $old_date_limit = 1980;
 	static $version 	= 9;
 	var $do_log			= false;
+
     private $observer;
     private $useCache;
     private $col;
     private $dict;
+    private $types;
+    private $oldDates;
+
+    public $text;
+    public $title;
+    public $lang;
+    public $numac;
+    public $prom_date;
+    public $extractedLinks;
 
 
 	var $months = array( 'fr' => array(

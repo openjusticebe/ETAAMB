@@ -7,8 +7,9 @@ class collection_class
 	var $filter = array();
 	var $do_log = false;
     private $observer;
-    private $db;
-    private $ln;
+
+    public $db;
+    public $ln;
 
 	public function __construct()
 		{

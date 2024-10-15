@@ -14,6 +14,10 @@ class numac extends default_page
     public $numac;
     public $anon;
 
+    public $linkedDocsCache;
+    public $reverseDocsCache;
+    public $otherlangurl;
+
 
 	public function __construct()
 		{
