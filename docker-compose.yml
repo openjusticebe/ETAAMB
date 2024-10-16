@@ -40,6 +40,17 @@ services:
     networks:
       - etaamb
 
+  anon:
+    # needs to have https://github.com/PieterjanMontens/anon_etaamb checked out
+    container_name: etaamb_anon
+    build:
+      context: ../anon_etaamb/
+      dockerfile: ../anon_etaamb/Dockerfile
+    ports:
+      - "8050:8050"
+    networks:
+      - etaamb
+
   phpmyadmin:
     container_name: etaamb_admin
     image: phpmyadmin/phpmyadmin:latest
@@ -83,12 +94,15 @@ services:
       - DB_PORT=3306
       - ETAAMB_DOMAIN=localhost:8042
       - ETAAMB_PROTOCOL=http
+      - ETAAMB_ANON_HOST=http://localhost:8050
+      - ETAAMB_ANON_HOST=http://etaamb_anon:8050
       - ADMIN_MAIL=test@example.com
     ports:
       - "8042:80"
     depends_on:
       - mariadb
       - steward
+      - anon
     networks:
       - etaamb
 

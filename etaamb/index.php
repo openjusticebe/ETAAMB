@@ -341,16 +341,17 @@ function aP($s)
 
 
 
-function normalize($content)
-    {
-    $str = strip_tags($content);
-    $str = strtolower($str);
-    $a = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿŔŕ'; 
-    $b = 'aaaaaaaceeeeiiiidnoooooouuuuybsaaaaaaaceeeeiiiidnoooooouuuyybyRr'; 
-    $str = utf8_decode($str);     
-    $str = strtr($str, utf8_decode($a), $b); 
-    return $str;
-    }
+# XXX: Looks unused
+# function normalize($content)
+#     {
+#     $str = strip_tags($content);
+#     $str = strtolower($str);
+#     $a = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿŔŕ'; 
+#     $b = 'aaaaaaaceeeeiiiidnoooooouuuuybsaaaaaaaceeeeiiiidnoooooouuuyybyRr'; 
+#     $str = utf8_decode($str);     
+#     $str = strtr($str, utf8_decode($a), $b); 
+#     return $str;
+#     }
 
 function c_type($type)
 	{

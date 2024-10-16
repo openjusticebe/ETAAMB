@@ -726,7 +726,10 @@ EOD;
 		$numacsOrdered = array();
 		foreach ($doclist as $doc)
 			{
-			$doc = array_map("utf8_encode",$doc);
+                $doc = array_map(
+                    [$this, 'utf8_dec']
+                    ,$doc
+                );
 			$date = new normalize($this->completeDate($doc['prom_date']));
 			$group_title = sprintf('%s %s %s'
 								  ,$doc['type']
@@ -875,7 +878,11 @@ EOD;
 		$numacsOrdered = array();
 		foreach ($doclist as $doc)
 			{
-			$doc = array_map("utf8_encode",$doc);
+            $doc = array_map(
+                [$this, 'utf8_dec']
+                ,$doc
+            );
+			$date = new normalize($this->completeDate($doc['prom_date']));
 			$date = new normalize($this->completeDate($doc['prom_date']));
 			if ($date->str() !== '--')
 				{
