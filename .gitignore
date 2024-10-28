@@ -1,2 +1,3 @@
 config.php
 docker_tool.sh
+*.pyc

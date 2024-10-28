@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "py-agent"
+version = "0.1.0"
+description = "ETAAMB Python agent"
+authors = ["Pieterjan Montens <pieterjan@montens.net>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+beautifulsoup4 = "^4.12.3"
+requests = "^2.32.3"
+click = "^8.1.7"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
