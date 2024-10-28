@@ -6,3 +6,11 @@ from classes import db
 def config():
     """Print debug parameters"""
     click.echo(f"Current DB Config: {db.get_config()}" )
+
+@click.command()
+def test_db():
+    """Quick test DB availability"""
+    db_obj = db.new(db.get_config())
+    r = db_obj.query('SELECT COUNT(*) as cnt FROM done_dates')
+    click.echo(f"Found {r[0]['cnt']} done dates in DB")
+

@@ -18,7 +18,8 @@ apt-get -y upgrade
 
 # Install a new package, without unnecessary recommended packages:
 apt-get -y install --no-install-recommends \
-    pipx
+    libmariadb3 \
+    libmariadb-dev
 
 # Delete cached files we don't need anymore:
 apt-get clean

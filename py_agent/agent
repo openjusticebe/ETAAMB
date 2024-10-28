@@ -20,6 +20,7 @@ def init():
 
 init.add_command(com_scrape.version)
 init.add_command(com_debug.config)
+init.add_command(com_debug.test_db)
 
 
 if __name__ == '__main__':
