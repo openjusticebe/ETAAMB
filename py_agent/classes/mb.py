@@ -4,9 +4,6 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
-import logging
-
-logger = logging.getLogger(__name__)
 ROOT_DOMAIN = 'https://www.ejustice.just.fgov.be'
 SERVICE_DIR = 'cgi/summary.pl'
 
@@ -58,7 +55,7 @@ class obj:
                 }
 
     def update(self, edition = 1):
-        params=self.get_params(edition),
+        params = self.get_params(edition)
         r = self.query(SERVICE_DIR, params)
         self.content = BeautifulSoup(r.text, "html.parser")
         self.current_edition = edition
@@ -72,21 +69,28 @@ class obj:
         r = self.query(SERVICE_DIR, params)
         self.content = BeautifulSoup(r.text, "html.parser")
         active_lang = self.content.find("a", class_="nav__language-button active")
+        date_obj = {'day':'', 'month':'', 'year':''}
+
         if active_lang and active_lang.has_attr("href"):
             href = active_lang["href"]
             logger.info("Found active ling %s", href)
-            date_match = re.search(r"sum_date=(\d{4})-(\d{2})-(\d{2})", href)
-            if date_match:
-                year, month, day = date_match.groups()
-                date_obj = {
-                    'year': int(year),
-                    'month': int(month),
-                    'day' : int(day)
-                }
-            else:
+            try:
+                return self.str2date(href)
+            except RuntimeError:
                 logger.error("No active date found")
-                date_obj = {'day':'', 'month':'', 'year':''}
         return date_obj
+
+    def str2date(self, datestr):
+        date_match = re.search(r"(\d{4})-(\d{2})-(\d{2})", datestr)
+        if date_match:
+            year, month, day = date_match.groups()
+            date_obj = {
+                'year': int(year),
+                'month': int(month),
+                'day' : int(day)
+            }
+            return date_obj
+        raise RuntimeError(f"Date format not valid (received {datestr})")
 
     def query(self, path, params):
         headers = {'User-Agent': 'etaamb scraper'}
