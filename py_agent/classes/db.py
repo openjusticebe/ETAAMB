@@ -1,7 +1,6 @@
 import os
 import pymysql
 import logging
-
 logger = logging.getLogger(__name__)
 
 def get_config():
@@ -13,7 +12,7 @@ def get_config():
             'DB_DATA': os.getenv('DB_DATA'),
     }
 
-class new:
+class obj:
 
     def __init__(self, config):
         self.config = config

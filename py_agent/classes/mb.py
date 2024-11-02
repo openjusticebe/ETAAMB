@@ -4,12 +4,16 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
+import logging
+
+logger = logging.getLogger(__name__)
+ROOT_DOMAIN = 'https://www.ejustice.just.fgov.be'
+SERVICE_DIR = 'cgi/summary.pl'
+
 class obj:
-    def __init__(self, logger, dateobj):
+    def __init__(self, dateobj=None):
         self.numac_mask = re.compile(r'^\d{10}$')
         self.soup = None
-        self.logger = logger
-        self.date = None
         self.content = None
         self.date = dateobj
         self.current_edition = 0
@@ -17,7 +21,7 @@ class obj:
     def has_editions(self):
         if not self.content:
             self.update()
-        return bool(self.content.find('div', class_='editions').find(class_="button_small"))
+        return bool(self.content.find('div', class_='editions').find(class_="button__small"))
 
     def numacs(self):
         return [
@@ -25,9 +29,12 @@ class obj:
                 if self.numac_mask.match(a.get_text(strip=True))
                 ]
 
+    def set_date(self, dateobj):
+        self.date = dateobj
+
     def editions(self):
         try:
-            last_num = soup.select_one("div.editions .button__small:last-child").get_text()
+            last_num = self.content.select_one("div.editions .button__small:last-child").get_text()
             if last_num.isdigit():
                 return int(last_num)
             logger.warn("Last edition number not a digit, returning default (1)")
@@ -51,18 +58,43 @@ class obj:
                 }
 
     def update(self, edition = 1):
-        r = self.query(edition)
+        params=self.get_params(edition),
+        r = self.query(SERVICE_DIR, params)
         self.content = BeautifulSoup(r.text, "html.parser")
         self.current_edition = edition
-        self.logger.info("Updated edition %s successfully", edition)
+        logger.info("Updated edition %s successfully", edition)
 
-    def query(self, edition):
+    def last_date(self):
+        params={
+            'language': 'nl',
+            'view_numac': ''
+        }
+        r = self.query(SERVICE_DIR, params)
+        self.content = BeautifulSoup(r.text, "html.parser")
+        active_lang = self.content.find("a", class_="nav__language-button active")
+        if active_lang and active_lang.has_attr("href"):
+            href = active_lang["href"]
+            logger.info("Found active ling %s", href)
+            date_match = re.search(r"sum_date=(\d{4})-(\d{2})-(\d{2})", href)
+            if date_match:
+                year, month, day = date_match.groups()
+                date_obj = {
+                    'year': int(year),
+                    'month': int(month),
+                    'day' : int(day)
+                }
+            else:
+                logger.error("No active date found")
+                date_obj = {'day':'', 'month':'', 'year':''}
+        return date_obj
+
+    def query(self, path, params):
         headers = {'User-Agent': 'etaamb scraper'}
         loops = 1
         while True:
             r = requests.get(
-                    f"{ROOT_DOMAIN}/{SERVICE_DIR}",
-                    params=self.get_params(edition),
+                    f"{ROOT_DOMAIN}/{path}",
+                    params=params,
                     headers=headers
                     )
             if r.status_code == 200:

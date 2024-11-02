@@ -10,7 +10,7 @@ def config():
 @click.command()
 def test_db():
     """Quick test DB availability"""
-    db_obj = db.new(db.get_config())
+    db_obj = db.obj(db.get_config())
     r = db_obj.query('SELECT COUNT(*) as cnt FROM done_dates')
     click.echo(f"Found {r[0]['cnt']} done dates in DB")
 

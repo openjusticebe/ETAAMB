@@ -12,6 +12,17 @@ logger.addHandler(logging.StreamHandler())
 from scrape import commands as com_scrape
 from debug import commands as com_debug
 
+# Agent is a simple CLI interface to multiple sub-parts
+# needed to manage ETAAMB. Each module has its own CLI 
+# Commands.
+#
+# Modules:
+# COM_DEBUG: Debugging and testing commands
+# COM_SCRAPE: Scraping options
+#
+# Support classes:
+# DB : database operations
+# MB : operations to interact with the Moniteur Belge
 
 
 @click.group()
@@ -19,6 +30,7 @@ def init():
     pass
 
 init.add_command(com_scrape.version)
+init.add_command(com_scrape.last_date)
 init.add_command(com_debug.config)
 init.add_command(com_debug.test_db)
 
