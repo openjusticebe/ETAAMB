@@ -4,10 +4,15 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
+import logging
+logger = logging.getLogger(__name__)
+
 ROOT_DOMAIN = 'https://www.ejustice.just.fgov.be'
 SERVICE_DIR = 'cgi/summary.pl'
 
 class obj:
+    # A bit of a clumsy class to extract data from MB
+
     def __init__(self, dateobj=None):
         self.numac_mask = re.compile(r'^\d{10}$')
         self.soup = None

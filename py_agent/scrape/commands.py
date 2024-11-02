@@ -45,12 +45,15 @@ def get_numacs(dry_run, date):
         click.echo(f"\tDate parsed to {ld_str}")
         mb_obj.set_date(date_obj)
 
+        editions = 0
         if mb_obj.has_editions():
             editions = mb_obj.editions()
             for edition in range(1, editions + 1):
                 mb_obj.load_edition(edition)
                 ed_numacs = mb_obj.numacs()
                 numacs.extend(ed_numacs)
+        else:
+            click.echo("\tNo editions found for that date")
 
         click.echo(f"\tAcquired {len(numacs)} numacs in {editions} edition(s)")
 
