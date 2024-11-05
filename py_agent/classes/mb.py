@@ -33,6 +33,8 @@ class obj:
 
     def set_date(self, dateobj):
         self.date = dateobj
+        self.content = None
+        self.soup = None
 
     def editions(self):
         try:
@@ -58,6 +60,17 @@ class obj:
                 'sum_date': date_obj.strftime("%Y-%m-%d"),
                 's_editie': edition
                 }
+
+    def get_numacs(self):
+        numacs = []
+        editions = 0
+        if self.has_editions():
+            editions = self.editions()
+            for edition in range(1, editions + 1):
+                self.load_edition(edition)
+                ed_numacs = self.numacs()
+                numacs.extend(ed_numacs)
+        return numacs
 
     def update(self, edition = 1):
         params = self.get_params(edition)
@@ -85,6 +98,11 @@ class obj:
                 logger.error("No active date found")
         return date_obj
 
+    def today(self):
+        # Why not simple use datetime for everything..
+        t = datetime.today()
+        return self.dt2date(t)
+
     def str2date(self, datestr):
         date_match = re.search(r"(\d{4})-(\d{2})-(\d{2})", datestr)
         if date_match:
@@ -96,6 +114,13 @@ class obj:
             }
             return date_obj
         raise RuntimeError(f"Date format not valid (received {datestr})")
+
+    def dt2date(self, dt):
+        return {
+            'year': dt.year,
+            'month': dt.month,
+            'day': dt.day
+        }
 
     def query(self, path, params):
         headers = {'User-Agent': 'etaamb scraper'}

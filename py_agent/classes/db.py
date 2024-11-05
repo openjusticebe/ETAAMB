@@ -26,9 +26,23 @@ class obj:
             logger.exception(e)
             return False;
 
-    def query(self, q):
+    def store_numacs(self, numacs, date_obj):
+        self.ensure()
+        with self.conn.cursor() as cursor:
+            sql = """
+            INSERT INTO `raw_ids` (`doc_id`, `date`, `version`) values (%s, %s, %s)
+                ON DUPLICATE KEY UPDATE `id` = `id`
+            """
+            date_str = f"{date_obj['year']}-{date_obj['month']:02}-{date_obj['day']:02}"
+            for numac in numacs:
+                cursor.execute(sql, (numac, date_str, 2))
+
+    def ensure(self):
         if not self.conn:
             self.connect()
+
+    def query(self, q):
+        self.ensure()
         with self.conn.cursor() as cursor:
             cursor.execute(q)
             res = cursor.fetchall()
