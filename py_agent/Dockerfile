@@ -20,6 +20,7 @@ ENV ENV=${ENV} \
 RUN pip install "poetry==$POETRY_VERSION"
 
 WORKDIR /app
+COPY ./py_agent /app
 COPY ./py_agent/poetry.lock ./py_agent/pyproject.toml /app/
 RUN poetry config virtualenvs.create false && \
     poetry install $(test $ENV == "prod" && echo "--no-dev") --no-interaction --no-ansi
