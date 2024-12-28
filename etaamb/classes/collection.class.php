@@ -280,7 +280,7 @@ class collection_class
 		$this->filter[] = sprintf('titles.ln  = \'%s\'',$this->ln);
 		$this->filter[] = sprintf('text.ln  = \'%s\'',$this->ln);
 		$sql = $this->toQuery($baseQ);
-		if ($this->do_log) $this->log('Obtaining doc');
+		if ($this->do_log) $this->log('Obtaining doc: '.$sql);
 		return $this->db->query($sql);
 		}
 

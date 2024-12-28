@@ -35,6 +35,7 @@ abstract class default_page
 			{
 			$this->observer = observer::getInstance();
 		    $this->do_log = true;
+            $this->log('Default page log enabled');
 			}
 		}
 
@@ -154,9 +155,11 @@ abstract class default_page
 		return $result;
 		}
 
-	public function doc($multi=false)
+	public function doc($multi=false, $ignore_cache=false)
 		{
-		if (isset($this->doc)) return $this->doc;
+        // $multi: load documents published on the same day
+		if (isset($this->doc) && !$ignore_cache) return $this->doc;
+        if ($this->do_log && $ignore_cache) $this->log('Doc cache ignored');
 		$temp = $this->col->doc();
 		if (!$multi && count($temp) == 1)
 			{

@@ -99,6 +99,7 @@ class dict
 			'my_error_month_invalid' => 'Il n\'y a pas d\'éditions numériques du Moniteur Belge au mois indiquée.',
 			'my_error_day_invalid' => 'Il n\'y a pas d\'éditions numériques du Moniteur Belge au jour indiquée.',
 			'my_error_naturalisation' => 'Pour des raisons de protection de la vie privée, le document demandé est temporairement indisponible.',
+			'error_not_multilingual' => 'Le document n\'est pas disponible dans les langues sélectionnées.',
 			'close'			=> 'fermer',
 			'interfacewords'=> 'title numac',
 			'hire_me'		=> 'Sans être en recherche active d\'un emploi, je suis toujours disponible pour des projets innovants ou des offres intéressantes.  
@@ -220,6 +221,7 @@ class dict
 			'my_error_month_invalid' => 'Er zijn geen digitale edities van het Belgisch Staatsblad voor de opgegeven maand.',
 			'my_error_day_invalid' =>   'Er zijn geen digitale edities van het Belgisch Staatsblad voor de opgegeven dag.',
 			'my_error_naturalisation' => 'Om redenen van bescherming van het privé-leven, is het opgevraagde document tijdelijk onbeschikbaar.',
+			'error_not_multilingual' => 'Het document is niet beschikbaar in de geselecteerde talen.',
 			'close'		=> 'sluiten',
 			'interfacewords' => 'title numac',
 			'hire_me'	=> 'Alhoewel zonder actief op zoek te zijn naar een baan, ben ik altijd beschikbaar voor innoverende projecten of interessante aanbiedingen. Als u een project heeft voor een web of mobile applicatie, een ontwikkelaar of gewoon wat expertise nodig hebt, kunnen we dat zeker wel bespreken.',

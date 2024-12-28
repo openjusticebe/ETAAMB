@@ -148,7 +148,7 @@ class numac extends default_page
 		$ret = $this->col->numacCheck();
 		$langs = explode(',',$ret[0]);
 
-		foreach (array('fr','nl') as $ln)
+		foreach (array('fr','nl', 'de') as $ln)
 			$this->langOk[$ln] = in_array($ln,$langs) ? true : false;
 
 		if ($this->do_log) $this->log("Numac No cache hit, doc available in :".$ret[0]); 
