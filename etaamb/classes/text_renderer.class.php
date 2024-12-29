@@ -54,7 +54,7 @@ class text_renderer
 		return $t;
 		}
 
-	static private function clean_head($t)
+	static public function clean_head($t)
 		{
 		if (preg_match('#^\s{3}(FR|NL|DE)(\s(FR|NL|DE)){0,2}#',$t) > 0)
             {
@@ -117,7 +117,7 @@ class text_renderer
 		return $t;
 		}
 
-	static private function clean_tail($t)
+	static public function clean_tail($t)
 		{
         $revt = strrev($t);
         $revt = preg_replace('#^(.*?\n){2,6}(nigeb|tubed)\s{3}\n{3,6}#','',$revt);
