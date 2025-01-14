@@ -25,6 +25,7 @@ abstract class default_page
     public $doc;
 
     public $observer;
+    public $page;
 
 	// abstract
 	abstract public function isDataOk();

@@ -1,6 +1,8 @@
 <?php
 class policy extends default_page
     {
+    private $policy_path;
+
 	public function __construct()
 		{
 		// FIXME Jessie Upgrade BUG
