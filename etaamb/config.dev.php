@@ -9,7 +9,7 @@ define("ANON_HOST" , getenv('ETAAMB_ANON_HOST'));
 define("URL_PROTOCOL", getenv('ETAAMB_PROTOCOL'));
 define("URLMASK" , URL_PROTOCOL."://%host/%ln%page");
 define('MAIL_ADMIN', getenv('ADMIN_MAIL'));
-define('RENDERER_TEST_CACHE', false);
+define('RENDERED_TEXT_CACHE', false);
 define('PARSER_TEST_CACHE', false);
 define('REFERER_TEST', false);
 define('URL_CLASS_LOG', false);

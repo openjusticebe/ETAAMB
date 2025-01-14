@@ -201,21 +201,47 @@ abstract class default_page
 
 	public function toTitleLink($doc,$ln=false)
 		{
+        // Main function who computes the full title link to a document
 		$completedate = $this->completeDate($doc['prom_date'],$ln);
 		$title = $doc['type'].' '
 				.($completedate !== '--'
 				 ? $this->dict->get('of',$ln).' ' .$completedate
 				 : '');
 
-		
 		$titleO = new normalize($title);
 		$titleO->doTrim()
 			  ->noAccents()
 		      ->length(56)
 			  ->regreplace('#[^a-z0-9 ]#','')
 			  ->replace(' ','-');
+
 		return $titleO.'_n'.$doc['numac'];
 		}
+
+    public function toMultiTitleLink($doc, $fromLn, $toLn)
+        {
+        // a() helper will prefix with first language
+        return $toLn . '/' . $this->toTitleLink($doc, $fromLn);
+        }
+
+    public function canDoMulti($doc) {
+        $l2 = $this->lang() != 'nl' ? 'nl' : 'fr';
+
+		$l1_check = $this->isLangOk($this->lang());
+		$l2_check = $this->isLangOk($l2);
+
+		$isAnon = $doc['anon'] == 0 ? false : true;
+        $isTooLarge = strlen($doc['textpure']) > 40000;
+
+        if (!($l1_check && $l2_check))
+            return false;
+
+        if ($isAnon || $isTooLarge)
+            return false;
+
+        return true;
+    }
+
 
 	public function addIndexHomeLink($text)
 		{

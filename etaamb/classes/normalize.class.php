@@ -41,7 +41,8 @@ class normalize
         {
         if (!$term) return '';
         // There's buggy behavior here, but it works...
-        return mb_convert_encoding($term, "UTF-8", "ISO-8859-1");
+        //return mb_convert_encoding($term, "UTF-8", "ISO-8859-1");
+        return mb_convert_encoding($term, "ISO-8859-1", "UTF-8");
         }
 	
 	public function noAccents()

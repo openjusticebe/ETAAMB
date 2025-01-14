@@ -801,8 +801,8 @@ table.doclink {
     div.meta {
       margin-left:.875rem;
       display: grid; 
-      width:100%;
-      grid-template-columns: 1fr 100px; 
+      width:98%;
+      grid-template-columns: 1fr 160px; 
       grid-template-rows: 100px 1fr; 
       gap: 0px 0px; 
       grid-template-areas: 
@@ -813,7 +813,7 @@ table.doclink {
 
     div.actions {
         grid-area:actions;
-        text-align:left;
+        text-align:right;
         }
 
     div.actions a:focus,
@@ -825,6 +825,7 @@ table.doclink {
         padding:2px 2px;
         margin:0 1px;
         border-radius:5px;
+        text-decoration:none;
         }
 
     div.actions a:first-child {
@@ -961,16 +962,39 @@ table.doclink {
         width:100%;
     }
     #multialign tbody tr:nth-child(odd) {
-      background-color: #fff;
+      background-color: #fbfbff;
     }
     
     #multialign tbody tr:nth-child(even) {
-      background-color: #f6f6f6;
+      background-color: #fbfbff;
+    }
+            
+    #multialign th {
+        box-sizing:border-box;
+        font-family:'Lato', verdana, sans-serif;
+        font-size:1.0rem;
+        text-align:center;
+        color:#000;
+		font-weight:bold;
+        padding:0 .8rem;
+        padding: .3rem 2rem;
+        vertical-align:top;
+        width:50%;
+    }
+    #multialign th:nth-child(odd) {
+        padding-left:2rem;
+        padding-right:7rem;
+    }
+    #multialign th:nth-child(even) {
+        padding-right:4rem;
+        padding-left:5rem;
     }
 
     #multialign td {
+        box-sizing:border-box;
         padding: .3rem 1rem;
         vertical-align:top;
+        width:50%;
     }
 
     #multialign tr:has(td:hover) {
@@ -981,6 +1005,15 @@ table.doclink {
         height:1.5rem;
     }
 
+a.backToSingle {
+    display:block;
+    color: #28699e;
+    font-family: 'Merriweather', georgia, serif;
+    position:relative;
+    max-width:60%;
+    padding-left:1rem;
+    margin:1rem 0 2rem;
+}
 
 
 #divider {
@@ -1011,6 +1044,7 @@ div#qrcode {
 	right:4px;
 	top:4px;
 	opacity:0.5;
+    text-align:right;
 	filter: alpha(opacity = 50);
 	}
 

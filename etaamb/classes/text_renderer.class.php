@@ -54,6 +54,14 @@ class text_renderer
 		return $t;
 		}
 
+    static public function quick($t, $ln)
+        {
+        $t = self::p_chapitre($t,$ln);
+        $t = self::p_section($t,$ln);
+        $t = self::p_vus($t,$ln);
+        $t = self::p_article($t,$ln);
+        return $t;
+        }
 	static public function clean_head($t)
 		{
 		if (preg_match('#^\s{3}(FR|NL|DE)(\s(FR|NL|DE)){0,2}#',$t) > 0)
@@ -132,7 +140,6 @@ class text_renderer
 		return $t;
 		}
 	
-
 	///	Filter definitions
 	static private function p_source($t,$ln)
 		{

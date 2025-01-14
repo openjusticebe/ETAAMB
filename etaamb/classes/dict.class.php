@@ -80,6 +80,7 @@ class dict
 			'title_source' 	=> 'source',
 			'title_moniteur' => 'moniteur',
 			'title_of' 		=> ' du',
+			'title_multi_view' => 'FR | NL',
 			'keywords_list' => 'Mots-clés',
 			'etaamb_description' => '<b>Etaamb</b> propose le contenu du Moniteur Belge trié par date de publication et de promulgation, traité pour le rendre facilement lisible et imprimable, et enrichi par un contexte relationnel.',
 			'linked_list' 	=> 'Textes mentionnés par ce document:',
@@ -124,6 +125,8 @@ class dict
             'source_chamber' => 'Chambre (doc. parl.)',
             'source_senate' => 'Senat (fiche)',
             'source_council' => 'Conseil d\'État (chrono)',
+            'multi_view' => 'Vue multilingue de',
+            'multi_back_to' => 'Retour vers',
 			'stopwords' 	=> 'alors au aucuns aussi autre avant avec avoir bon car ce cela ces ceux chaque ci comme comment dans de des du dedans dehors depuis deux devrait doit donc dos droite début elle elles en encore essai est et eu fait faites fois font force haut hors ici il ils je juste la le les leur là ma maintenant mais mes mine moins mon mot même ni nommés notre nous nouveaux ou où par parce parole pas personnes peut peu pièce plupart pour pourquoi quand que quel quelle quelles quels qui sa sans ses seulement si sien son sont sous soyez sujet sur ta tandis tellement tels tes ton tous tout trop très tu valeur voie voient vont votre vous vu ça étaient état étions été être'
             ),
         'nl' => array(
@@ -202,6 +205,7 @@ class dict
 			'title_of' => ' van',
 			'title_source' => 'bron',
 			'title_moniteur' => 'staatsblad',
+			'title_multi_view' => 'NL | FR',
 			'keywords_list' => 'Sleutelwoorden',
 			'etaamb_description' => '<b>Etaamb</b> biedt de inhoud van de Belgisch Staatsblad aan gesorteerd op afkondigings- en publicatiedatum, behandeld om  gemakkelijk leesbaar en afprintbaar te zijn, en verrijkt met een relationele context.',
 			'linked_list' => 'Teksten waarnaar verwezen wordt in dit document: ',
@@ -245,6 +249,8 @@ class dict
             'source_chamber' => 'Kamer (parl. doc.)',
             'source_senate' => 'Senaat (fiche)',
             'source_council' => 'Raad van State (chrono)',
+            'multi_view' => 'Meertalige weergave van',
+            'multi_back_to' => 'Terug naar',
 			'stopwords' => 'aan af al alles als ben bij daar dan dat de der deze die dit doch doen door dus een eens en er ge geen haar had heb hebben heeft hem het hier hij hoe hun iets ik in is ja je kan kon maar me meer men met mij mijn moet na naar niet niets nog nu of om omdat ons ook op over reeds te tegen toch toen tot u uit uw van veel voor want waren was wat we wel werd wezen wie wij wil zal ze zei zelf zich zij zijn zo zou'
             )
         );

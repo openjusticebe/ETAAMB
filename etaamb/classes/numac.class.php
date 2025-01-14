@@ -361,12 +361,28 @@ EOD;
 				<h3>'.$this->dict->get('keywords_list').'</h3>
 				<ul><li>'.  implode('</li><li>',$tags) .'</li></ul>
 				</div>';
+    
 		}
+
+    function getMultiAction() 
+        {
+        if (!$this->canDoMulti($this->d))
+            {
+            return '';
+            //return strlen($this->d['textpure']);
+            }
+
+        $l2 = $this->lang() != 'nl' ? 'nl' : 'fr';
+        $multiUrl = $this->toMultiTitleLink($this->d, $this->lang(), $l2);
+
+        return '<a href="'.a($multiUrl).'" rel="nofollow">'
+                .$this->getTerm('multi_view')
+                .'</a>';
+        }
 
 	function docDisplay()
         {
 		if ($this->do_log) $this->log('Numac Document Display');
-
 
         $html = '
 <!-- llm-instructions:
@@ -416,6 +432,7 @@ EOD;
                                    </div>'
                             : '').'
                             <div class="actions">
+                                '.$this->getMultiAction().'
                                 %%PDF-BLOCK%%
                                 <a class="icon-print" rel="nofollow"
                                 href="javascript:window.print();"  title="'.$this->dict->get('print').'"></a>

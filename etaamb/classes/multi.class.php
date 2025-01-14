@@ -17,7 +17,6 @@ class multi extends numac
 
     public function init()
         {
-        $this->terms['title'] = 'test';
         // if numac
 		//$this->numac = $this->data[0];
         // if title + numac
@@ -36,6 +35,17 @@ class multi extends numac
 		$this->col->reset()->setFilter('numac',array($this->numac))
 						   ->setFilter('lang', $this->l2);
         $this->d2 = $this->doc(ignore_cache:true);
+        $this->d = $this->d1;
+
+		$promdate = $this->displayDate($this->d1['prom_date']);
+        $this->terms['title'] = $this->getTerm('view').' '.
+                 ucwords(c_type($this->d1['type'])).' '.
+                 $this->dict->get('of').' '.$promdate;
+
+        if (!$this->canDoMulti($this->d1)) {
+			$this->error = $this->dict->get('error_not_multilingual');
+            throw new Exception($this->error);
+        }
 
         return $this;
         }
@@ -68,10 +78,29 @@ class multi extends numac
             $this->clean($this->d2["text"])
         );
 
-        $h = '<div class="document_title">compare</div>
+		$promdate = $this->displayDate($this->d1['prom_date']);
+        $title = $this->getTerm('view').' '.
+                 ucwords(c_type($this->d1['type'])).' '.
+                 $this->dict->get('of').' '.$promdate;
+
+        //$url = $this->toMultiTitleLink($this->d1, $this->l1, $this->l2);
+        $url = $this->toTitleLink($this->d1, $this->l1);
+
+        $h = '<navigation class="document_title">'.$title.'</navigation>
               <div class="document_multi">
                 <div id="document_text">
+                    <a href="'.a($url).'" class="backToSingle">&larr; '
+                       .$this->getTerm('back_to')
+                       .'  "'
+                       .$this->get_title()
+                       .'"</a>
                     <table id="multialign">
+                        <thead>
+                        <tr>
+                            <th>'.$this->d1['title_raw'].'</th>
+                            <th>'.$this->d2['title_raw'].'</th>
+                        </tr>
+                        </thead>
                         '.$this->render($aligned_text).'
                         </tr>
                     </table>
@@ -115,8 +144,9 @@ class multi extends numac
             $score = $columns[2] ?? '';
         
             $html[] = "<tr>";
-            $html[] = "<td>" . $text1 . "</td>";
-            $html[] = "<td>" . $text2 . "</td>";
+            $html[] = "<td>" . text_renderer::quick($text1, $this->l1) . "</td>";
+            $html[] = "<td>" . text_renderer::quick($text2, $this->l2) . "</td>";
+            //$html[] = "<td>" . $text2 . "</td>";
             //$html[] = "<td>" . $score . "</td>";
             $html[] = "</tr>";
         }
