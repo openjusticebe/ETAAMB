@@ -4,10 +4,29 @@ abstract class default_page
 	{
 	var $terms 	= array();
 	var $error 	= '';
-	var $do_log = false;
+	public $do_log = false;
 	var $years 	= array();
 	var $months = array();
 	var $days 	= array();
+    public $data;
+    public $docs;
+    public $docsMeta;
+
+    public $parser;
+    public $highlighter;
+    public $tagger;
+    public $referer;
+
+    public $col;
+    public $url_object;
+    public $expires;
+    public $lastMod;
+    public $dict;
+    public $doc;
+
+    public $observer;
+    public $page;
+
 	// abstract
 	abstract public function isDataOk();
 
@@ -17,6 +36,7 @@ abstract class default_page
 			{
 			$this->observer = observer::getInstance();
 		    $this->do_log = true;
+            $this->log('Default page log enabled');
 			}
 		}
 
@@ -114,29 +134,43 @@ abstract class default_page
 		return $this->numacs();
 		}
 
+    public function utf8_dec($term)
+        {
+        if (!$term) return '';
+        // There's buggy behavior here, but it works...
+        return mb_convert_encoding($term, "UTF-8", "ISO-8859-1");
+        }
+
 	public function docsMeta($force=false)
 		{
 		if (isset($this->docsMeta) && !$force) return $this->docsMeta;
 		$result = $this->col->docsMeta();
 		foreach ($result as &$doc)
-			$doc  = array_map('utf8_encode',$doc);
+            {
+			//$doc  = array_map('utf8_encode',$doc);
+            $doc  = array_map(
+                [$this, 'utf8_dec']
+                ,$doc);
+            }
 		if (!$force) $this->docsMeta = $result;
 		return $result;
 		}
 
-	public function doc($multi=false)
+	public function doc($multi=false, $ignore_cache=false)
 		{
-		if (isset($this->doc)) return $this->doc;
+        // $multi: load documents published on the same day
+		if (isset($this->doc) && !$ignore_cache) return $this->doc;
+        if ($this->do_log && $ignore_cache) $this->log('Doc cache ignored');
 		$temp = $this->col->doc();
 		if (!$multi && count($temp) == 1)
 			{
-			$doc  = array_map('utf8_encode',$temp[0]);
+			$doc  = array_map([$this, 'utf8_dec'],$temp[0]);
 			$this->doc = $doc;
 			}
 		else
 			{
 			foreach ($temp as &$doc)
-				$doc  = array_map('utf8_encode',$doc);
+				$doc  = array_map([$this, 'utf8_dec'],$doc);
 			$this->doc = $temp;
 			}
 		return $this->doc();
@@ -168,21 +202,47 @@ abstract class default_page
 
 	public function toTitleLink($doc,$ln=false)
 		{
+        // Main function who computes the full title link to a document
 		$completedate = $this->completeDate($doc['prom_date'],$ln);
 		$title = $doc['type'].' '
 				.($completedate !== '--'
 				 ? $this->dict->get('of',$ln).' ' .$completedate
 				 : '');
 
-		
 		$titleO = new normalize($title);
 		$titleO->doTrim()
 			  ->noAccents()
 		      ->length(56)
 			  ->regreplace('#[^a-z0-9 ]#','')
 			  ->replace(' ','-');
+
 		return $titleO.'_n'.$doc['numac'];
 		}
+
+    public function toMultiTitleLink($doc, $fromLn, $toLn)
+        {
+        // a() helper will prefix with first language
+        return $toLn . '/' . $this->toTitleLink($doc, $fromLn);
+        }
+
+    public function canDoMulti($doc) {
+        $l2 = $this->lang() != 'nl' ? 'nl' : 'fr';
+
+		$l1_check = $this->isLangOk($this->lang());
+		$l2_check = $this->isLangOk($l2);
+
+		$isAnon = $doc['anon'] == 0 ? false : true;
+        $isTooLarge = strlen($doc['textpure']) > 40000;
+
+        if (!($l1_check && $l2_check))
+            return false;
+
+        if ($isAnon || $isTooLarge)
+            return false;
+
+        return true;
+    }
+
 
 	public function addIndexHomeLink($text)
 		{

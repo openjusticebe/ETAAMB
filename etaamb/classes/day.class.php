@@ -1,7 +1,7 @@
 <?php
 class day extends default_page
 	{
-
+    
 	function init()
 		{
 		$d = $this->data;

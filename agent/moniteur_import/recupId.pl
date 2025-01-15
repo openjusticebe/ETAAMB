@@ -63,7 +63,7 @@ print " $count dates done.\n";
 
 # First date 3/6/1997
 print "Generating DateList...\n";
-my $start_dt = DateTime->new(year => 1997, month => 6, day => 3);
+my $start_dt = DateTime->new(year => 2020, month => 6, day => 3);
 my $end_dt = get_last_date();
 
 printf("First date : %u-%02u-%02u\n",$start_dt->year(),$start_dt->month(),$start_dt->day());

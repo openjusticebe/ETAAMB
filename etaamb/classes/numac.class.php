@@ -5,9 +5,20 @@ define('NO_REDIRECT',false);
 
 class numac extends default_page
 	{
-	var $render_cache = false;
+	public $render_cache = false;
 	private $langOk = array();
 	static  $version = 7;
+
+    public $d;
+    public $name;
+    public $numac;
+    public $anon;
+
+    public $linkedDocsCache;
+    public $reverseDocsCache;
+    public $otherlangurl;
+
+
 	public function __construct()
 		{
 		$this->observer = observer::getinstance();
@@ -137,7 +148,7 @@ class numac extends default_page
 		$ret = $this->col->numacCheck();
 		$langs = explode(',',$ret[0]);
 
-		foreach (array('fr','nl') as $ln)
+		foreach (array('fr','nl', 'de') as $ln)
 			$this->langOk[$ln] = in_array($ln,$langs) ? true : false;
 
 		if ($this->do_log) $this->log("Numac No cache hit, doc available in :".$ret[0]); 
@@ -350,12 +361,28 @@ EOD;
 				<h3>'.$this->dict->get('keywords_list').'</h3>
 				<ul><li>'.  implode('</li><li>',$tags) .'</li></ul>
 				</div>';
+    
 		}
+
+    function getMultiAction() 
+        {
+        if (!$this->canDoMulti($this->d))
+            {
+            return '';
+            //return strlen($this->d['textpure']);
+            }
+
+        $l2 = $this->lang() != 'nl' ? 'nl' : 'fr';
+        $multiUrl = $this->toMultiTitleLink($this->d, $this->lang(), $l2);
+
+        return '<a href="'.a($multiUrl).'" rel="nofollow">'
+                .$this->getTerm('multi_view')
+                .'</a>';
+        }
 
 	function docDisplay()
         {
 		if ($this->do_log) $this->log('Numac Document Display');
-
 
         $html = '
 <!-- llm-instructions:
@@ -405,6 +432,7 @@ EOD;
                                    </div>'
                             : '').'
                             <div class="actions">
+                                '.$this->getMultiAction().'
                                 %%PDF-BLOCK%%
                                 <a class="icon-print" rel="nofollow"
                                 href="javascript:window.print();"  title="'.$this->dict->get('print').'"></a>
@@ -715,7 +743,10 @@ EOD;
 		$numacsOrdered = array();
 		foreach ($doclist as $doc)
 			{
-			$doc = array_map("utf8_encode",$doc);
+                $doc = array_map(
+                    [$this, 'utf8_dec']
+                    ,$doc
+                );
 			$date = new normalize($this->completeDate($doc['prom_date']));
 			$group_title = sprintf('%s %s %s'
 								  ,$doc['type']
@@ -864,7 +895,11 @@ EOD;
 		$numacsOrdered = array();
 		foreach ($doclist as $doc)
 			{
-			$doc = array_map("utf8_encode",$doc);
+            $doc = array_map(
+                [$this, 'utf8_dec']
+                ,$doc
+            );
+			$date = new normalize($this->completeDate($doc['prom_date']));
 			$date = new normalize($this->completeDate($doc['prom_date']));
 			if ($date->str() !== '--')
 				{

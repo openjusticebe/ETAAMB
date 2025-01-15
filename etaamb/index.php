@@ -1,4 +1,5 @@
 <?php 
+setlocale(LC_TIME, 'be_FR');
 require_once('config.php');
 require_once('config.default.php');
 require_once(CLASS_DIR.'observer.class.php');
@@ -19,7 +20,6 @@ require_once(CLASS_DIR.'highlighter.class.php');
 require_once(CLASS_DIR.'statistics.class.php');
 require_once(CLASS_DIR.'url.class.php');
 require_once(CLASS_DIR.'tagger.class.php');
-require_once('./tools/calendar.php');
 
 $observer = observer::getInstance();
 if (INDEX_LOG) {
@@ -305,24 +305,39 @@ if (INDEX_LOG) $observer->msg('Init Done. Display Started','index','chapter');
 //////////////////// Some Functions
 function l($s)
    {
+   // global shortcut function to obtain the translation for specified term
    global $dict;
    echo $dict->get($s);
    }
 
 function a($s, $force_full=false)
 	{
+    // global shortcut function to do something with links
+    // it kind of prepends the correct language indicator also
+    // used for:
+    //  - Links to pages: a('cookie-policy')
+    //  - Links to assets: a('css/style.css')
+
 	if (preg_match('#\.[a-z]{2,4}$#i',$s) == 0)
+        {
+        // adds .html in case there is no extension
 		$s .= '.html';
+        }
+
 	if (strpos($s,'.html') !== false)
 		{
+        // if .html extension is detected, re-generate full link
 		$url = new url_factory(array('page' => $s,'lang' => CURRENT_LANG));
 		return $url->raw();
 		}
     else if ($force_full)
         {
+        // otherwise, if a full URL is force, re-generate full link
 		$url = new url_factory(array('page' => $s,'lang' => false, 'html' => false));
 		return $url->raw();
         }
+
+    // Just return the new local link
 	return '/'.$s;
 	}
 
@@ -341,16 +356,17 @@ function aP($s)
 
 
 
-function normalize($content)
-    {
-    $str = strip_tags($content);
-    $str = strtolower($str);
-    $a = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿŔŕ'; 
-    $b = 'aaaaaaaceeeeiiiidnoooooouuuuybsaaaaaaaceeeeiiiidnoooooouuuyybyRr'; 
-    $str = utf8_decode($str);     
-    $str = strtr($str, utf8_decode($a), $b); 
-    return $str;
-    }
+# XXX: Looks unused
+# function normalize($content)
+#     {
+#     $str = strip_tags($content);
+#     $str = strtolower($str);
+#     $a = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿŔŕ'; 
+#     $b = 'aaaaaaaceeeeiiiidnoooooouuuuybsaaaaaaaceeeeiiiidnoooooouuuyybyRr'; 
+#     $str = utf8_decode($str);     
+#     $str = strtr($str, utf8_decode($a), $b); 
+#     return $str;
+#     }
 
 function c_type($type)
 	{

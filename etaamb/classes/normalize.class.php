@@ -4,6 +4,9 @@ define('NO_SPACE',false);
 
 class normalize
 	{
+    private $rawterm;
+    private $term;
+
 	var $stopwords = array (
 			"fr" => "alors au aucuns aussi autre avant avec avoir bon car ce cela ces ceux chaque ci comme comment dans des du dedans dehors depuis deux devrait doit donc dos droite début elle elles en encore essai est et eu fait faites fois font force haut hors ici il ils je	juste la le les leur là ma maintenant mais mes mine moins mon mot même ni nommés notre nous nouveaux ou où par parce parole pas personnes peut peu pièce plupart pour pourquoi quand que quel quelle quelles quels qui sa sans ses seulement si sien son sont sous soyez sujet sur ta tandis tellement tels tes ton tous tout trop très tu valeur voie voient vont votre vous vu ça étaient état étions été être",
 			"nl" => "aan af al alles als ben bij daar dan dat de der deze die dit doch doen door dus een eens en er ge geen haar had heb hebben heeft hem het hier hij hoe hun iets ik in is ja je kan kon maar me meer men met mij mijn moet na naar niet niets nog nu of om omdat ons ook op over reeds te tegen toch toen tot u uit uw van veel voor want waren was wat we wel werd wezen wie wij wil zal ze zei zelf zich zij zijn zo zou"
@@ -33,13 +36,21 @@ class normalize
 		$this->term = nl2br($this->term);
 		return $this;
 		}
+
+    private function utf8_dec($term)
+        {
+        if (!$term) return '';
+        // There's buggy behavior here, but it works...
+        //return mb_convert_encoding($term, "UTF-8", "ISO-8859-1");
+        return mb_convert_encoding($term, "ISO-8859-1", "UTF-8");
+        }
 	
 	public function noAccents()
 		{
 		$a = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿŔŕ'; 
 		$b = 'AAAAAAACEEEEIIIIDNOOOOOOUUUUYBsaaaaaaaceeeeiiiidnoooooouuuyybyrr'; 
-		$temp = utf8_decode($this->term);     
-		$this->term = strtr($temp, utf8_decode($a), $b); 
+		$temp = $this->utf8_dec($this->term);     
+		$this->term = strtr($temp, $this->utf8_dec($a), $b); 
 		return $this;
 		}
 

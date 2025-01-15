@@ -2,12 +2,14 @@
 
 class lang 
 	{
-	private $langs = array("fr","nl");
+	private $langs = array("fr","nl", "fr-nl");
 	private $key   = "ln";
 	private $cookie_life = 2592000; // 3600*24*30  - 1 month
 	private $debug = false;
 	private $cookiePath = '/';
 	private $do_log = false;
+    private $observer;
+    private $lang;
 
 	public function __construct()
 		{

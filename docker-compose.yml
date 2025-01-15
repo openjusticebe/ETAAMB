@@ -1,5 +1,3 @@
-version: "3.7"
-
 services:
   mariadb:
     # https://hub.docker.com/_/mariadb?tab=description&page=1&ordering=last_updated 
@@ -37,6 +35,38 @@ services:
       - DB_PORT=3306
     depends_on:
       - mariadb
+    networks:
+      - etaamb
+
+  pysteward:
+    container_name: etaamb_pysteward
+    build:
+      context: ./
+      target: dev
+      dockerfile: ./py_agent/Dockerfile
+    volumes:
+      - ./resources:/resources
+      - ./py_agent:/agent/
+    environment:
+      - DEBUG=true
+      - DB_HOST=etaamb_db
+      - DB_PORT=3306
+      - DB_USER=mariadb
+      - DB_PASSWORD=mariadb
+      - DB_DATA=etaamb
+    depends_on:
+      - mariadb
+    networks:
+      - etaamb
+
+  anon:
+    # needs to have https://github.com/PieterjanMontens/anon_etaamb checked out
+    container_name: etaamb_anon
+    build:
+      context: ../anon_etaamb/
+      dockerfile: ../anon_etaamb/Dockerfile
+    ports:
+      - "8050:8050"
     networks:
       - etaamb
 
@@ -81,11 +111,17 @@ services:
       - DB_PASSWORD=mariadb
       - DB_HOST=etaamb_db
       - DB_PORT=3306
+      - ETAAMB_DOMAIN=localhost:8042
+      - ETAAMB_PROTOCOL=http
+      - ETAAMB_ANON_HOST=http://localhost:8050
+      - ETAAMB_ANON_HOST=http://etaamb_anon:8050
+      - ADMIN_MAIL=test@example.com
     ports:
       - "8042:80"
     depends_on:
       - mariadb
       - steward
+      - anon
     networks:
       - etaamb
 

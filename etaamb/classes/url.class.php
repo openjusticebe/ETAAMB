@@ -9,6 +9,8 @@ class url_factory {
 	private $page=false;
 	private $lang=false;
 	private $html=false;
+    private $observer;
+
 	public function __construct($config)
 		{
 		$this->observer = observer::getinstance();

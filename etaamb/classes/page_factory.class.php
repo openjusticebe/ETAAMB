@@ -6,6 +6,7 @@ include(CLASS_DIR.'month.class.php');
 include(CLASS_DIR.'year.class.php');
 include(CLASS_DIR.'numac.class.php');
 include(CLASS_DIR.'title.class.php');
+include(CLASS_DIR.'multi.class.php');
 include(CLASS_DIR.'index.class.php');
 include(CLASS_DIR.'my_error.class.php');
 include(CLASS_DIR.'policy.class.php');
@@ -29,6 +30,8 @@ class page_factory
 				return new numac();
 			case 'title':
 				return new title();
+			case 'multi':
+				return new multi();
 			case 'index':
 				return new index();
 			case 'policy':

@@ -3,6 +3,18 @@
 
 class monthcal
 	{
+    public $year;
+    public $month;
+    public $weekday;
+    public $validDays;
+    public $legend;
+    public $datetype;
+    public $class;
+    public $monthFirst;
+
+    private $c;
+    private $dict;
+
 	public function __construct($year,$month)
 		{
 		$this->year 	 = $year;
@@ -96,7 +108,11 @@ class monthcal
 	private function init()
 		{
 		$this->monthFirst = gmmktime(0,0,0,$this->month,1,$this->year);
-		list ($m,$y,$day,$this->weekday) = explode(',',gmstrftime('%m,%Y,%d,%w',$this->monthFirst));
+        list ($m,$y,$day,$this->weekday) = explode(
+            ',',
+            //gmstrftime('%m,%Y,%d,%w',$this->monthFirst)
+            date('m,Y,d,w',$this->monthFirst)
+        );
 		$this->weekday = $this->weekday == 0 ? 6
 											 : $this->weekday-1;
 		}

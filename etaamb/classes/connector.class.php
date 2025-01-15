@@ -6,6 +6,13 @@ class connector_class
 	{
 	var $do_log = false;
 	var $qtest  = false;
+    private $observer;
+    private $host;
+    private $port;
+    private $user;
+    private $pasw;
+    private $database;
+    private $conn;
 
 	public function __construct()
 		{

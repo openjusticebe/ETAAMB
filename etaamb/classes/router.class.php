@@ -2,7 +2,11 @@
 // Router class to route url requests, and to parse them.
 
 class url_router {
-	var $do_log = false;
+	private $do_log = false;
+    private $observer;
+    private $url;
+    private $arr;
+    
 
 	public function __construct($url=false)
 		{
@@ -78,6 +82,9 @@ class url_router {
 				if (preg_match('#^\d{4}$#',$parse[0]) > 0
 				 && preg_match('#^\d{2}$#',$parse[1]) > 0) $value ='month';
 				if (preg_match('#^rss$#',$parse[0]) > 0) $value = 'rss';
+                if (SHOW_MULTILINGUAL_ALIGNMENT
+                 && preg_match('#^[a-z]{2}$#',$parse[0]) > 0
+                 && preg_match('#^[a-z\-0-9]{1,}_n\d{10}$#',$parse[1]) > 0) $value='multi';
 				break;
 			case 3:
 				if (preg_match('#^\d{4}$#',$parse[0]) > 0
