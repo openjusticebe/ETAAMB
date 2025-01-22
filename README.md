@@ -12,6 +12,7 @@ docker build -t "etaamb" -f ./Dockerfile . && docker run --rm -it --name etaamb 
 ## Configuration
 Create a `config.php` file in the `etaamb` folder and set your settings.
 
+
 Recommended settings :
 
 ```php
