@@ -231,7 +231,7 @@ abstract class default_page
 		$l1_check = $this->isLangOk($this->lang());
 		$l2_check = $this->isLangOk($l2);
 
-		$isAnon = $doc['anon'] == 0 ? false : true;
+		$isAnon = $doc['anon'] == 1 ? true : false;
         $isTooLarge = strlen($doc['textpure']) > 40000;
 
         if (!($l1_check && $l2_check))
