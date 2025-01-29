@@ -41,7 +41,7 @@ class multi extends numac
         $this->terms['title'] = $this->getTerm('view').' '.
                  ucwords(c_type($this->d1['type'])).' '.
                  $this->dict->get('of').' '.$promdate;
-
+        print_r($this->d1);
         if ($this->canDoMulti($this->d1) != 'yes') { 
 			$this->error = $this->dict->get('error_not_multilingual');
             throw new Exception($this->canDoMulti($this->d1));
