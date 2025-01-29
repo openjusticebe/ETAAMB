@@ -43,7 +43,7 @@ class title extends numac
 				  ->setFilter('numac',array($this->numac))
 			      ->setFilter('lang',$this->lang());
 		$data  = $this->doc();
-		$this->anon = $data['anon'] == 0 ? false : true;
+		$this->anon = $data['anon'] == 1 ? true : false;
 		$title = $this->toTitleLink($data);
 		$given = $this->givenTitle();
 		//$wrong_title = !strstr($title,$given);
