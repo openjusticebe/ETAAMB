@@ -1,4 +1,5 @@
 <?php 
+ini_set('display_errors', 'On');
 setlocale(LC_TIME, 'be_FR');
 require_once('config.php');
 require_once('config.default.php');
