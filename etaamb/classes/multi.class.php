@@ -42,9 +42,9 @@ class multi extends numac
                  ucwords(c_type($this->d1['type'])).' '.
                  $this->dict->get('of').' '.$promdate;
 
-        if (!$this->canDoMulti($this->d1)) {
+        if ($this->canDoMulti($this->d1) != 'yes') { 
 			$this->error = $this->dict->get('error_not_multilingual');
-            throw new Exception($this->error);
+            throw new Exception($this->canDoMulti($this->d1));
         }
 
         return $this;

@@ -366,7 +366,7 @@ EOD;
 
     function getMultiAction() 
         {
-        if (!$this->canDoMulti($this->d))
+        if ($this->canDoMulti($this->d) != 'yes')
             {
             return '';
             //return strlen($this->d['textpure']);

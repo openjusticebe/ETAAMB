@@ -235,12 +235,15 @@ abstract class default_page
         $isTooLarge = strlen($doc['textpure']) > 40000;
 
         if (!($l1_check && $l2_check))
-            return false;
+            return 'BadLanguages';
 
-        if ($isAnon || $isTooLarge)
-            return false;
+        if ($isAnon)
+            return 'BadAnon';
 
-        return true;
+        if ($isTooLarge)
+            return 'BadSize';
+
+        return 'yes';
     }
 
 
