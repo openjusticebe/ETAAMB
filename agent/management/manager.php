@@ -85,6 +85,10 @@ if ($SET_ANON)
 
 			   ,'%namen en voornamen%' 						// Changement de patronyme
 			   ,'%namen en de voornamen%' 
+			   ,'%naamsverandering%'
+			   ,'%Naamsverandering%'
+			   ,'%Changement de nom%'
+			   ,'%changement de nom%'
 
 			   ,'%resultats selection%'						// Résultats, liste de recrutement Selor
 			   ,'%resultaten selectie%'
