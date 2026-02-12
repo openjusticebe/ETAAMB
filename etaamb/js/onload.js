@@ -292,6 +292,7 @@ var highlight = function()
 function send_priv_mail()
 	{
 	var terms = $('#priv_terms').val();
+	var stamp = $('#priv_stamp').val();
 	var email = $('#priv_mail').val();
 	var comm  = $('#priv_comment').val();
 	var url   = $('#priv_url').html();
@@ -302,8 +303,8 @@ function send_priv_mail()
 		}
 	$.ajax({
 		type: 	'POST',
-		url : 	'//'+Host+'/mail.php',
-		data:	{terms:terms,email:email,comment:comm,url:url},
+		url : 	'//'+Host+'/907-mlai.php',
+		data:	{terms:terms,email:email,comment:comm,url:url,stamp:stamp},
 		success:send_priv_success
 	});
 	}

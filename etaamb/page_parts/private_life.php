@@ -4,6 +4,12 @@
 	<a id="private_close" href="#">x</a>
 	<p><?php $dict->p('priv_exp');?></p>
 	<form action="post">
+	<?php
+        $secret = getenv('FORM_KEY') ?: 'Nope';
+        $dayKey  = gmdate('Y-m-d');
+        $dailyToken   = hash_hmac('sha256', $dayKey, $secret);
+	?>
+	<input type="hidden" name="priv_stamp" value="<?php echo $dailyToken; ?>">
 	<table>
         <?php if (page_type($page) == 'title' || page_type($page) == 'numac') {?>
 		<tr>

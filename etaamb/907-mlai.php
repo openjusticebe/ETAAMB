@@ -11,6 +11,16 @@ $stamp = preg_replace('#^(\w{4})(\w+)$#','$1 $2',strtoupper($stamp));
 
 $subject = 'etaamb remove request nr.'.$stamp;
 
+// CHECK
+$secret = getenv('FORM_KEY') ?: 'Nah-ah';
+$dayKey = gmdate('Y-m-d');
+$expected = hash_hmac('sha256', $dayKey, $secret);
+$provided = $_POST['stamp'] ?? '';
+
+if (!hash_equals($expected, $provided)) {
+    die('Error detected');
+}
+
 // FLOW
 /* Etaamb Private Life Mail Script */
 $fields = array('url','terms','email','comment');
