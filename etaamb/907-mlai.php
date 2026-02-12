@@ -55,8 +55,7 @@ Page   : '.$url.'
     $message .= !empty($mail) ? "\ncommentaire :\n$comment\n" : '';
     $message .= "\n--------------------------\n\n\n";
     $message .= "\n\nAdministration etaamb.openjustice.be";
-
-    $headers = 'From: noreply@openjustice.be' . "\r\n" ;
+    $headers = 'From: noreply@etaamb.openjustice.be' . "\r\n" ;
     $headers .= 'MIME-Version: 1.0' . "\r\n";
     $headers .= 'Content-type: text/plain; charset="UTF-8"' . "\r\n";
 
