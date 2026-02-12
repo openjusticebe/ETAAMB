@@ -51,16 +51,43 @@ Page   : '.$url.'
 
 ';
 
-    $message .= !empty($mail) ? "contact : $mail\n" : '';
-    $message .= !empty($mail) ? "\ncommentaire :\n$comment\n" : '';
-    $message .= "\n--------------------------\n\n\n";
-    $message .= "\n\nAdministration etaamb.openjustice.be";
-    $headers = 'From: noreply@etaamb.openjustice.be' . "\r\n" ;
-    $headers .= 'MIME-Version: 1.0' . "\r\n";
-    $headers .= 'Content-type: text/plain; charset="UTF-8"' . "\r\n";
+    // $message .= !empty($mail) ? "contact : $mail\n" : '';
+    // $message .= !empty($mail) ? "\ncommentaire :\n$comment\n" : '';
+    // $message .= "\n--------------------------\n\n\n";
+    // $message .= "\n\nAdministration etaamb.openjustice.be";
+    // $headers = 'From: noreply@etaamb.openjustice.be' . "\r\n" ;
+    // $headers .= 'MIME-Version: 1.0' . "\r\n";
+    // $headers .= 'Content-type: text/plain; charset="UTF-8"' . "\r\n";
 
 
-    mail($to,$subject,$message,$headers) or die(json_encode('error'));
+    // mail($to,$subject,$message,$headers) or die(json_encode('error'));
+
+
+    $url = "https://app.mailpace.com/api/v1/send";
+    $data = [
+        "from" => "noreply@etaamb.openjustice.be",
+        "to" => $to,
+        "subject" => $subject,
+        "textbody" => $message
+    ];
+
+    $token = getenv('SMTP_USER') ?: 'Nah-ah';
+    $options = [
+        "http" => [
+            "method"  => "POST",
+            "header"  => [
+                "Accept: application/json",
+                "Content-Type: application/json",
+                "MailPace-Server-Token: $token"
+            ],
+            "content" => json_encode($data)
+        ]
+    ];
+
+    $context = stream_context_create($options);
+    $response = file_get_contents($url, false, $context);
+
+    echo $response;
 } catch (Exception $e) {
     die('Exception catched : ' . $e->getMessage());
 }
