@@ -9,7 +9,7 @@
         $dayKey  = gmdate('Y-m-d');
         $dailyToken   = hash_hmac('sha256', $dayKey, $secret);
 	?>
-	<input type="hidden" name="priv_stamp" value="<?php echo $dailyToken; ?>">
+	<input type="hidden" name="priv_stamp" id="priv_stamp" value="<?php echo $dailyToken; ?>">
 	<table>
         <?php if (page_type($page) == 'title' || page_type($page) == 'numac') {?>
 		<tr>
