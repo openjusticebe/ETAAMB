@@ -1,7 +1,7 @@
 # ----------------------------------------------------
 # Base-image
 # ----------------------------------------------------
-FROM php:apache-bullseye as common-base
+FROM php:apache-bookworm as common-base
 ARG ADMIN_MAIL root@localhost.be
 ARG SMTP_HOST localhost
 ARG SMTP_PORT 25
@@ -70,8 +70,8 @@ RUN sed -i 's/^SMTP = .*/SMTP=/' $PHP_INI_DIR/php.ini && \
 FROM app-run AS prod
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
-RUN docker-php-ext-install opcache && \
-    docker-php-ext-enable opcache
+# RUN docker-php-ext-install opcache && \
+#     docker-php-ext-enable opcache
 
 # Prod has his own secured relay
 RUN sed -i 's/^UseTLS=.*/UseTLS=NO/' /etc/ssmtp/ssmtp.conf && \
