@@ -9,3 +9,6 @@ define("ANON_HOST" , getenv('ETAAMB_ANON_HOST'));
 define("URL_PROTOCOL", getenv('ETAAMB_PROTOCOL'));
 define("URLMASK" , URL_PROTOCOL."://%host/%ln%page");
 define('MAIL_ADMIN', getenv('ADMIN_MAIL'));
+
+// Disable error display
+ini_set('display_errors', '0');
