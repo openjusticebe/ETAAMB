@@ -10,15 +10,18 @@ logger.addHandler(logging.StreamHandler())
 
 
 from scrape import commands as com_scrape
-from debug import commands as com_debug
+from fetch  import commands as com_fetch
+from parse  import commands as com_parse
+from debug  import commands as com_debug
 
 # Agent is a simple CLI interface to multiple sub-parts
-# needed to manage ETAAMB. Each module has its own CLI 
-# Commands.
+# needed to manage ETAAMB. Each module has its own CLI commands.
 #
 # Modules:
-# COM_DEBUG: Debugging and testing commands
-# COM_SCRAPE: Scraping options
+# COM_SCRAPE : Scrape numac IDs from the MB summary pages
+# COM_FETCH  : Fetch raw FR/NL article HTML for each numac
+# COM_PARSE  : Parse raw pages and populate structured DB tables
+# COM_DEBUG  : Debugging and testing helpers
 #
 # Support classes:
 # DB : database operations
@@ -32,6 +35,8 @@ def init():
 init.add_command(com_scrape.version)
 init.add_command(com_scrape.last_date)
 init.add_command(com_scrape.get_numacs)
+init.add_command(com_fetch.fetch_raws)
+init.add_command(com_parse.parse_raws)
 init.add_command(com_debug.config)
 init.add_command(com_debug.test_db)
 
