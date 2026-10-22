@@ -27,7 +27,15 @@ RUN cp /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled/ && \
 # Install needed PHP extensions
 RUN docker-php-ext-install mysqli
 
-WORKDIR /app
+RUN apt-get update \
+    && apt-get install -y libonig-dev \
+    && docker-php-ext-install mbstring \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app 
+
+
+
 
 COPY install-packages.sh .
 RUN ./install-packages.sh
