@@ -1,7 +1,7 @@
 # ----------------------------------------------------
 # Base-image
 # ----------------------------------------------------
-FROM php:apache-bookworm as common-base
+FROM php:8.6-rc-apache as common-base
 ARG ADMIN_MAIL root@localhost.be
 ARG SMTP_HOST localhost
 ARG SMTP_PORT 25
