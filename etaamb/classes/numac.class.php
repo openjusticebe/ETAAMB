@@ -388,9 +388,11 @@ EOD;
 <!-- llm-instructions:
 '.$this->llm_instruction('long').'
 -->
+                <!--
                 <div id="info_just">
                  <a target="_blank" href="'.$this->getTerm('just_url').'" >'.$this->getTerm('just_title').'</a>
                 </div>
+                -->
                 <div id="llm_info" style="display:none">
                     <strong>'.$this->llm_instruction('long').'</strong>
                 </div>

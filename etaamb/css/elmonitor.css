@@ -1,0 +1,26 @@
+body {
+    background-image:url("/assets/img/goat_background.jpg") !important;
+    font-family:times new roman !important;
+}
+
+.document_text {
+    font-family:times new roman !important;
+    font-size: 1.2rem !important;
+}
+
+.p_title, .doc_title {
+    text-decoration:underline;
+}
+
+.document {
+    background: none;
+    box-shadow: none;
+}
+
+
+dl, dt, dd {
+    font-size: 1rem !important;
+    color:red !important;
+    font-weight:bold !important;
+    font-family:times new roman !important;
+}
