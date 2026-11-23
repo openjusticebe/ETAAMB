@@ -205,6 +205,11 @@ if (INDEX_LOG) $observer->msg('Init Done. Display Started','index','chapter');
 	   <link href="<?php echo a('css/large.css');?>" media="only screen and (min-width: 1800px)" rel="stylesheet" type="text/css" >
 	   <link href="<?php echo a('css/textdisplay.css');?>" media="" rel="stylesheet" type="text/css" > 
 	   <link href="<?php echo a('css/print.css');?>" media="print" rel="stylesheet" type="text/css" > 
+       <link href="<?php 
+            if (date('m-d') === '04-01') {
+                echo a('css/elmonitor.css');
+            }
+        ?>" media="screen" rel="stylesheet" type="text/css" >
        <?php
        if (EU_POPUP)
            echo '<link href="'.a('css/eupopup.css').'" media="" rel="stylesheet" type="text/css" >';
